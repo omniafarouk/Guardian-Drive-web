@@ -1,0 +1,129 @@
+/* GLOBAL */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+
+}
+
+/* COLORS */
+
+.brand-color {
+  color: #141931;
+}
+
+/* LEFT PANEL */
+
+.left-panel {
+  padding: 60px;
+}
+
+/* FORM SIDE */
+
+.login-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 40px 20px;
+}
+
+@media (min-width: 768px) {
+  .login-form {
+    border-radius: 40px 0 0 40px;
+  }
+}
+
+/* FORM CONTAINER */
+
+.form-container {
+  width: 100%;
+  max-width: 450px;
+}
+
+/* INPUTS */
+
+.login-input {
+  width: 100%;
+
+  border: none;
+  border-bottom: 1px solid #141931;
+
+  padding: 14px 12px;
+
+  outline: none;
+
+  background-color: transparent;
+
+  color: #141931;
+
+  font-size: 1rem;
+}
+
+.login-input::placeholder {
+  color: #777;
+}
+
+/* BUTTON */
+
+.login-button {
+  width: 100%;
+
+  border-radius: 999px;
+
+  padding: 12px;
+
+  margin-top: 20px;
+}
+
+/* ICON */
+
+.eye-icon {
+  position: absolute;
+
+  right: 12px;
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  cursor: pointer;
+
+  color: #141931;
+}
+
+/* TEXT */
+
+.login-text {
+  font-family: 'Gill Sans', 'Trebuchet MS', sans-serif;
+}
+
+.logo-text {
+  font-family: cursive;
+}
+
+/* LOGOS */
+
+.logo-image {
+  max-width: 220px;
+}
+
+.mobile-logo {
+  max-width: 120px;
+}
+
+/* MOBILE */
+
+@media (max-width: 767px) {
+
+  .login-form {
+    border-radius: 0;
+  }
+
+  .form-container {
+    max-width: 100%;
+  }
+}
