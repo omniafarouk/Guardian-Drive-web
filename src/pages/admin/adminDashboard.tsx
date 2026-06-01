@@ -1,10 +1,10 @@
-function Dashboard() {
+function AdminDashboard() {
     return (
         <>
             <div>
                 <div>
                     <div>
-                        <h1>DashBoard</h1>
+                        <h1>AdminDashboard</h1>
                     </div>
                 </div>
             </div>
@@ -12,4 +12,4 @@ function Dashboard() {
     );
 }
 
-export default Dashboard;
+export default AdminDashboard;

@@ -1,20 +1,50 @@
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Role } from "../types/enums";
+import { BASE_URL } from "./apiService";
+import { getId, getName, getRole, getToken, setId, setName, setRole, setToken } from "../utils/storage";
 
 
 export const login = async (email: string, password: string) => {
-    const response = await axios.post("https://localhost:3000/auth/api/login",
-        { email, password }
-    );
+    try {
+        const response = await axios.post(`${BASE_URL}/api/auth/login`,
+            { email, password }
+        );
 
-    localStorage.setItem("token", response.data.accessToken);
-    localStorage.setItem("id", response.data.id);
-    localStorage.setItem("name", response.data.fName + response.data.lName);
-    localStorage.setItem("role", response.data.role);
+        console.log(response)
+
+        const user = response.data.data.user;
+        const token = response.data.data.accessToken;
+
+
+        if (user.role !== Role.FLEET_MANAGER && user.role !== Role.ADMIN) {
+            throw new Error("Unauthorized User")
+        }
+
+        // in storage.tsx
+        setToken(token);
+        setId(user.id);
+        setName(user.fName + user.lName);
+        setRole(user.role);
+
+        /*
+        localStorage.setItem("token", token);
+        localStorage.setItem("id", user.id);
+        localStorage.setItem("name", user.fName + user.lName);
+        localStorage.setItem("role", user.role);
+        */
+
+        console.log(getToken())
+        console.log(getId())
+        console.log(getName())
+        console.log(getRole())
+
+
+    } catch (error: any) {
+        throw Error(error);
+    }
+
 }
 
 export const logout = (): void => {
-    const navigate = useNavigate();
     localStorage.clear();
-    navigate("/");
 }

@@ -1,52 +1,127 @@
-import { Table } from 'react-bootstrap'
+import { useEffect, useState } from 'react'
+import { Container, Row, Col, Form, Button } from 'react-bootstrap'
+import logo from '../assets/logo.png'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap-icons/font/bootstrap-icons.css'
+import './login.css'
+import { useNavigate } from 'react-router-dom'
 
-function AlertList() {
+function Login() {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [viewPassword, setViewPassword] = useState(false);
 
-    const alerts = [
-        { id: 122453, driver: "Lorem Posudo", type: "Health Abnormal", generatedAt: "2026-03-08T14:35:20Z", status: "Active" },
-        { id: 1224, driver: "Lorem Posudo", type: "Health Abnormal", generatedAt: "2026-03-08T14:35:20Z", status: "Active" },
-        { id: 12, driver: "Lorem Posudo", type: "Health Abnormal", generatedAt: "2026-03-08T14:35:20Z", status: "Active" },
-        { id: 122, driver: "Lorem Posudo", type: "Health Abnormal", generatedAt: "2026-03-08T14:35:20Z", status: "Active" },
+    const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
 
-    ]
+    const navigate = useNavigate();
+
+    const handleResponse = async (response: Response) => {
+        if (!response.ok) {
+            console.log(response.text())
+            throw new Error(await response.text())
+        }
+        return response.json()
+    }
+
+    const signIn = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        console.log({ email, password })
+        // intiate the before api request sending (waiting conditions)
+        setLoading(true);
+        setError("");
+
+
+        const response = await fetch("http://localhost:3000/api/auth/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password })
+        }).then(handleResponse).catch(
+            (e) => {
+                setError("Login Failed , Please Try Again!");
+                return e;
+            }
+        ).finally(() => setLoading(false))
+
+        console.log(response);
+    }
 
     return (
-        <>
-            <hr />
-            <Table className="align-middle" style={{ borderCollapse: "separate", borderSpacing: "2px 16px" }}>
-                <thead>
-                    <tr>
-                        <th className="fw-normal text-muted border-0 pb-2 rounded-start">Alert ID</th>
-                        <th className="fw-normal text-muted border-0 pb-2">Driver Name</th>
-                        <th className="fw-normal text-muted border-0 pb-2">Type</th>
-                        <th className="fw-normal text-muted border-0 pb-2">Generated At</th>
-                        <th className="fw-normal text-muted border-0 pb-2">Status</th>
-                        <th className="border-0 rounded-end"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {alerts.map((alert) => (
-                        <tr key={alert.id} style={{ boxShadow: "0 0 0 1px #dee2e6", borderRadius: "8px" }}>
-                            <td className="border-0 rounded-start py-3">{alert.id}</td>
-                            <td className="border-0 py-3">{alert.driver}</td>
-                            <td className="border-0 py-3">{alert.type}</td>
-                            <td className="border-0 py-3">{alert.generatedAt}</td>
-                            <td className="border-0 py-3">
-                                <span className="border rounded-pill px-2 py-1 text-warning border-warning" style={{ fontSize: "11px" }}>
-                                    {alert.status}
-                                </span>
-                            </td>
-                            <td className="border-0 rounded-end py-3">
-                                <button className="btn btn-sm">
-                                    <i className="bi bi-chevron-right"></i>
-                                </button>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </Table>
-        </>
+        <Container fluid className="min-vh-100 p-0" style={{ backgroundColor: '#ABC9F5' }}>
+            <Row className="g-0 min-vh-100">
+
+                {/* LEFT SIDE */}
+                <Col md={4} className="d-none d-md-flex flex-column justify-content-center align-items-center left-panel">
+                    <div className='d-flex flex-column align-items-start'>
+                        <h2 className="login-text text-white mb-2">Welcome to</h2>
+                        <h1 className="logo-text brand-color mb-3">Guardian Drive!</h1>
+                        <h4 className="login-text text-white">Smart fleet control starts here.</h4>
+                    </div>
+                    <img src={logo} alt="Guardian Drive Logo" className="img-fluid mt-5 logo-image" />
+                </Col>
+
+                {/* RIGHT SIDE */}
+                <Col md={8} className="bg-white login-form">
+                    <div className="form-container">
+
+                        {/* MOBILE HEADER */}
+                        <div className="d-md-none text-center mb-5">
+                            <h2 className="login-text brand-color">Welcome to</h2>
+                            <h1 className="logo-text brand-color">Guardian Drive!</h1>
+                            <img src={logo} alt="Guardian Drive Logo" className="img-fluid mobile-logo mb-4" />
+                        </div>
+
+                        <div className="mb-5">
+                            <h3 className="brand-color mb-3">Login to Account</h3>
+                            <p className="login-text text-muted mb-0">Please enter your email and password to continue</p>
+                        </div>
+
+                        {/* FORM */}
+                        <Form onSubmit={signIn}>
+
+                            <Form.Group className="mb-4">
+                                <Form.Control
+                                    type="email"
+                                    placeholder="Email"
+                                    className="login-input"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                />
+                            </Form.Group>
+
+                            <Form.Group className="mb-4 position-relative">
+                                <Form.Control
+                                    type={viewPassword ? 'text' : 'password'}
+                                    placeholder="Password"
+                                    className="login-input"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                />
+                                <i
+                                    className={`bi ${viewPassword ? 'bi-eye' : 'bi-eye-slash'} eye-icon`}
+                                    onClick={() => setViewPassword(!viewPassword)}
+                                ></i>
+                            </Form.Group>
+
+                            {/* if error exist show it */}
+                            {error && (
+                                <p className="text-danger text-center mt-2">{error}</p>
+                            )}
+
+                            <Button type="submit" variant="primary" className="login-button">
+                                {loading ? "Signing in..." : "Sign In"}     {/* stops double submitting*/}
+                            </Button>
+
+                            <div className="text-center mt-4">
+                                <a href="./forget-password" className="text-decoration-none text-muted">Forgot Password?</a>
+                            </div>
+
+                        </Form>
+                    </div>
+                </Col>
+            </Row>
+        </Container>
     )
 }
 
-export default AlertList
+export default Login

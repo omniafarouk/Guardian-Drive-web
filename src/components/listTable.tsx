@@ -5,13 +5,13 @@ interface Column {
     key: string
 }
 
-interface ListProps {
+interface ListProps<T> {        // T for generic type (equals any but actually works)
     columnNames: Column[]
-    data: any[]
-    renderRow: (item: any) => React.ReactNode
+    data: T[]
+    renderRow: (item: T) => React.ReactNode
 }
 
-function ListTable({ columnNames, data, renderRow }: ListProps) {
+function ListTable<T>({ columnNames, data, renderRow }: ListProps<T>) {
     return (
         <>
             <hr />

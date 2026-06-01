@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Container, Row, Col, Form, Button } from 'react-bootstrap'
+import { Container, Row, Col, Form, Button, Spinner } from 'react-bootstrap'
 import logo from '../assets/logo.png'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
@@ -17,7 +17,8 @@ function Login() {
 
     const navigate = useNavigate();
 
-    const signIn = async (e: React.SubmitEvent<HTMLFormElement>) => {
+    // const signIn = async (e: React.FormEvent<HTMLFormElement>) => {
+    const signIn = async (e: React.SyntheticEvent) => {
         e.preventDefault()
         console.log({ email, password })
         // intiate the before api request sending (waiting conditions)
@@ -27,10 +28,15 @@ function Login() {
         // send the api
         try {
             await login(email, password);   // from AuthService
-            navigate("/dashboard");
+            const role = localStorage.getItem("role");
+
+            if (role === "ADMIN") navigate("/admin/dashboard");
+            else if (role === "FLEET_MANAGER") navigate("/fleet-manager/dashboard");
         }
         catch (error: any) {
-            setError(error.response?.data?.message || "Login Failed , Please Try Again!");
+            console.log(error)
+            console.log(error?.message)
+            setError(error.response?.data?.error || "Login Failed , Please Try Again!");
         } finally {
             setLoading(false);
         }
@@ -98,8 +104,12 @@ function Login() {
                                 <p className="text-danger text-center mt-2">{error}</p>
                             )}
 
-                            <Button type="submit" variant="primary" className="login-button">
-                                {loading ? "Signing in..." : "Sign In"}     {/* stops double submitting*/}
+                            <Button
+                                type="submit"
+                                variant={loading ? "secondary" : "primary"}
+                                className="login-button"
+                                disabled={loading}
+                            > Sign In
                             </Button>
 
                             <div className="text-center mt-4">
