@@ -21,3 +21,21 @@ export const AlertType = {
 } as const
 
 export type AlertType = typeof AlertType[keyof typeof AlertType]
+
+
+export const Severity = {
+    MILD: "MILD",
+    MODERATE: "MODERATE",
+    CRITICAL: "CRITICAL",
+    NORMAL: "NORMAL"
+}
+export type Severity = typeof Severity[keyof typeof Severity]
+
+export const ConditionType = {
+    LOW_SPO2: "LOW_SPO2",
+    HIGH_HEART_RATE: "HIGH_HEART_RATE",
+    LOW_HEART_RATE: "LOW_HEART_RATE",
+    HIGH_TEMP: "HIGH_TEMP",
+    LOW_TEMP: "LOW_TEMP"
+}
+export type ConditionType = typeof ConditionType[keyof typeof ConditionType]
