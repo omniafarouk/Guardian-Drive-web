@@ -23,7 +23,7 @@ export const login = async (email: string, password: string) => {
         // in storage.tsx
         setToken(token);
         setId(user.id);
-        setName(user.fName + user.lName);
+        setName(user.fName + " " + user.lName);
         setRole(user.role);
 
         /*
