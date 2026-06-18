@@ -3,6 +3,7 @@ import ListItem from '../../components/ListItem'
 import { Table } from 'react-bootstrap'
 import { getTrips } from '../../services/tripService';
 import { enrichTripsWithLocations } from '../../utils/geocoding';
+import type { tripStatus } from '../../types/enums';
 
 export interface TripListResponse {
   page: number;
@@ -20,10 +21,12 @@ export interface Trip {
   plannedStartTime: Date;
   startTime?: Date;
   endTime?: Date;
-  status: string;
+  status: tripStatus;
   driverId: number;
   engineId?: string;
   fleetManagerId: number;
+  startPoint: string;
+  endPoint: string;
 }
 export default function TripList() {
   const columnNames = [
