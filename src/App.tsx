@@ -1,40 +1,56 @@
-import { Routes, Route } from 'react-router-dom'
-import Login from './pages/login';
-import Dashboard from './pages/fleetManager/fleetManagerDashboard';
-import AlertList from './pages/alertList';
-import GuidanceList from './pages/guidanceList';
-
-import PagesLayout from './layouts/pagesLayout';
-import AlertDetails from './pages/alertDetails';
-import ForgetPassword from './pages/forgetPassword';
-import ProtectedRoute from './utils/protectedRoute';
-import { Role } from './types/enums';
+import React from 'react'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import Login from './pages/login'
+import ForgetPassword from './pages/forgetPassword'
+import ProtectedRoute from './utils/protectedRoute'
+import { Role } from './types/enums'
+import TripList from './pages/TripList/TripList'
+import FleetManagerDashboard from './pages/fleetManager/fleetManagerDashboard'
 import AdminDashboard from './pages/admin/adminDashboard';
-import FleetManagerDashboard from './pages/fleetManager/fleetManagerDashboard';
-
-function App() {
-  return (
-    <Routes>
-      <Route path='/' element={<Login />} />
-      <Route path='/forget-password' element={<ForgetPassword />} />
+import Layout from './pages/Layout/Layout'
+import AlertList from './pages/alertList';
+import AlertDetails from './pages/alertDetails'
+import GuidanceList from './pages/guidanceList'
 
 
-      {/* protected route for authorization on the route according to role*/}
+let router = createBrowserRouter([
+    { path: '/', element: <Login /> },
+    { path: '/forget-password', element: <ForgetPassword /> },
+    //unauthorized
+    //protected routes
+    // protected layout (must be logged in)
+    {
+        path: "/",
+        element: <ProtectedRoute allowedRoles={[Role.ADMIN, Role.FLEET_MANAGER]} />,
+        children: [
+            {
+                element: <Layout />,
+                children: [
+                    // shared routes (both roles)
+                    { path: "trips", element: <TripList /> },
+                    { path: "alert-list", element: <AlertList /> },
+                    { path: "alert-list/:id", element: <AlertDetails /> },
+                    { path: "guidance-list", element: <GuidanceList /> },
+                ],
+            },
+        ],
+    },
+    //only fleet
+    {
+        path: 'fleet-manager', element: <ProtectedRoute allowedRoles={[Role.FLEET_MANAGER]}></ProtectedRoute>, children: [
+            { path: 'dashboard', element: <FleetManagerDashboard></FleetManagerDashboard> }
+        ]
+    },
+    //only admin
+    {
+        path: 'admin', element: <ProtectedRoute allowedRoles={[Role.ADMIN]}></ProtectedRoute>, children: [
+            { path: 'dashboard', element: <AdminDashboard></AdminDashboard> }
+        ]
+    }
 
-      <Route path='/admin/dashboard' element={
-        <ProtectedRoute allowedRoles={[Role.ADMIN]} title="Dashboard" page={<AdminDashboard />} />
-      } />
-
-      <Route path='/fleet-manager/dashboard' element={
-        <ProtectedRoute allowedRoles={[Role.FLEET_MANAGER]} title="Dashboard" page={<FleetManagerDashboard />} />
-      } />
-
-      <Route path='/alert-list' element={<PagesLayout title="Alert List" page={<AlertList />} />} />
-      <Route path='/alert-list/:id' element={<PagesLayout title="Alert Details" page={<AlertDetails />} />} />
-      <Route path='/guidance-list' element={<PagesLayout title="Guidance List" page={<GuidanceList />} />} />
-
-    </Routes>
-  )
+])
+export default function App() {
+    return (
+        <RouterProvider router={router}></RouterProvider>
+    )
 }
-
-export default App;
