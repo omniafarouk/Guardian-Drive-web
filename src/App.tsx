@@ -12,6 +12,7 @@ import AlertList from './pages/alertList';
 import AlertDetails from './pages/alertDetails'
 import GuidanceList from './pages/guidanceList'
 import TripDetails from './pages/TripDetails/TripDetails'
+import AddDriver from './pages/driver/addDriver'
 
 
 let router = createBrowserRouter([
@@ -45,15 +46,27 @@ let router = createBrowserRouter([
     //only fleet
     {
         path: 'fleet-manager', element: <ProtectedRoute allowedRoles={[Role.FLEET_MANAGER]}></ProtectedRoute>, children: [
-            { path: 'dashboard', element: <FleetManagerDashboard></FleetManagerDashboard> }
+            { path: 'dashboard', element: <FleetManagerDashboard></FleetManagerDashboard> },
+
         ]
     },
     //only admin
     {
-        path: 'admin', element: <ProtectedRoute allowedRoles={[Role.ADMIN]}></ProtectedRoute>, children: [
-            { path: 'dashboard', element: <AdminDashboard></AdminDashboard> }
-        ]
-    }
+       
+    path: 'admin',
+    element: <ProtectedRoute allowedRoles={[Role.ADMIN]} />,
+    children: [
+        {
+            element: <Layout />,
+            children: [
+                { path: 'dashboard', element: <AdminDashboard />, handle: { title: "Admin Dashboard" } },
+
+                { path: 'drivers/add', element: <AddDriver />, handle: { title: "Add New Driver" } },
+            ]
+        }
+    ]
+}
+    
 
 ])
 export default function App() {

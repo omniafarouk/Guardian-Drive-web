@@ -1,23 +1,22 @@
-import React from 'react'
+import { Outlet, useMatches } from "react-router-dom";
+import CustomNavbar from "../../components/navbar";
+import Sidebar from "../../components/sidebar";
 
-import CustomNavbar from '../../components/navbar'
-
-import { Outlet } from 'react-router-dom'
-import Sidebar from '../../components/Sidebar'
 export default function Layout() {
+    const matches = useMatches();
+
+    const title =
+        ([...matches]
+            .reverse()
+            .find((m) => (m.handle as any)?.title)?.handle as any)?.title || "";
+
     return (
         <>
-            {/* <h1>layout</h1> */}
-            <div className="d-flex">
-                <Sidebar />
-
-                <div className="flex-grow-1 p-4" style={{ minWidth: 0 }}>
-                    <Outlet />
-                </div>
-            </div>
-
-
+            <Sidebar />
+           <div style={{ marginLeft: "250px" }}>
+    <CustomNavbar title={title} />
+    <Outlet />
+</div>
         </>
-
-    )
+    );
 }
