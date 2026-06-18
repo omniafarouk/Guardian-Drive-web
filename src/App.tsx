@@ -11,6 +11,7 @@ import Layout from './pages/Layout/Layout'
 import AlertList from './pages/alertList';
 import AlertDetails from './pages/alertDetails'
 import GuidanceList from './pages/guidanceList'
+import TripDetails from './pages/TripDetails/TripDetails'
 
 
 let router = createBrowserRouter([
@@ -27,7 +28,13 @@ let router = createBrowserRouter([
                 element: <Layout />,
                 children: [
                     // shared routes (both roles)
-                    { path: "trips", element: <TripList /> },
+                    {
+                        path: "trips", children: [
+                            { index: true, element: <TripList /> },
+                            { path: ":tripId", element: <TripDetails /> }
+                        ]
+                    },
+
                     { path: "alert-list", element: <AlertList /> },
                     { path: "alert-list/:id", element: <AlertDetails /> },
                     { path: "guidance-list", element: <GuidanceList /> },

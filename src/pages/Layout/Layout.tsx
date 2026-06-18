@@ -8,8 +8,15 @@ export default function Layout() {
     return (
         <>
             {/* <h1>layout</h1> */}
-            <Sidebar></Sidebar>
-            <Outlet></Outlet>
+            <div className="d-flex">
+                <Sidebar />
+
+                <div className="flex-grow-1 p-4" style={{ minWidth: 0 }}>
+                    <Outlet />
+                </div>
+            </div>
+
+
         </>
 
     )

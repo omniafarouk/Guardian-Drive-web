@@ -29,7 +29,7 @@ export default function Sidebar() {
                             </h2>
                             <div id="flush-collapseOne" className="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                                 <div className="accordion-body">
-                                    <NavLink to="/alerts">
+                                    <NavLink to="/alert-list">
                                         Alert List
                                     </NavLink>
                                 </div>
@@ -41,6 +41,7 @@ export default function Sidebar() {
                         </div>
 
                     </div>
+
                     <li className="nav-item ">
                         <NavLink to="/trips" className="nav-link text-black">
                             Trips
