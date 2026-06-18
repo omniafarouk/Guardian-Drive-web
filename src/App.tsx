@@ -8,6 +8,10 @@ import TripList from './pages/TripList/TripList'
 import FleetManagerDashboard from './pages/fleetManager/fleetManagerDashboard'
 import AdminDashboard from './pages/admin/adminDashboard';
 import Layout from './pages/Layout/Layout'
+import AlertList from './pages/alertList';
+import AlertDetails from './pages/alertDetails'
+import GuidanceList from './pages/guidanceList'
+
 
 let router = createBrowserRouter([
     { path: '/', element: <Login /> },
@@ -24,6 +28,9 @@ let router = createBrowserRouter([
                 children: [
                     // shared routes (both roles)
                     { path: "trips", element: <TripList /> },
+                    { path: "alert-list", element: <AlertList /> },
+                    { path: "alert-list/:id", element: <AlertDetails /> },
+                    { path: "guidance-list", element: <GuidanceList /> },
                 ],
             },
         ],
