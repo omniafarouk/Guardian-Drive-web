@@ -11,6 +11,7 @@ import Layout from './pages/Layout/Layout'
 import AlertList from './pages/alertList';
 import AlertDetails from './pages/alertDetails'
 import GuidanceList from './pages/guidanceList'
+import TripDetails from './pages/TripDetails/TripDetails'
 import AddDriver from './pages/driver/addDriver'
 
 
@@ -27,10 +28,17 @@ let router = createBrowserRouter([
             {
                 element: <Layout />,
                 children: [
-                    { path: "trips", element: <TripList />, handle: { title: "Trips" } },
-                    { path: "alert-list", element: <AlertList />, handle: { title: "Alerts" } },
-                    { path: "alert-list/:id", element: <AlertDetails />, handle: { title: "Alert Details" } },
-                    { path: "guidance-list", element: <GuidanceList />, handle: { title: "Guidance" } },
+                    // shared routes (both roles)
+                    {
+                        path: "trips", children: [
+                            { index: true, element: <TripList /> },
+                            { path: ":tripId", element: <TripDetails /> }
+                        ]
+                    },
+
+                    { path: "alert-list", element: <AlertList /> },
+                    { path: "alert-list/:id", element: <AlertDetails /> },
+                    { path: "guidance-list", element: <GuidanceList /> },
                 ],
             },
         ],
