@@ -59,7 +59,7 @@ export const BandsList = () => {
                             </Badge>
                         </td>
                         <td className="border-0 rounded-end py-3">
-                            <button className="btn btn-sm" onClick={() => navigate(`/bands-list/${band.deviceId}`)} >
+                            <button className="btn btn-sm" onClick={() => navigate(`/admin/bands-list/${band.deviceId}`)} >
                                 <i className="bi bi-chevron-right"></i>
                             </button>
                         </td>

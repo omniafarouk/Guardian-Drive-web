@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import { getRole } from "../utils/storage";
 import logo from "../assets/logo.png";
 import "../styles/sidebar.css";
+import { Role } from "../types/enums";
 export default function Sidebar() {
     const role = getRole();
 
@@ -103,18 +104,20 @@ export default function Sidebar() {
                         Reports
                     </NavLink>
                 </li>
-                <li className="nav-item mb-2">
-                    <NavLink to="/bands-list" className="nav-link text-white d-flex align-items-center justify-content-between" onClick={() => setShow(false)}>
-                        <span>
+                {role === Role.ADMIN && (
+                    <li className="nav-item mb-2">
+                        <NavLink to="/admin/bands-list" className="nav-link text-black"> Bands
+                            {/* <span>
                             <i className="bi bi-smartwatch me-2 align-items-center"></i> Bands
                         </span>
-                        <i className='bi bi-chevron-down'></i>
+                        <i className='bi bi-chevron-down'></i> */}
 
-                    </NavLink>
-                </li>
+                        </NavLink>
+                    </li>
+                )}
 
                 <li className="nav-item">
-                    <NavLink to="/logout" className="nav-link text-danger">
+                    <NavLink to="/" className="nav-link text-danger">
                         Logout
                     </NavLink>
                 </li>

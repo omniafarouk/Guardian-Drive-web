@@ -15,6 +15,8 @@ import TripDetails from './pages/TripDetails/TripDetails'
 import AddDriver from './pages/driver/addDriver'
 import TowingRequestList from './pages/TowingRequestList/TowingRequestList'
 import EmergencyRequestList from './pages/EmergencyRequestList/EmergencyRequestList'
+import { BandsList } from './pages/bandsList'
+import { BandDetails } from './pages/bandDetails'
 
 
 let router = createBrowserRouter([
@@ -75,6 +77,10 @@ let router = createBrowserRouter([
                     { path: 'dashboard', element: <AdminDashboard />, handle: { title: "Admin Dashboard" } },
 
                     { path: 'drivers/add', element: <AddDriver />, handle: { title: "Add New Driver" } },
+
+                    { path: 'bands-list', element: <BandsList />,  handle: { title: "Bands List" } },
+
+                    { path: 'bands-list/:id', element: <BandDetails />, handle: { title: "Band Details" } },
                 ]
             }
         ]
