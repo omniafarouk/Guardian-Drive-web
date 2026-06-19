@@ -110,7 +110,7 @@ export default function Sidebar() {
                 </li>
 
                 <li className="nav-item">
-                    <NavLink to="/reports" className="nav-link text-black">
+                    <NavLink to="/admin/reports" className="nav-link text-black">
                         Reports
                     </NavLink>
                 </li>
