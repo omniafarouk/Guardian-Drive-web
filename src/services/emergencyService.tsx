@@ -8,16 +8,15 @@ const handleResponse = async (response: Response) => {
     return response.json();
 };
 
-export const getTrips = async (page: number = 1) => {
+export const getEmergencyServiceRequests = async (page: number = 1) => {
     try {
         const response = await fetch(
-            `${BASE_URL}/api/trips?page=${page}`,
+            `${BASE_URL}/api/emergency-service-request?page=${1}`,
             {
                 method: "GET",
                 headers: getHeaders(),
             }
         );
-
         return await handleResponse(response);
     } catch (error) {
         throw error;

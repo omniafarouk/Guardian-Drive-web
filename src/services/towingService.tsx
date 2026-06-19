@@ -8,10 +8,10 @@ const handleResponse = async (response: Response) => {
     return response.json();
 };
 
-export const getTrips = async (page: number = 1) => {
+export const getTowingRequests = async () => {
     try {
         const response = await fetch(
-            `${BASE_URL}/api/trips?page=${page}`,
+            `${BASE_URL}/api/towing-requests`,
             {
                 method: "GET",
                 headers: getHeaders(),

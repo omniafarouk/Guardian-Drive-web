@@ -15,6 +15,12 @@ import TripDetails from './pages/TripDetails/TripDetails'
 import AddDriver from './pages/driver/addDriver'
 import AddAdmin from './pages/admin/addAdmin'
 import AddFleetManager from './pages/admin/addFleetMang'
+import { BandsList } from './pages/bandsList'
+import { BandDetails } from './pages/bandDetails'
+import TowingRequestList from './pages/TowingRequestList/TowingRequestList'
+import EmergencyRequestList from './pages/EmergencyRequestList/EmergencyRequestList'
+
+
 
 let router = createBrowserRouter([
     { path: '/', element: <Login /> },
@@ -36,7 +42,18 @@ let router = createBrowserRouter([
                             { path: ":tripId", element: <TripDetails /> }
                         ]
                     },
-
+                    {
+                        path: 'towing-requests', children: [
+                            { index: true, element: <TowingRequestList /> },
+                            { path: ':id', element: <TowingRequestList /> }
+                        ]
+                    },
+                    {
+                        path: 'emergency-service-requests', children: [
+                            { index: true, element: <EmergencyRequestList /> },
+                            { path: ':id', element: <EmergencyRequestList /> }
+                        ]
+                    },
                     { path: "alert-list", element: <AlertList /> },
                     { path: "alert-list/:id", element: <AlertDetails /> },
                     { path: "guidance-list", element: <GuidanceList /> },
@@ -52,25 +69,28 @@ let router = createBrowserRouter([
         ]
     },
     //only admin
-    {
-       
-    path: 'admin',
-    element: <ProtectedRoute allowedRoles={[Role.ADMIN]} />,
-    children: [
-        {
-            element: <Layout />,
-            children: [
-                { path: 'dashboard', element: <AdminDashboard />, handle: { title: "Admin Dashboard" } },
-
-                { path: 'drivers/add', element: <AddDriver />, handle: { title: "Add New Driver" } },
-                { path: 'admins/add', element: <AddAdmin />, handle: { title: "Add New Admin" }},
-                { path: 'fleet-managers/add', element: <AddFleetManager />, handle: { title: "Add New Fleet Manager" } }
-
-            ]
-        }
-    ]
-}
+ {
     
+        path: 'admin',
+        element: <ProtectedRoute allowedRoles={[Role.ADMIN]} />,
+        children: [
+            {
+                element: <Layout />,
+                children: [
+                    { path: 'dashboard', element: <AdminDashboard />, handle: { title: "Admin Dashboard" } },
+
+                    { path: 'drivers/add', element: <AddDriver />, handle: { title: "Add New Driver" } },
+                    { path: 'admins/add', element: <AddAdmin />, handle: { title: "Add New Admin" }},
+                    { path: 'fleet-managers/add', element: <AddFleetManager />, handle: { title: "Add New Fleet Manager" } },
+
+                    { path: 'bands-list', element: <BandsList />,  handle: { title: "Bands List" } },
+
+                    { path: 'bands-list/:id', element: <BandDetails />, handle: { title: "Band Details" } },
+                ]
+            }
+        ]
+    }
+
 
 ])
 export default function App() {

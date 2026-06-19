@@ -13,10 +13,13 @@ export default function Layout() {
     return (
         <>
             <Sidebar />
-           <div style={{ marginLeft: "250px" }}>
-    <CustomNavbar title={title} />
-    <Outlet />
-</div>
+            <div style={{ marginLeft: "250px" }}>
+                <CustomNavbar title={title} />
+                <div className="p-4 pt-0">
+                    <Outlet />
+                </div>
+
+            </div>
         </>
     );
 }
