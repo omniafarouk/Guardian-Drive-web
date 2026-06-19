@@ -13,10 +13,13 @@ import AlertDetails from './pages/alertDetails'
 import GuidanceList from './pages/guidanceList'
 import TripDetails from './pages/TripDetails/TripDetails'
 import AddDriver from './pages/driver/addDriver'
-import TowingRequestList from './pages/TowingRequestList/TowingRequestList'
-import EmergencyRequestList from './pages/EmergencyRequestList/EmergencyRequestList'
+import AddAdmin from './pages/admin/addAdmin'
+import AddFleetManager from './pages/admin/addFleetMang'
 import { BandsList } from './pages/bandsList'
 import { BandDetails } from './pages/bandDetails'
+import TowingRequestList from './pages/TowingRequestList/TowingRequestList'
+import EmergencyRequestList from './pages/EmergencyRequestList/EmergencyRequestList'
+
 
 
 let router = createBrowserRouter([
@@ -66,8 +69,8 @@ let router = createBrowserRouter([
         ]
     },
     //only admin
-    {
-
+ {
+    
         path: 'admin',
         element: <ProtectedRoute allowedRoles={[Role.ADMIN]} />,
         children: [
@@ -77,6 +80,8 @@ let router = createBrowserRouter([
                     { path: 'dashboard', element: <AdminDashboard />, handle: { title: "Admin Dashboard" } },
 
                     { path: 'drivers/add', element: <AddDriver />, handle: { title: "Add New Driver" } },
+                    { path: 'admins/add', element: <AddAdmin />, handle: { title: "Add New Admin" }},
+                    { path: 'fleet-managers/add', element: <AddFleetManager />, handle: { title: "Add New Fleet Manager" } },
 
                     { path: 'bands-list', element: <BandsList />,  handle: { title: "Bands List" } },
 

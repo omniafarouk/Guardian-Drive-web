@@ -46,6 +46,16 @@ export default function Sidebar() {
                                     Drivers
                                 </NavLink>
                             </div>
+                            <div className="accordion-body">
+                                <NavLink to="/admin/fleet-managers/add">
+                                    Fleet Managers
+                                </NavLink>
+                            </div>
+                            <div className="accordion-body">
+                                <NavLink to="/admin/admins/add">
+                                    Admins
+                                </NavLink>
+                            </div>
                         </div>
                     </div>
 
