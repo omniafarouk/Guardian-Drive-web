@@ -13,7 +13,7 @@ export default function Sidebar() {
             {/* LOGO */}
             <div className="w-100 d-flex justify-content-center py-3">
                 <NavLink to="/">
-                    <img src={logo} alt="Logo" width={100} />
+                    <img src={logo} alt="Logo" width={70} />
                 </NavLink>
             </div>
 
@@ -71,8 +71,22 @@ export default function Sidebar() {
                                 <NavLink to="/alert-list">
                                     Alert List
                                 </NavLink>
+
+                            </div>
+                            <div className="accordion-body">
+                                <NavLink to="/towing-requests">
+                                    Towing Requests
+                                </NavLink>
+
+                            </div>
+                            <div className="accordion-body">
+                                <NavLink to="/emergency-service-requests">
+                                    Emergency Service Requests
+                                </NavLink>
+
                             </div>
                         </div>
+
                     </div>
 
                 </div>

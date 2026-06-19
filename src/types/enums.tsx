@@ -47,3 +47,11 @@ export const tripStatus = {
 } as const
 export type tripStatus = (typeof tripStatus)[keyof typeof tripStatus]
 
+
+export const requestStatus = {
+    REQUESTED: 'REQUESTED',
+    INPROGRESS: 'INPROGRESS',
+    COMPLETED: 'COMPLETED'
+} as const
+
+export type requestStatus = (typeof requestStatus)[keyof typeof requestStatus]
