@@ -34,13 +34,25 @@ function ShowTripStyle({ status }: { status: tripStatus }) {
 
         case tripStatus.COMPLETED:
 
-            break;
+            return <>
+                <span className="border rounded-pill px-2 py-1 text-success border-success" style={{ fontSize: "12px" }}>
+                    {status}
+                </span>
+            </>
         case tripStatus.ONGOING:
 
-            break;
+            return <>
+                <span className="border rounded-pill px-2 py-1 text-warning border-warning" style={{ fontSize: "12px" }}>
+                    {status}
+                </span>
+            </>
         case tripStatus.CANCELLED:
 
-            break;
+            return <>
+                <span className="border rounded-pill px-2 py-1 text-danger border-danger" style={{ fontSize: "12px" }}>
+                    {status}
+                </span>
+            </>
         default:
             return null;
 

@@ -13,6 +13,8 @@ import AlertDetails from './pages/alertDetails'
 import GuidanceList from './pages/guidanceList'
 import TripDetails from './pages/TripDetails/TripDetails'
 import AddDriver from './pages/driver/addDriver'
+import TowingRequestList from './pages/TowingRequestList/TowingRequestList'
+import EmergencyRequestList from './pages/EmergencyRequestList/EmergencyRequestList'
 
 
 let router = createBrowserRouter([
@@ -35,7 +37,18 @@ let router = createBrowserRouter([
                             { path: ":tripId", element: <TripDetails /> }
                         ]
                     },
-
+                    {
+                        path: 'towing-requests', children: [
+                            { index: true, element: <TowingRequestList /> },
+                            { path: ':id', element: <TowingRequestList /> }
+                        ]
+                    },
+                    {
+                        path: 'emergency-service-requests', children: [
+                            { index: true, element: <EmergencyRequestList /> },
+                            { path: ':id', element: <EmergencyRequestList /> }
+                        ]
+                    },
                     { path: "alert-list", element: <AlertList /> },
                     { path: "alert-list/:id", element: <AlertDetails /> },
                     { path: "guidance-list", element: <GuidanceList /> },
@@ -52,21 +65,21 @@ let router = createBrowserRouter([
     },
     //only admin
     {
-       
-    path: 'admin',
-    element: <ProtectedRoute allowedRoles={[Role.ADMIN]} />,
-    children: [
-        {
-            element: <Layout />,
-            children: [
-                { path: 'dashboard', element: <AdminDashboard />, handle: { title: "Admin Dashboard" } },
 
-                { path: 'drivers/add', element: <AddDriver />, handle: { title: "Add New Driver" } },
-            ]
-        }
-    ]
-}
-    
+        path: 'admin',
+        element: <ProtectedRoute allowedRoles={[Role.ADMIN]} />,
+        children: [
+            {
+                element: <Layout />,
+                children: [
+                    { path: 'dashboard', element: <AdminDashboard />, handle: { title: "Admin Dashboard" } },
+
+                    { path: 'drivers/add', element: <AddDriver />, handle: { title: "Add New Driver" } },
+                ]
+            }
+        ]
+    }
+
 
 ])
 export default function App() {
