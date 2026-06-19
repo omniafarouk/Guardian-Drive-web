@@ -45,6 +45,15 @@ function Sidebar() {
                     </NavLink>
                 </li>
                 <li className="nav-item mb-2">
+                    <NavLink to="/bands-list" className="nav-link text-white d-flex align-items-center justify-content-between" onClick={() => setShow(false)}>
+                        <span>
+                            <i className="bi bi-smartwatch me-2 align-items-center"></i> Bands
+                        </span>
+                        <i className='bi bi-chevron-down'></i>
+
+                    </NavLink>
+                </li>
+                <li className="nav-item mb-2">
                     <NavLink to="" className="nav-link text-white d-flex align-items-center justify-content-between" onClick={() => setShow(false)}>
                         <span>
                             <i className="bi bi-person me-2 align-items-center"></i> Profile

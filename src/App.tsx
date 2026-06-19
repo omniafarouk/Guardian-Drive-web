@@ -11,6 +11,8 @@ import ProtectedRoute from './utils/protectedRoute';
 import { Role } from './types/enums';
 import AdminDashboard from './pages/admin/adminDashboard';
 import FleetManagerDashboard from './pages/fleetManager/fleetManagerDashboard';
+import { BandsList } from './pages/bandsList';
+import { BandDetails } from './pages/bandDetails';
 
 function App() {
   return (
@@ -28,6 +30,15 @@ function App() {
       <Route path='/fleet-manager/dashboard' element={
         <ProtectedRoute allowedRoles={[Role.FLEET_MANAGER]} title="Dashboard" page={<FleetManagerDashboard />} />
       } />
+
+      <Route path='/bands-list' element={
+        <ProtectedRoute allowedRoles={[Role.ADMIN]} title="Wearable Bands" page={<BandsList />} />
+      } />
+
+      <Route path='/bands-list/:id' element={
+        <ProtectedRoute allowedRoles={[Role.ADMIN]} title="Wearable Band Details" page={<BandDetails />} />
+      } />
+
 
       <Route path='/alert-list' element={<PagesLayout title="Alert List" page={<AlertList />} />} />
       <Route path='/alert-list/:id' element={<PagesLayout title="Alert Details" page={<AlertDetails />} />} />
