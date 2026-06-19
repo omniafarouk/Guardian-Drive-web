@@ -1,5 +1,4 @@
 import { Table } from 'react-bootstrap'
-
 interface Column {
     label: string
     key: string

@@ -1,4 +1,4 @@
-import Sidebar from '../components/sidebar'
+import Sidebar from '../components/sidebar2'
 import CustomNavbar from '../components/navbar'
 
 interface LayoutProps {

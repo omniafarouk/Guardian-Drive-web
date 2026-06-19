@@ -39,3 +39,19 @@ export const ConditionType = {
     LOW_TEMP: "LOW_TEMP"
 }
 export type ConditionType = typeof ConditionType[keyof typeof ConditionType]
+export const tripStatus = {
+    PLANNED: 'PLANNED',
+    ONGOING: 'ONGOING',
+    CANCELLED: 'CANCELLED',
+    COMPLETED: 'COMPLETED'
+} as const
+export type tripStatus = (typeof tripStatus)[keyof typeof tripStatus]
+
+
+export const requestStatus = {
+    REQUESTED: 'REQUESTED',
+    INPROGRESS: 'INPROGRESS',
+    COMPLETED: 'COMPLETED'
+} as const
+
+export type requestStatus = (typeof requestStatus)[keyof typeof requestStatus]

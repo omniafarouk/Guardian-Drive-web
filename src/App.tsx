@@ -1,51 +1,89 @@
-import { Routes, Route } from 'react-router-dom'
-import Login from './pages/login';
-import Dashboard from './pages/fleetManager/fleetManagerDashboard';
-import AlertList from './pages/alertList';
-import GuidanceList from './pages/guidanceList';
-
-import PagesLayout from './layouts/pagesLayout';
-import AlertDetails from './pages/alertDetails';
-import ForgetPassword from './pages/forgetPassword';
-import ProtectedRoute from './utils/protectedRoute';
-import { Role } from './types/enums';
+import React from 'react'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import Login from './pages/login'
+import ForgetPassword from './pages/forgetPassword'
+import ProtectedRoute from './utils/protectedRoute'
+import { Role } from './types/enums'
+import TripList from './pages/TripList/TripList'
+import FleetManagerDashboard from './pages/fleetManager/fleetManagerDashboard'
 import AdminDashboard from './pages/admin/adminDashboard';
-import FleetManagerDashboard from './pages/fleetManager/fleetManagerDashboard';
-import { BandsList } from './pages/bandsList';
-import { BandDetails } from './pages/bandDetails';
-
-function App() {
-  return (
-    <Routes>
-      <Route path='/' element={<Login />} />
-      <Route path='/forget-password' element={<ForgetPassword />} />
-
-
-      {/* protected route for authorization on the route according to role*/}
-
-      <Route path='/admin/dashboard' element={
-        <ProtectedRoute allowedRoles={[Role.ADMIN]} title="Dashboard" page={<AdminDashboard />} />
-      } />
-
-      <Route path='/fleet-manager/dashboard' element={
-        <ProtectedRoute allowedRoles={[Role.FLEET_MANAGER]} title="Dashboard" page={<FleetManagerDashboard />} />
-      } />
-
-      <Route path='/bands-list' element={
-        <ProtectedRoute allowedRoles={[Role.ADMIN]} title="Wearable Bands" page={<BandsList />} />
-      } />
-
-      <Route path='/bands-list/:id' element={
-        <ProtectedRoute allowedRoles={[Role.ADMIN]} title="Wearable Band Details" page={<BandDetails />} />
-      } />
+import Layout from './pages/Layout/Layout'
+import AlertList from './pages/alertList';
+import AlertDetails from './pages/alertDetails'
+import GuidanceList from './pages/guidanceList'
+import TripDetails from './pages/TripDetails/TripDetails'
+import AddDriver from './pages/driver/addDriver'
+import TowingRequestList from './pages/TowingRequestList/TowingRequestList'
+import EmergencyRequestList from './pages/EmergencyRequestList/EmergencyRequestList'
 
 
-      <Route path='/alert-list' element={<PagesLayout title="Alert List" page={<AlertList />} />} />
-      <Route path='/alert-list/:id' element={<PagesLayout title="Alert Details" page={<AlertDetails />} />} />
-      <Route path='/guidance-list' element={<PagesLayout title="Guidance List" page={<GuidanceList />} />} />
+let router = createBrowserRouter([
+    { path: '/', element: <Login /> },
+    { path: '/forget-password', element: <ForgetPassword /> },
+    //unauthorized
+    //protected routes
+    // protected layout (must be logged in)
+    {
+        path: "/",
+        element: <ProtectedRoute allowedRoles={[Role.ADMIN, Role.FLEET_MANAGER]} />,
+        children: [
+            {
+                element: <Layout />,
+                children: [
+                    // shared routes (both roles)
+                    {
+                        path: "trips", children: [
+                            { index: true, element: <TripList /> },
+                            { path: ":tripId", element: <TripDetails /> }
+                        ]
+                    },
+                    {
+                        path: 'towing-requests', children: [
+                            { index: true, element: <TowingRequestList /> },
+                            { path: ':id', element: <TowingRequestList /> }
+                        ]
+                    },
+                    {
+                        path: 'emergency-service-requests', children: [
+                            { index: true, element: <EmergencyRequestList /> },
+                            { path: ':id', element: <EmergencyRequestList /> }
+                        ]
+                    },
+                    { path: "alert-list", element: <AlertList /> },
+                    { path: "alert-list/:id", element: <AlertDetails /> },
+                    { path: "guidance-list", element: <GuidanceList /> },
+                ],
+            },
+        ],
+    },
+    //only fleet
+    {
+        path: 'fleet-manager', element: <ProtectedRoute allowedRoles={[Role.FLEET_MANAGER]}></ProtectedRoute>, children: [
+            { path: 'dashboard', element: <FleetManagerDashboard></FleetManagerDashboard> },
 
-    </Routes>
-  )
+        ]
+    },
+    //only admin
+    {
+
+        path: 'admin',
+        element: <ProtectedRoute allowedRoles={[Role.ADMIN]} />,
+        children: [
+            {
+                element: <Layout />,
+                children: [
+                    { path: 'dashboard', element: <AdminDashboard />, handle: { title: "Admin Dashboard" } },
+
+                    { path: 'drivers/add', element: <AddDriver />, handle: { title: "Add New Driver" } },
+                ]
+            }
+        ]
+    }
+
+
+])
+export default function App() {
+    return (
+        <RouterProvider router={router}></RouterProvider>
+    )
 }
-
-export default App;
