@@ -1,4 +1,14 @@
 import { BASE_URL, getHeaders } from "./apiService"
+import axios from "axios";
+
+export const createDriver = async (driverData: any) => {
+    const response = await axios.post(
+        `${BASE_URL}/users`, 
+        driverData
+    );
+
+    return response.data;
+};
 
 const handleResponse = async (response: Response) => {
     if (!response.ok) {

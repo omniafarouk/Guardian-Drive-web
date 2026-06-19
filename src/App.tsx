@@ -13,7 +13,8 @@ import AlertDetails from './pages/alertDetails'
 import GuidanceList from './pages/guidanceList'
 import TripDetails from './pages/TripDetails/TripDetails'
 import AddDriver from './pages/driver/addDriver'
-
+import AddAdmin from './pages/admin/addAdmin'
+import AddFleetManager from './pages/admin/addFleetMang'
 
 let router = createBrowserRouter([
     { path: '/', element: <Login /> },
@@ -62,6 +63,9 @@ let router = createBrowserRouter([
                 { path: 'dashboard', element: <AdminDashboard />, handle: { title: "Admin Dashboard" } },
 
                 { path: 'drivers/add', element: <AddDriver />, handle: { title: "Add New Driver" } },
+                { path: 'admins/add', element: <AddAdmin />, handle: { title: "Add New Admin" }},
+                { path: 'fleet-managers/add', element: <AddFleetManager />, handle: { title: "Add New Fleet Manager" } }
+
             ]
         }
     ]
