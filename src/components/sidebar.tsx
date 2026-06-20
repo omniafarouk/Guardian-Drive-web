@@ -144,9 +144,14 @@ export default function Sidebar() {
                         Trips
                     </NavLink>
                 </li>
+                <li className="nav-item">
+                    <NavLink to="/guidance-list" className="nav-link text-black">
+                        First Aid Guidances
+                    </NavLink>
+                </li>
 
                 <li className="nav-item">
-                    <NavLink to="/reports" className="nav-link text-black">
+                    <NavLink to="/admin/reports" className="nav-link text-black">
                         Reports
                     </NavLink>
                 </li>

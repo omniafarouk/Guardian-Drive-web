@@ -3,6 +3,7 @@ import { getWerableBands, type Band } from "../services/bandsService";
 import ListTable from "../components/listTable";
 import { Badge, Button, Modal, Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import CustomModal from "../components/customModal";
 
 const columnNames = [
     { label: "Device ID", key: "deviceId" },
@@ -12,7 +13,7 @@ const columnNames = [
 ]
 export const BandsList = () => {
     const [show, setShow] = useState(false);
-    const [selectedSensors, setSelectedSensors] = useState<String[]>([]);
+    const [selectedSensors, setSelectedSensors] = useState<string[]>([]);
     const [loading, setLoading] = useState(true);
     const [bandsList, setBandsList] = useState<Band[]>([]);
     const navigate = useNavigate();
@@ -66,30 +67,7 @@ export const BandsList = () => {
 
                     </>
                 )} />
-            <Modal show={show} onHide={() => {
-                setShow(false)
-            }} style={{ top: "20%" }}>
-                <Modal.Header closeButton>
-                    <Modal.Title style={{ padding: "2px", paddingLeft: "5px" }}>Sensors List</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <ul>
-                        {selectedSensors.map((sensor) => (
-                            <li style={{ fontSize: "18px" }}>
-                                {sensor}
-                            </li>
-                        ))
-                        }
-                    </ul>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={() => {
-                        setShow(false);
-                    }}>
-                        Close
-                    </Button>
-                </Modal.Footer>
-            </Modal>
+            <CustomModal show={show} onClose={()=> setShow(false)} data={selectedSensors} />
         </>
     );
 }

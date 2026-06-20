@@ -7,8 +7,8 @@ import { createDriver } from "../../services/driverService";
 function AddDriver() {
 
     const [formData, setFormData] = useState({
-        
-        email:"", fName: "", lName: "", password: "", phone: "", address: "", role: "", drivingLicense: "",hiredAt: new Date().toISOString().split("T")[0],
+
+        email: "", fName: "", lName: "", password: "", phone: "", address: "", role: "", drivingLicense: "", hiredAt: new Date().toISOString().split("T")[0],
     });
 
     type FormField = keyof typeof formData;
@@ -69,8 +69,8 @@ function AddDriver() {
                                             label === "Email"
                                                 ? "email"
                                                 : label === "Hired At"
-                                                ? "date"
-                                                : "text"
+                                                    ? "date"
+                                                    : "text"
                                         }
                                         value={formData[field] || ""}
                                         onChange={(e) => handleChange(e, field)}

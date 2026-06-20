@@ -1,5 +1,5 @@
 // AlertList.tsx
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import ListTable from '../components/listTable'
 import { AlertStatus, AlertType } from '../types/enums';
 import { useEffect, useState } from 'react';
@@ -99,9 +99,9 @@ function AlertList() {
                             <ShowAlertStyle status={alert.status} />
                         </td>
                         <td className="border-0 rounded-end py-3">
-                            <button className="btn btn-sm" onClick={() => navigate(`/alert-list/${alert.alertId}`)} >
+                            <NavLink to={`/alert-list/${alert.alertId}`} className="btn btn-sm">
                                 <i className="bi bi-chevron-right"></i>
-                            </button>
+                            </NavLink>
                         </td>
                     </>
                 )

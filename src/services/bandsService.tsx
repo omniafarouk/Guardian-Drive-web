@@ -42,3 +42,17 @@ export const getBandById = async (id: number): Promise<Band> => {
         throw error;
     }
 }
+
+export const deleteBand = async (id: number) => {
+    try {
+        const response = await axios.delete(`${bandsUrl}/${id}`, { headers: getHeaders() });
+        console.log(response);
+        return true;
+    } catch (error: any) {
+        console.log("Status:", error.response?.status);
+        console.log("Data:", error.response?.data);
+        console.log("Validation Errors:", error.response?.data?.errors);
+        console.log("Headers:", error.response?.headers);
+        throw error;
+    }
+}
