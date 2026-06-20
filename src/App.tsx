@@ -19,6 +19,11 @@ import { BandsList } from './pages/bandsList'
 import { BandDetails } from './pages/bandDetails'
 import TowingRequestList from './pages/TowingRequestList/TowingRequestList'
 import EmergencyRequestList from './pages/EmergencyRequestList/EmergencyRequestList'
+import CarList from './pages/cars/carsList'
+import CarDetails from './pages/cars/carDetails'
+import carDetails from './pages/cars/carDetails'
+import EditCar from './pages/cars/EditCar'
+import AddCar from './pages/cars/addCar'
 
 
 
@@ -57,6 +62,9 @@ let router = createBrowserRouter([
                     { path: "alert-list", element: <AlertList /> },
                     { path: "alert-list/:id", element: <AlertDetails /> },
                     { path: "guidance-list", element: <GuidanceList /> },
+                    { path: "cars-list", element: <CarList />, handle: { title: "Cars List" } },
+                    {path:"carDetails/:engineId", element:<CarDetails/>, handle:{title:"Car Details"}},
+                    
                 ],
             },
         ],
@@ -86,6 +94,8 @@ let router = createBrowserRouter([
                     { path: 'bands-list', element: <BandsList />,  handle: { title: "Bands List" } },
 
                     { path: 'bands-list/:id', element: <BandDetails />, handle: { title: "Band Details" } },
+                    {path :"cars/:engineId/edit", element:<EditCar/>, handle:{title:"Edit Car"}},
+                    {path :"cars/add", element:<AddCar/>, handle:{title:"Add new Car"}},
                 ]
             }
         ]

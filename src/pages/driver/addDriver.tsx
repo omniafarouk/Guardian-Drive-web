@@ -31,7 +31,6 @@ function AddDriver() {
         });
     };
 
-    // ✅ FIXED: now uses backend service properly
     const handleSave = async () => {
         try {
             const response = await createDriver(formData);
