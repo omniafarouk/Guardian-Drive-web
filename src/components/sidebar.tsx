@@ -58,6 +58,7 @@ export default function Sidebar() {
                             </div>
                         </div>
                     </div>
+                    
 
                     {/* ALERTS */}
                     <div className="accordion-item">
@@ -96,6 +97,41 @@ export default function Sidebar() {
                                 </NavLink>
 
                             </div>
+                        </div>
+
+                    </div>
+                      {/* CARS */}
+                    <div className="accordion-item">
+                        <h2 className="accordion-header">
+                            <button
+                                className="accordion-button collapsed"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#carsCollapse"
+                                aria-controls="carsCollapse"
+                            >
+                                Cars
+                            </button>
+                        </h2>
+
+                        <div
+                            id="carsCollapse"
+                            className="accordion-collapse collapse"
+                            data-bs-parent="#sidebarAccordion"
+                        >
+                            <div className="accordion-body">
+                                <NavLink to="/cars-list">
+                                    Cars List
+                                </NavLink>
+
+                            </div>
+                            <div className="accordion-body">
+                                <NavLink to="/admin/cars/add">
+                                    Add New Car
+                                </NavLink>
+
+                            </div>
+                           
                         </div>
 
                     </div>
