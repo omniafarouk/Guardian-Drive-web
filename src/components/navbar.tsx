@@ -16,7 +16,8 @@ function CustomNavbar({ title }: NavBarPops) {
             <Container fluid>
                 <Navbar.Brand href="#" className="fw-bold" style={{ color: "#5884d2" }}>
                     {title}
-                </Navbar.Brand>                <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
+                </Navbar.Brand>
+                <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
                 <Navbar.Offcanvas
                     id={`offcanvasNavbar-expand-${expand}`}
                     aria-labelledby={`offcanvasNavbarLabel-expand-${expand}`}

@@ -1,4 +1,3 @@
-import React from 'react'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Login from './pages/login'
 import ForgetPassword from './pages/forgetPassword'
@@ -6,7 +5,7 @@ import ProtectedRoute from './utils/protectedRoute'
 import { Role } from './types/enums'
 import TripList from './pages/TripList/TripList'
 import FleetManagerDashboard from './pages/fleetManager/fleetManagerDashboard'
-import AdminDashboard from './pages/admin/adminDashboard';
+import AdminDashboard from './pages/adminDashBoard/adminDashboard';
 import Layout from './pages/Layout/Layout'
 import AlertList from './pages/alertList';
 import AlertDetails from './pages/alertDetails'
@@ -22,7 +21,6 @@ import EmergencyRequestList from './pages/EmergencyRequestList/EmergencyRequestL
 import Reports from './pages/Reports/Reports'
 import DriverPerformanceReportDataEntry from './pages/DriverPerformanceReportDataEntry/DriverPerformanceReportDataEntry'
 import DriverPerformanceReport from './pages/DriverPerformanceReport/DriverPerformanceReport'
-import EmergencyPerformanceStats from './pages/admin/emergencyPerformanceStats'
 import EmergencyPerformanceReport from './pages/emergencyPerformanceReport'
 
 
@@ -43,14 +41,14 @@ let router = createBrowserRouter([
           // shared routes (both roles)
           {
             path: "trips", children: [
-              { index: true, element: <TripList /> },
-              { path: ":tripId", element: <TripDetails /> }
+              { index: true, element: <TripList />, handle: { title: "Trips" } },
+              { path: ":tripId", element: <TripDetails />, handle: { title: "Trip Details" } }
             ]
           },
 
-          { path: "alert-list", element: <AlertList /> },
-          { path: "alert-list/:id", element: <AlertDetails /> },
-          { path: "guidance-list", element: <GuidanceList /> },
+          { path: "alert-list", element: <AlertList />, handle: { title: "Alerts" } },
+          { path: "alert-list/:id", element: <AlertDetails />, handle: { title: "Alert Details" } },
+          { path: "guidance-list", element: <GuidanceList />, handle: { title: "Guidance List" } },
         ],
       },
     ],
@@ -63,17 +61,17 @@ let router = createBrowserRouter([
         element: <Layout />, children: [
           {
             path: 'towing-requests', children: [
-              { index: true, element: <TowingRequestList /> },
-              { path: ':id', element: <TowingRequestList /> }
+              { index: true, element: <TowingRequestList />, handle: { title: "Towing Requests" } },
+              { path: ':id', element: <TowingRequestList />, handle: { title: "Towing Request Details" } }
             ]
           },
           {
             path: 'emergency-service-requests', children: [
-              { index: true, element: <EmergencyRequestList /> },
-              { path: ':id', element: <EmergencyRequestList /> }
+              { index: true, element: <EmergencyRequestList />, handle: { title: "Emergency Requests" } },
+              { path: ':id', element: <EmergencyRequestList />, handle: { title: "Emergency Request Details" } }
             ]
           },
-          { path: 'dashboard', element: <FleetManagerDashboard /> },
+          { path: 'dashboard', element: <FleetManagerDashboard />, handle: { title: "Dashboard" } },
         ]
       }
 
@@ -99,11 +97,11 @@ let router = createBrowserRouter([
           { path: 'bands-list/:id', element: <BandDetails />, handle: { title: "Band Details" } },
           {
             path: 'reports', children: [
-              { index: true, element: <Reports /> },
+              { index: true, element: <Reports />, handle: { title: "Reports" } },
               {
                 path: 'drivers', children: [
-                  { index: true, element: <DriverPerformanceReportDataEntry /> },
-                  { path: ':id', element: <DriverPerformanceReport /> }
+                  { index: true, element: <DriverPerformanceReportDataEntry />, handle: { title: "Driver Performance" } },
+                  { path: ':id', element: <DriverPerformanceReport />, handle: { title: "Driver Performance Report" } }
                 ]
               },
               {
