@@ -1,4 +1,5 @@
-import { BASE_URL, getHeaders } from "./apiService"
+import { BASE_URL, getHeaders } from "./apiService";
+
 
 const handleResponse = async (response: Response) => {
     if (!response.ok) {
@@ -7,9 +8,9 @@ const handleResponse = async (response: Response) => {
     return response.json()
 }
 
-export const getGuidances = async () => {
+export const getStats = async () => {
     try {
-        const response = await fetch(`${BASE_URL}/api/first-aid-guidance`, {
+        const response = await fetch(`${BASE_URL}/api/admin/stats`, {
             method: "GET",
             headers: getHeaders()
         }).then(

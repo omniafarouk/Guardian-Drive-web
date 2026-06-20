@@ -11,6 +11,8 @@ import ProtectedRoute from './utils/protectedRoute';
 import { Role } from './types/enums';
 import AdminDashboard from './pages/admin/adminDashboard';
 import FleetManagerDashboard from './pages/fleetManager/fleetManagerDashboard';
+import EmergencyPerformanceReportPage from './pages/reports/emergencyPerformance';
+import GuidanceDetails from './pages/guidanceDetails';
 
 function App() {
   return (
@@ -32,6 +34,8 @@ function App() {
       <Route path='/alert-list' element={<PagesLayout title="Alert List" page={<AlertList />} />} />
       <Route path='/alert-list/:id' element={<PagesLayout title="Alert Details" page={<AlertDetails />} />} />
       <Route path='/guidance-list' element={<PagesLayout title="Guidance List" page={<GuidanceList />} />} />
+      <Route path='/guidance-list/:id' element={<PagesLayout title="Guidance Details" page={<GuidanceDetails />} />} />
+      <Route path='/reports/emergency-performance' element={<PagesLayout title="Emergency Performance Report" page={<EmergencyPerformanceReportPage />} />} />
 
     </Routes>
   )

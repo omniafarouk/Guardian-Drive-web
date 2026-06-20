@@ -3,16 +3,18 @@ import { Offcanvas, Button } from 'react-bootstrap'
 import { NavLink, useNavigate } from 'react-router-dom'
 import logo from '../assets/logo.png';
 import { logout } from '../services/AuthService';
+import { getRole } from '../utils/storage';
 
 function Sidebar() {
     const [show, setShow] = useState(false)
     const navigate = useNavigate()
 
     function SidebarContent() {
+        const role = getRole()?.toLowerCase();
         return (
             <ul className="nav flex-column">
                 <li className="nav-item mb-2">
-                    <NavLink to="/dashboard" className="nav-link text-white d-flex align-items-center justify-content-between" onClick={() => setShow(false)}>
+                    <NavLink to={`/${role}/dashboard`} className="nav-link text-white d-flex align-items-center justify-content-between" onClick={() => setShow(false)}>
                         <span className='d-flex align-items-center'><i className="bi bi-bar-chart me-2"></i>Dashboard</span>
                         <i className='bi bi-chevron-down'></i>
                     </NavLink>
