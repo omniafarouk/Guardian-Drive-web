@@ -15,7 +15,7 @@ export const getAlerts = async () => {
             headers: getHeaders()
         }).then(
             handleResponse
-        ).catch((e) => new Error(e))
+        ).catch((e) => { throw e })
 
         return response
 

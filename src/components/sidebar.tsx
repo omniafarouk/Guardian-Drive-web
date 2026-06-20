@@ -46,6 +46,16 @@ export default function Sidebar() {
                                     Drivers
                                 </NavLink>
                             </div>
+                            <div className="accordion-body">
+                                <NavLink to="/admin/fleet-managers/add">
+                                    Fleet Managers
+                                </NavLink>
+                            </div>
+                            <div className="accordion-body">
+                                <NavLink to="/admin/admins/add">
+                                    Admins
+                                </NavLink>
+                            </div>
                         </div>
                     </div>
 
@@ -98,9 +108,14 @@ export default function Sidebar() {
                         Trips
                     </NavLink>
                 </li>
+                <li className="nav-item">
+                    <NavLink to="/guidance-list" className="nav-link text-black">
+                        First Aid Guidances
+                    </NavLink>
+                </li>
 
                 <li className="nav-item">
-                    <NavLink to="/reports" className="nav-link text-black">
+                    <NavLink to="/admin/reports" className="nav-link text-black">
                         Reports
                     </NavLink>
                 </li>

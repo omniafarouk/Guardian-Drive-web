@@ -28,8 +28,8 @@ function Login() {
         // send the api
         try {
             await login(email, password);   // from AuthService
-            const role = localStorage.getItem("role");
 
+            const role = localStorage.getItem("role");
             if (role === "ADMIN") navigate("/admin/dashboard");
             else if (role === "FLEET_MANAGER") navigate("/fleet-manager/dashboard");
         }

@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import ListTable from '../components/listTable'
 import type { ConditionType, Severity } from '../types/enums'
 import { getGuidances } from '../services/guidanceService'
+import { NavLink } from 'react-router-dom'
 
 interface Guidance {
     guidanceId: number,
@@ -79,9 +80,9 @@ function GuidanceList() {
                         <td className="border-0 py-3">{guidance.condition}</td>
                         <td className="border-0 py-3">{guidance.description}</td>
                         <td className="border-0 rounded-end py-3">
-                            <button className="btn btn-sm">
+                            <NavLink to={`/guidance-list/${guidance.guidanceId}`} className="btn btn-sm">
                                 <i className="bi bi-chevron-right"></i>
-                            </button>
+                            </NavLink>
                         </td>
                     </>
                 )
