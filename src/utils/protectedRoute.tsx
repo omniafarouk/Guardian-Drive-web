@@ -25,14 +25,15 @@
 
 import { Navigate, Outlet } from "react-router-dom";
 import { Role } from "../types/enums";
+import { getRole, getToken } from "./storage";
 
 type Props = {
     allowedRoles: Role[];
 };
 
 const ProtectedRoute = ({ allowedRoles }: Props) => {
-    const token = localStorage.getItem("token"); // or auth context
-    const userRole = localStorage.getItem("role") as Role;
+    const token = getToken(); // or auth context
+    const userRole = getRole() as Role;
 
     if (!token) {
         return <Navigate to="/" replace />;
