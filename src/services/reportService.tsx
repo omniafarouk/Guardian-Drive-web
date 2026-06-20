@@ -42,3 +42,19 @@ export const getYearlyAlertsReport = async (params: { from: number, to: number }
         throw error;
     }
 }
+
+export const getDriverReport = async (id: number) => {
+    try {
+        const response = await fetch(
+            `${BASE_URL}/api/reports/drivers/${id}`,
+            {
+                method: "GET",
+                headers: getHeaders(),
+            }
+        );
+
+        return await handleResponse(response);
+    } catch (error) {
+        throw error;
+    }
+};

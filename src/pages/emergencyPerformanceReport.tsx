@@ -1,4 +1,4 @@
-function EmergencyPerformanceReportPage() {
+function EmergencyPerformanceReport() {
     return (
         <div>
             <h1> Emergency Performance Report Page</h1>
@@ -6,4 +6,4 @@ function EmergencyPerformanceReportPage() {
     );
 }
 
-export default EmergencyPerformanceReportPage
+export default EmergencyPerformanceReport
