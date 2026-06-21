@@ -3,14 +3,14 @@ import Login from './pages/login'
 import ForgetPassword from './pages/forgetPassword'
 import ProtectedRoute from './utils/protectedRoute'
 import { Role } from './types/enums'
-import TripList from './pages/TripList/TripList'
+import TripList from './pages/Trips/TripList/TripList'
 import FleetManagerDashboard from './pages/fleetManager/fleetManagerDashboard'
 import AdminDashboard from './pages/adminDashBoard/adminDashboard';
 import Layout from './pages/Layout/Layout'
 import AlertList from './pages/alertList';
 import AlertDetails from './pages/alertDetails'
 import GuidanceList from './pages/guidanceList'
-import TripDetails from './pages/TripDetails/TripDetails'
+import TripDetails from './pages/Trips/TripDetails/TripDetails'
 import AddDriver from './pages/driver/addDriver'
 import AddAdmin from './pages/admin/addAdmin'
 import AddFleetManager from './pages/admin/addFleetMang'
@@ -26,6 +26,7 @@ import Reports from './pages/Reports/Reports'
 import DriverPerformanceReportDataEntry from './pages/DriverPerformanceReportDataEntry/DriverPerformanceReportDataEntry'
 import DriverPerformanceReport from './pages/DriverPerformanceReport/DriverPerformanceReport'
 import EmergencyPerformanceReport from './pages/emergencyPerformanceReport'
+import CreateTrip from './pages/Trips/CreateTrip/CreateTrip'
 
 let router = createBrowserRouter([
     { path: '/', element: <Login /> },
@@ -76,27 +77,24 @@ let router = createBrowserRouter([
         ]
     },
 
+
     {
         path: 'fleet-manager',
         element: <ProtectedRoute allowedRoles={[Role.FLEET_MANAGER]}></ProtectedRoute>,
         children: [
             {
                 element: <Layout />, children: [
-                    {
-                        path: 'towing-requests',
-                        children: [
-                            { index: true, element: <TowingRequestList />, handle: { title: "Towing Requests" } },
-                            { path: ':id', element: <TowingRequestList />, handle: { title: "Towing Request Details" } }
-                        ]
-                    },
-                    {
-                        path: 'emergency-service-requests',
-                        children: [
-                            { index: true, element: <EmergencyRequestList />, handle: { title: "Emergency Requests" } },
-                            { path: ':id', element: <EmergencyRequestList />, handle: { title: "Emergency Request Details" } }
-                        ]
-                    },
+
                     { path: 'dashboard', element: <FleetManagerDashboard />, handle: { title: "Dashboard" } },
+
+                    {
+                        path: 'trips',
+                        children: [
+
+                            { path: 'create', element: <CreateTrip />, handle: { title: "Create Trip" } }
+                        ]
+                    },
+
                 ]
             }
         ]

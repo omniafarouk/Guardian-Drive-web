@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import ListItem from '../../components/ListItem'
+import ListItem from '../../../components/ListItem'
 import { Pagination, Table } from 'react-bootstrap'
-import { getTrips } from '../../services/tripService';
-import { enrichTripsWithLocations } from '../../utils/geocoding';
-import type { tripStatus } from '../../types/enums';
+import { getTrips } from '../../../services/tripService';
+import { enrichTripsWithLocations } from '../../../utils/geocoding';
+import type { tripStatus } from '../../../types/enums';
 
 export interface TripListResponse {
   page: number;
