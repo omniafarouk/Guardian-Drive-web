@@ -4,7 +4,7 @@ import ListTable from '../../components/listTable'
 import { useEffect, useState } from 'react';
 
 import { requestStatus } from '../../types/enums';
-import type { Trip } from '../TripList/TripList';
+import type { Trip } from '../Trips/TripList/TripList';
 import type { Alert } from '../alertList';
 import { formatDateTime } from '../../utils/date';
 import { getTowingRequests } from '../../services/towingService';
