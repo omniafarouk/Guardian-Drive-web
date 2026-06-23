@@ -8,9 +8,15 @@ const handleResponse = async (response: Response) => {
     return response.json()
 }
 
-export const getAlerts = async () => {
+export const getAlerts = async (filters?: { tripId?: string; status?: string }) => {
     try {
-        const response = await fetch(`${BASE_URL}/api/alerts`, {
+        let url = `${BASE_URL}/api/alerts`
+        if (filters) {
+            const params = new URLSearchParams(filters as any);
+
+            url += `?${params.toString()}`;
+        }
+        const response = await fetch(`${url}`, {
             method: "GET",
             headers: getHeaders()
         }).then(

@@ -59,10 +59,10 @@ function CreateTrip() {
     const fleetManagerId = getId()
     const [cars, setCars] = useState<Car[]>([])
     const [engineId, setEngineId] = useState("")
-    const [destLongitude, setDestLongitude] = useState(0)
-    const [destLatitude, setDestLatitude] = useState(0)
-    const [startLongitude, setStartLongitude] = useState(0)
-    const [startLatitude, setStartLatitude] = useState(0)
+    const [destLongitude, setDestLongitude] = useState<number>()
+    const [destLatitude, setDestLatitude] = useState<number>()
+    const [startLongitude, setStartLongitude] = useState<number>()
+    const [startLatitude, setStartLatitude] = useState<number>()
     const [startAddress, setStartAddress] = useState("");
     const [destinationAddress, setDestinationAddress] = useState("");
     const [validated, setValidated] = useState(false);
@@ -252,6 +252,8 @@ function CreateTrip() {
                                 }}
                             >
                                 <MapPicker
+                                    latitude={startLatitude}
+                                    longitude={startLongitude}
                                     label="Start Location"
                                     onLocationSelect={(lat: number, lng: number) => {
                                         setStartLatitude(lat);
@@ -284,6 +286,8 @@ function CreateTrip() {
                             >
                                 <MapPicker
                                     label="Destination Location"
+                                    latitude={destLatitude}
+                                    longitude={destLongitude}
                                     onLocationSelect={(lat, lng) => {
                                         setDestLatitude(lat);
                                         setDestLongitude(lng);
