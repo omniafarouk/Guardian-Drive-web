@@ -15,6 +15,7 @@ import { useTripData } from "../../../hooks/useTripData";
 import type { DriverResponse } from "../../../types/user";
 import type { Car } from "../../../types/car";
 import type { FormTrip } from "../../../types/trip";
+import TripStatusDetailsSection from "./TripStatus/TripStatusDetailsSection";
 
 export interface UpdateTripRequest {
   startLatitude?: number;
@@ -258,7 +259,7 @@ function TripDetails() {
                 dateFormat="Pp"
                 className="form-control"
                 minDate={new Date()}
-                disabled={!isEditing}
+                readOnly={!isEditing}
               />
             </Form.Group>
           </Col>
@@ -369,6 +370,7 @@ function TripDetails() {
             </Form.Group>
           </Col>
         </Row>
+        {trip && <TripStatusDetailsSection trip={trip} />}
         {backendError && (
           <div className="alert alert-danger">
             {backendError}

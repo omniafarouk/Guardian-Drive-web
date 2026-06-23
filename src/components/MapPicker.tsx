@@ -70,6 +70,7 @@ function LocationMarker({
 
     // keep map centered when editing existing trip
     useEffect(() => {
+        //   console.log(`lat ${latitude} long ${longitude}`)
         if (latitude != null && longitude != null) {
             map.setView([latitude, longitude], map.getZoom());
         }
