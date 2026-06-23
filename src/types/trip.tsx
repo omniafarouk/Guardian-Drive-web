@@ -18,7 +18,7 @@ export interface FormTrip {
     startLongitude?: number;
     destLatitude?: number;
     destLongitude?: number;
-    plannedStartTime?: string | Date | null;
+    plannedStartTime?: Date;
     startTime?: Date;
     endTime?: Date;
     status?: string;
