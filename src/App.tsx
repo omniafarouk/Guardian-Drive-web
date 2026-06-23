@@ -27,6 +27,10 @@ import DriverPerformanceReportDataEntry from './pages/DriverPerformanceReportDat
 import DriverPerformanceReport from './pages/DriverPerformanceReport/DriverPerformanceReport'
 import EmergencyPerformanceReport from './pages/emergencyPerformanceReport'
 import CreateTrip from './pages/Trips/CreateTrip/CreateTrip'
+import AlertInfo from './pages/HandleAlert/AlertInfo'
+import HandleAlertLayout from './pages/HandleAlert/HandleAlertLayout'
+import EmergencyRequestInfo from './pages/HandleAlert/EmergencyRequestInfo'
+import TowingRequestInfo from './pages/HandleAlert/TowingRequestInfo'
 
 let router = createBrowserRouter([
     { path: '/', element: <Login /> },
@@ -94,6 +98,23 @@ let router = createBrowserRouter([
                             { path: 'create', element: <CreateTrip />, handle: { title: "Create Trip" } }
                         ]
                     },
+                    {
+                        path: 'alerts',
+                        children: [
+
+                            {
+                                path: ':alertId/handle-alert', element: <HandleAlertLayout />, handle: { title: "Handle Alert" },
+
+                                children: [
+                                    { index: true, element: <AlertInfo /> },
+                                    { path: 'emergency-request', element: <EmergencyRequestInfo />, },
+                                    { path: 'towing-request', element: <TowingRequestInfo /> }
+                                ]
+
+                            }
+                        ]
+                    },
+
 
                 ]
             }

@@ -24,3 +24,18 @@ export const getAlerts = async () => {
     }
 
 }
+export const getAlertById = async (id: number) => {
+    try {
+        const response = await fetch(
+            `${BASE_URL}/api/alerts/${id}`,
+            {
+                method: "GET",
+                headers: getHeaders(),
+            }
+        );
+
+        return await handleResponse(response);
+    } catch (error) {
+        throw error;
+    }
+};
