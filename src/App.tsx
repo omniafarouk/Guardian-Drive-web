@@ -23,7 +23,6 @@ import CarDetails from './pages/cars/carDetails'
 import EditCar from './pages/cars/EditCar'
 import AddCar from './pages/cars/addCar'
 import Reports from './pages/Reports/Reports'
-import DriverPerformanceReportDataEntry from './pages/DriverPerformanceReportDataEntry/DriverPerformanceReportDataEntry'
 import DriverPerformanceReport from './pages/DriverPerformanceReport/DriverPerformanceReport'
 import EmergencyPerformanceReport from './pages/emergencyPerformanceReport'
 import CreateTrip from './pages/Trips/CreateTrip/CreateTrip'
@@ -31,6 +30,7 @@ import AlertInfo from './pages/HandleAlert/AlertInfo'
 import HandleAlertLayout from './pages/HandleAlert/HandleAlertLayout'
 import EmergencyRequestInfo from './pages/HandleAlert/EmergencyRequestInfo'
 import TowingRequestInfo from './pages/HandleAlert/TowingRequestInfo'
+import DriverPerformanceReportDataEntry from './pages/DriverPerformanceReport/DriverPerformanceReportDataEntry';
 
 let router = createBrowserRouter([
     { path: '/', element: <Login /> },

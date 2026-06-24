@@ -19,6 +19,9 @@ export interface DriverReportData {
 export default function DriverPerfomanceReport() {
     const { id } = useParams<{ id: string }>();
     const driverId = id ? parseInt(id, 10) : null;
+    const [searchParams] = useSearchParams();
+    const startDate = searchParams.get('fromStartDate');
+    const endDate = searchParams.get('endDate');
     let [reportData, setReportData] = useState<DriverReportData | null>(null)
     const [isLoading, setIsLoading] = useState<boolean>(true);
     useEffect(() => {

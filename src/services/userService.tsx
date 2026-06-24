@@ -27,3 +27,25 @@ export const getUserById = async (id: number) => {
         throw error;
     }
 };
+export const getUsers = async (filters?: { role?: string }) => {
+    try {
+        let url = `${BASE_URL}/api/users`
+        if (filters) {
+            const params = new URLSearchParams(filters as any);
+
+            url += `?${params.toString()}`;
+        }
+        const response = await fetch(`${url}`, {
+            method: "GET",
+            headers: getHeaders()
+        }).then(
+            handleResponse
+        ).catch((e) => { throw e })
+
+        return response
+
+    } catch (error: any) {
+        throw Error(error);
+    }
+
+}
