@@ -10,7 +10,7 @@ const columnNames = [
   { label: "Battery Level", key: "batteryLevel" },
   { label: "Status", key: "status" },
   { label: "Sensors", key: "sensorList" },
-  { label: "Actions", key: "actions" }
+  //{ label: "Actions", key: "actions" }
 ];
 
 export const BandsList = () => {
@@ -113,9 +113,10 @@ export const BandsList = () => {
             <td className="border-0 py-3">
               <button
                 className="btn btn-sm"
-                onClick={() =>
-                  navigate(`/admin/bands-list/${band.deviceId}`)
-                }
+                onClick={() => {
+  console.log("Navigating to:", band.deviceId);
+  navigate(`/admin/bands-list/${band.deviceId}`);
+}}
               >
                 <i className="bi bi-chevron-right" />
               </button>

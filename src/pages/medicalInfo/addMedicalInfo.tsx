@@ -82,7 +82,7 @@ function AddMedicalInfo({ driverId }: { driverId: string }) {
             await createMedicalInfo(driverId, payload);
 
             alert("Medical info saved successfully!");
-navigate(`/admin/user-details/${driverId}`);
+            navigate(`/user-details/${driverId}`);
 
         } catch (error) {
             console.log(error);

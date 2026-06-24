@@ -34,3 +34,13 @@ export const getMedicalInfoByDriverId=async (driverId:string)=>{
     return handleResponse(response);
 
 };
+export const getMedicalInfoList = async()=>{
+    const response = await fetch (
+        `${BASE_URL}/api/medical-information`,
+        {
+            method: "GET",
+            headers: getHeaders(),
+        }
+    );
+    return handleResponse(response);
+};
