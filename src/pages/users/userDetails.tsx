@@ -9,9 +9,9 @@ import { getMedicalInfoByDriverId } from "../../services/medicalInfoService";
 function UserDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
-
   const [user, setUser] = useState<any>(null);
   const [medical, setMedical] = useState<any>(null);
+  const deviceId = user?.driver?.wearableBand?.deviceId;
 
   const [formData, setFormData] = useState({
     email: "",
@@ -22,6 +22,7 @@ function UserDetails() {
     role: "",
     hiredAt: "",
     drivingLicense: "",
+    
   });
 
   useEffect(() => {
@@ -156,9 +157,15 @@ function UserDetails() {
               Average Health Readings
             </Button>
 
-            <Button style={{ backgroundColor: "#789cdf", border: "none" }}>
-              Wearable Band
-            </Button>
+            <Button
+  style={{ backgroundColor: "#789cdf", border: "none" }}
+  onClick={() => {
+    
+    navigate(`/admin/bands-list/${deviceId}`);
+  }}
+>
+  Wearable Band
+</Button>
           </>
         )}
 
