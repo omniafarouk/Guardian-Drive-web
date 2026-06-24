@@ -26,6 +26,21 @@ export const getTrips = async (page: number = 1) => {
         throw error;
     }
 };
+export const getTripById = async (id: number) => {
+    try {
+        const response = await fetch(
+            `${BASE_URL}/api/trips/${id}`,
+            {
+                method: "GET",
+                headers: getHeaders(),
+            }
+        );
+
+        return await handleResponse(response);
+    } catch (error) {
+        throw error;
+    }
+};
 export const postTrip = async (data: any) => {
     try {
         const response = await fetch(
@@ -34,6 +49,38 @@ export const postTrip = async (data: any) => {
                 method: "POST",
                 headers: getHeaders(),
                 body: JSON.stringify(data),
+            }
+        );
+
+        return await handleResponse(response);
+    } catch (error) {
+        throw error;
+    }
+};
+export const patchTrip = async (id: number, data: any) => {
+    try {
+        const response = await fetch(
+            `${BASE_URL}/api/trips/${id}`,
+            {
+                method: "PATCH",
+                headers: getHeaders(),
+                body: JSON.stringify(data),
+            }
+        );
+
+        return await handleResponse(response);
+    } catch (error) {
+        throw error;
+    }
+};
+export const deleteTrip = async (id: number) => {
+    try {
+        const response = await fetch(
+            `${BASE_URL}/api/trips/${id}`,
+            {
+                method: "DELETE",
+                headers: getHeaders(),
+
             }
         );
 

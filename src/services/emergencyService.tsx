@@ -22,3 +22,19 @@ export const getEmergencyServiceRequests = async (page: number = 1) => {
         throw error;
     }
 };
+export const postEmergencyServiceRequest = async (data: any) => {
+    try {
+        const response = await fetch(
+            `${BASE_URL}/api/emergency-service-request`,
+            {
+                method: "POST",
+                headers: getHeaders(),
+                body: JSON.stringify(data),
+            }
+        );
+
+        return await handleResponse(response);
+    } catch (error) {
+        throw error;
+    }
+};

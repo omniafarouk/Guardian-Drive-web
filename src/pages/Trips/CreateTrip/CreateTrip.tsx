@@ -10,12 +10,14 @@ import MapPicker from './../../../components/MapPicker';
 import { getCars } from "../../../services/carService";
 import { getDrivers } from "../../../services/driverService";
 import { postTrip } from "../../../services/tripService";
+import { getLocationName } from "../../../services/locationService";
 
 // startpoint endpoind long+lat  location picker
 //start time date picker
 //car dropdown
 //fleet dropdown
 //driver dropdown
+
 interface CreateTripRequest {
     startLatitude: number;
     startLongitude: number;
@@ -57,10 +59,10 @@ function CreateTrip() {
     const fleetManagerId = getId()
     const [cars, setCars] = useState<Car[]>([])
     const [engineId, setEngineId] = useState("")
-    const [destLongitude, setDestLongitude] = useState(0)
-    const [destLatitude, setDestLatitude] = useState(0)
-    const [startLongitude, setStartLongitude] = useState(0)
-    const [startLatitude, setStartLatitude] = useState(0)
+    const [destLongitude, setDestLongitude] = useState<number>()
+    const [destLatitude, setDestLatitude] = useState<number>()
+    const [startLongitude, setStartLongitude] = useState<number>()
+    const [startLatitude, setStartLatitude] = useState<number>()
     const [startAddress, setStartAddress] = useState("");
     const [destinationAddress, setDestinationAddress] = useState("");
     const [validated, setValidated] = useState(false);
@@ -78,6 +80,16 @@ function CreateTrip() {
     async function updateCars() {
         const response = await getCars()
         setCars(response.cars)
+    }
+    async function updateStartAddress(lat: number, lng: number) {
+        const address = await getLocationName(lat, lng)
+        //console.log(address.display_name)
+        setStartAddress(address.display_name)
+    }
+    async function updateDestinationAddress(lat: number, lng: number) {
+        const address = await getLocationName(lat, lng)
+        //console.log(address.display_name)
+        setDestinationAddress(address.display_name)
     }
     const buildTripRequest = () => {
         return {
@@ -123,11 +135,11 @@ function CreateTrip() {
         try {
             const payload = buildTripRequest();
 
-            console.log("Sending trip:", payload);
+            //   console.log("Sending trip:", payload);
 
             const result = await postTrip(payload);
             setTripSuccess(true)
-            console.log("Trip created:", result);
+            //  console.log("Trip created:", result);
         } catch (error: unknown) {
             console.log(error)
             if (error instanceof Error) {
@@ -240,11 +252,13 @@ function CreateTrip() {
                                 }}
                             >
                                 <MapPicker
+                                    latitude={startLatitude}
+                                    longitude={startLongitude}
                                     label="Start Location"
-                                    onLocationSelect={(lat: number, lng: number, address) => {
+                                    onLocationSelect={(lat: number, lng: number) => {
                                         setStartLatitude(lat);
                                         setStartLongitude(lng);
-                                        setStartAddress(address);
+                                        updateStartAddress(lat, lng)
                                     }}
                                 />
 
@@ -272,10 +286,12 @@ function CreateTrip() {
                             >
                                 <MapPicker
                                     label="Destination Location"
-                                    onLocationSelect={(lat: number, lng: number, address) => {
+                                    latitude={destLatitude}
+                                    longitude={destLongitude}
+                                    onLocationSelect={(lat, lng) => {
                                         setDestLatitude(lat);
                                         setDestLongitude(lng);
-                                        setDestinationAddress(address);
+                                        updateDestinationAddress(lat, lng);
                                     }}
                                 />
 

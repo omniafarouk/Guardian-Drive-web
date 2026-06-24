@@ -32,10 +32,10 @@ function AddAdmin() {
                                         label === "Email"
                                             ? "email"
                                             : label === "Hired At"
-                                            ? "date"
-                                            : label === "Salary"
-                                            ? "number"
-                                            : "text"
+                                                ? "date"
+                                                : label === "Salary"
+                                                    ? "number"
+                                                    : "text"
                                     }
                                     style={{
                                         border: "1px solid #789cdf",

@@ -29,6 +29,10 @@ import { DriversList } from './pages/users/ListofDrivers'
 import { ManagersList } from './pages/users/ListofFleetManagers'
 import { AdminsList } from './pages/users/ListofAdmins'
 import ViewMedicalInfo from './pages/medicalInfo/viewMedicalInfo'
+import AlertInfo from './pages/HandleAlert/AlertInfo'
+import HandleAlertLayout from './pages/HandleAlert/HandleAlertLayout'
+import EmergencyRequestInfo from './pages/HandleAlert/EmergencyRequestInfo'
+import TowingRequestInfo from './pages/HandleAlert/TowingRequestInfo'
 
 import  UserDetails  from './pages/users/userDetails'
 import AddUser from './pages/users/addUser'
@@ -107,6 +111,23 @@ let router = createBrowserRouter([
                             { path: 'create', element: <CreateTrip />, handle: { title: "Create Trip" } }
                         ]
                     },
+                    {
+                        path: 'alerts',
+                        children: [
+
+                            {
+                                path: ':alertId/handle-alert', element: <HandleAlertLayout />, handle: { title: "Handle Alert" },
+
+                                children: [
+                                    { index: true, element: <AlertInfo /> },
+                                    { path: 'emergency-request', element: <EmergencyRequestInfo />, },
+                                    { path: 'towing-request', element: <TowingRequestInfo /> }
+                                ]
+
+                            }
+                        ]
+                    },
+
 
                 ]
             }

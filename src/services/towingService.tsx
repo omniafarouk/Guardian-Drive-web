@@ -23,3 +23,19 @@ export const getTowingRequests = async () => {
         throw error;
     }
 };
+export const postTowingRequest = async (data: any) => {
+    try {
+        const response = await fetch(
+            `${BASE_URL}/api/towing-requests`,
+            {
+                method: "POST",
+                headers: getHeaders(),
+                body: JSON.stringify(data),
+            }
+        );
+
+        return await handleResponse(response);
+    } catch (error) {
+        throw error;
+    }
+};
