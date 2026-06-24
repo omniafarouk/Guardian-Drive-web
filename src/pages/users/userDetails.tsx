@@ -139,7 +139,12 @@ function UserDetails() {
               Trips Assigned
             </Button>
 
-            <Button style={{ backgroundColor: "#789cdf", border: "none" }}>
+            <Button style={{ backgroundColor: "#789cdf", border: "none" }}
+             onClick={() => {
+                if (!id) return;
+                navigate(`/health-events/${id}`);
+              }}>
+           
               Health Events
             </Button>
 

@@ -21,7 +21,7 @@ const columns = [
 ];
 
 function HealthEvents() {
-  const { driverId } = useParams();
+  const { id } = useParams();
   const navigate = useNavigate();
 
   const [events, setEvents] = useState<HealthEvent[]>([]);
@@ -31,11 +31,18 @@ function HealthEvents() {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        if (!driverId) return;
+        if (!id) return;
 
-        const response = await getHealthEventsByDriverId(driverId);
+const response = await getHealthEventsByDriverId(id);
 
-        setEvents(response?.data ?? response ?? []);
+// normalize all possible API shapes safely
+const eventsData =
+  response?.data?.healthEvents ??
+  response?.data ??
+  response?.healthEvents ??
+  [];
+
+setEvents(Array.isArray(eventsData) ? eventsData : []);
       } catch (err: any) {
         console.log(err);
         setError("Failed to load health events");
@@ -45,7 +52,7 @@ function HealthEvents() {
     };
 
     fetchEvents();
-  }, [driverId]);
+  }, [id]);
 
   return (
     <FormLayout

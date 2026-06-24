@@ -11,7 +11,7 @@ const handleResponse = async (response: Response) => {
 
     return data;
 };
-export const getTrips = async (page: number = 1) => {
+/*export const getTrips = async (page: number = 1) => {
     try {
         const response = await fetch(
             `${BASE_URL}/api/trips?page=${page}`,
@@ -25,7 +25,7 @@ export const getTrips = async (page: number = 1) => {
     } catch (error) {
         throw error;
     }
-};
+};*/
 export const getTripById = async (id: number) => {
     try {
         const response = await fetch(
@@ -88,4 +88,40 @@ export const deleteTrip = async (id: number) => {
     } catch (error) {
         throw error;
     }
+};
+
+export const getTrips= async (filters?: {
+  driverId?: string;
+  fleetManagerId?: string;
+  page?: number;
+}) => {
+  const params = new URLSearchParams();
+
+  if (filters?.driverId) {
+    params.append("driverId", filters.driverId);
+  }
+
+  if (filters?.fleetManagerId) {
+    params.append("fleetManagerId", filters.fleetManagerId);
+  }
+
+  if (filters?.page) {
+    params.append("page", filters.page.toString());
+  }
+
+  const response = await fetch(
+    `${BASE_URL}/api/trips?${params.toString()}`,
+    {
+      method: "GET",
+      headers: getHeaders(),
+    }
+  );
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    console.error("Error fetching trips:", errorText);
+    throw new Error(errorText);
+  }
+
+  return response.json();
 };

@@ -11,8 +11,8 @@ import AlertList from './pages/alertList';
 import AlertDetails from './pages/alertDetails'
 import GuidanceList from './pages/guidanceList'
 import TripDetails from './pages/Trips/TripDetails/TripDetails'
-import { BandsList } from './pages/bandsList'
-import { BandDetails } from './pages/bandDetails'
+import { BandsList } from './pages/Bands/bandsList'
+import { BandDetails } from './pages/Bands/bandDetails'
 import TowingRequestList from './pages/TowingRequestList/TowingRequestList'
 import EmergencyRequestList from './pages/EmergencyRequestList/EmergencyRequestList'
 import CarList from './pages/cars/carsList'
@@ -33,7 +33,8 @@ import AlertInfo from './pages/HandleAlert/AlertInfo'
 import HandleAlertLayout from './pages/HandleAlert/HandleAlertLayout'
 import EmergencyRequestInfo from './pages/HandleAlert/EmergencyRequestInfo'
 import TowingRequestInfo from './pages/HandleAlert/TowingRequestInfo'
-
+import HealthEvents from './pages/HealthEvents/viewHealthEvent'
+import AddWearableBand from './pages/Bands/addBand'
 import  UserDetails  from './pages/users/userDetails'
 import AddUser from './pages/users/addUser'
 import ViewAvgHealthReadings from './pages/Avghealthreadings/ViewAvgHealthReadings'
@@ -85,6 +86,8 @@ let router = createBrowserRouter([
                     { path: "user-details/:id", element: <UserDetails />, handle: { title: "User Details" } },
                  { path: "medical-info/:id", element: <ViewMedicalInfo />, handle: { title: "Medical Information" } },
                      { path: "avg-health-readings/:id", element: <ViewAvgHealthReadings />, handle: { title: "Average Health Readings" } },
+                                          { path: "health-events/:id", element: <HealthEvents />, handle: { title: "Health Events" } },
+
 
 
 
@@ -152,6 +155,8 @@ let router = createBrowserRouter([
 
 
                     { path: 'bands-list', element: <BandsList />, handle: { title: "Bands List" } },
+                                    { path: 'add-band', element: <AddWearableBand />, handle: { title: "Add New Band" } },
+
 
                     { path: 'bands-list/:id', element: <BandDetails />, handle: { title: "Band Details" } },
 

@@ -56,3 +56,18 @@ export const deleteBand = async (id: number) => {
         throw error;
     }
 }
+export const createBand = async (data: any) => {
+  const response = await fetch(`${BASE_URL}/api/wearablebands`, {
+    method: "POST",
+    headers: getHeaders(),
+    body: JSON.stringify(data),
+  });
+  console.log(getHeaders());
+
+  if (!response.ok) {
+    const errorText = await response.text();
+        console.error("Error creating wearableband:", errorText);
+        throw new Error(errorText); throw new Error(await response.text());}
+
+  return response.json();
+};

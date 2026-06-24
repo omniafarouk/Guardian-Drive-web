@@ -12,7 +12,7 @@ const handleResponse = async (response: Response) => {
 
 export const getHealthEventsByDriverId = async (driverId: string) => {
   const res = await fetch(
-    `${BASE_URL}/api/health-events/${driverId}`,
+    `${BASE_URL}/api/health-events/driver/${driverId}`,
     {
       method: "GET",
       headers: getHeaders(),
