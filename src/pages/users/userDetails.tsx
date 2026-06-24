@@ -230,7 +230,6 @@ function UserDetails() {
         </div>
       )}
 
-      {/* ---------------- FOOTER ---------------- */}
       <div className="d-flex justify-content-end gap-2 mt-4">
         <Button style={{ backgroundColor: "#6c757d", border: "none" }}>
           Remove
