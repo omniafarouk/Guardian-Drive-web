@@ -4,6 +4,7 @@ import { FaUserCircle } from "react-icons/fa";
 import { useState } from "react";
 import { createMedicalInfo } from "../../services/medicalInfoService";
 import { useNavigate } from "react-router-dom";
+//checck data inserted 
 interface FormData {
 
     conditions: string;     
