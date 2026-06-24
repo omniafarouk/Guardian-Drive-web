@@ -4,7 +4,9 @@ import { getRole } from "../utils/storage";
 import logo from "../assets/logo.png";
 import "../styles/sidebar.css";
 import { Role } from "../types/enums";
+import { useNavigate } from "react-router-dom";
 export default function Sidebar() {
+    const navigate = useNavigate();
     const role = getRole();
 
     return (
@@ -42,23 +44,31 @@ export default function Sidebar() {
                             data-bs-parent="#sidebarAccordion"
                         >
                             <div className="accordion-body">
-                                <NavLink to="/admin/drivers/add">
+                                <NavLink to="/admin/users-list">
+                                    All Users
+                                </NavLink>
+                            </div>
+
+                            <div className="accordion-body">
+                                <NavLink to="/drivers-list">
                                     Drivers
                                 </NavLink>
                             </div>
+
                             <div className="accordion-body">
-                                <NavLink to="/admin/fleet-managers/add">
+                                <NavLink to="/admin/fleet-managers-list">
                                     Fleet Managers
                                 </NavLink>
                             </div>
+
                             <div className="accordion-body">
-                                <NavLink to="/admin/admins/add">
+                                <NavLink to="/admin/admins-list">
                                     Admins
                                 </NavLink>
                             </div>
                         </div>
                     </div>
-                    
+
 
                     {/* ALERTS */}
                     <div className="accordion-item">
@@ -100,7 +110,7 @@ export default function Sidebar() {
                         </div>
 
                     </div>
-                      {/* CARS */}
+                    {/* CARS */}
                     <div className="accordion-item">
                         <h2 className="accordion-header">
                             <button
@@ -131,7 +141,7 @@ export default function Sidebar() {
                                 </NavLink>
 
                             </div>
-                           
+
                         </div>
 
                     </div>
