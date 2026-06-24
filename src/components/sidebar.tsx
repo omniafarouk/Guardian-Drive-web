@@ -43,27 +43,31 @@ export default function Sidebar() {
                             className="accordion-collapse collapse"
                             data-bs-parent="#sidebarAccordion"
                         >
-                            <div className="accordion-body">
-                                <NavLink to="/admin/users-list">
-                                    All Users
-                                </NavLink>
-                            </div>
+                            {(role === Role.ADMIN) && <>
+                                <div className="accordion-body">
+                                    <NavLink to="/admin/users-list">
+                                        All Users
+                                    </NavLink>
+                                </div>
+
+
+
+                                <div className="accordion-body">
+                                    <NavLink to="/admin/fleet-managers-list">
+                                        Fleet Managers
+                                    </NavLink>
+                                </div>
+
+                                <div className="accordion-body">
+                                    <NavLink to="/admin/admins-list">
+                                        Admins
+                                    </NavLink>
+                                </div>
+                            </>}
 
                             <div className="accordion-body">
                                 <NavLink to="/drivers-list">
                                     Drivers
-                                </NavLink>
-                            </div>
-
-                            <div className="accordion-body">
-                                <NavLink to="/admin/fleet-managers-list">
-                                    Fleet Managers
-                                </NavLink>
-                            </div>
-
-                            <div className="accordion-body">
-                                <NavLink to="/admin/admins-list">
-                                    Admins
                                 </NavLink>
                             </div>
                         </div>
@@ -135,12 +139,13 @@ export default function Sidebar() {
                                 </NavLink>
 
                             </div>
-                            <div className="accordion-body">
+                            {(role === Role.ADMIN) && <div className="accordion-body">
                                 <NavLink to="/admin/cars/add">
                                     Add New Car
                                 </NavLink>
 
-                            </div>
+                            </div>}
+
 
                         </div>
 
@@ -159,12 +164,12 @@ export default function Sidebar() {
                         First Aid Guidances
                     </NavLink>
                 </li>
-
-                <li className="nav-item">
+                {(role === Role.ADMIN) && <li className="nav-item">
                     <NavLink to="/admin/reports" className="nav-link text-black">
                         Reports
                     </NavLink>
-                </li>
+                </li>}
+
                 {role === Role.ADMIN && (
                     <li className="nav-item mb-2">
                         <NavLink to="/admin/bands-list" className="nav-link text-black"> Bands

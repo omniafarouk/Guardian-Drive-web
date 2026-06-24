@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { getDriverReport } from '../../services/reportService';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import CustomPieChart from './../../components/CustomPieChart';
 import CustomBarChart from '../../components/CustomBarChart';
 export interface DriverReportData {
@@ -19,6 +19,9 @@ export interface DriverReportData {
 export default function DriverPerfomanceReport() {
     const { id } = useParams<{ id: string }>();
     const driverId = id ? parseInt(id, 10) : null;
+    const [searchParams] = useSearchParams();
+    const startDate = searchParams.get('fromStartDate');
+    const endDate = searchParams.get('endDate');
     let [reportData, setReportData] = useState<DriverReportData | null>(null)
     const [isLoading, setIsLoading] = useState<boolean>(true);
     useEffect(() => {
@@ -45,12 +48,19 @@ export default function DriverPerfomanceReport() {
     }
     return (
         <div>
-            <div className="card shadow-sm mb-4 mt-2 rounded-0">
-                <div className="card-body">
-                    <h2 className="mb-1">{reportData.driverName}</h2>
-                    <p className="text-muted mb-0">
-                        Driver Performance Report
-                    </p>
+
+            <div className="card shadow-sm mb-4 mt-2 rounded-0 border-0 bg-white">
+                <div className="card-body d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
+                    <div className='text-start'>
+                        <h2 className="mb-1 text-dark ">{reportData.driverName}</h2>
+                    </div>
+
+                    <div className="bg-white px-4 py-3 rounded shadow-sm border-start border-primary border-4 text-center text-md-start">
+                        <span className="text-uppercase text-muted fw-bold small d-block mb-1">Total Time Behind Wheel</span>
+                        <h3 className="mb-0 text-primary fw-bold">
+                            {reportData.totalDrivingHours}
+                        </h3>
+                    </div>
                 </div>
             </div>
             <div className="mb-4">
@@ -58,18 +68,18 @@ export default function DriverPerfomanceReport() {
                     {
                         name: "Total Trips",
                         value: reportData.totalTrips,
-                        color: "#22C55E",
+                        color: "#4e91fd",
                     },
                     {
                         name: "Total Alerts",
                         value: reportData.totalAlerts,
-                        color: "#EF4444",
+                        color: "#2c2cff",
                     },
-                    {
-                        name: "Driving Hours",
-                        value: reportData.totalDrivingHours,
-                        color: "#3B82F6",
-                    },
+                    // {
+                    //     name: "Driving Hours",
+                    //     value: reportData.totalDrivingHours,
+                    //     color: "#3B82F6",
+                    // },
                 ]} />
             </div>
 
@@ -79,17 +89,17 @@ export default function DriverPerfomanceReport() {
                         {
                             name: "Completed",
                             value: reportData.completedTrips,
-                            color: "#22C55E", // green
+                            color: "#4e91fd", // green
                         },
                         {
                             name: "Cancelled",
                             value: reportData.cancelledTrips,
-                            color: "#EF4444", // red
+                            color: "#2c2cff", // red
                         },
                         {
                             name: "Planned",
                             value: reportData.plannedTrips,
-                            color: "#3B82F6", // blue
+                            color: "#0229bf", // blue
                         },
                     ]} /></div>
                 <div className="col-md-6"><CustomPieChart title="Alert Distribution"
@@ -97,12 +107,12 @@ export default function DriverPerfomanceReport() {
                         {
                             name: "SOS Alerts",
                             value: reportData.completedTrips,
-                            color: "#EF4444", // green
+                            color: "#4e91fd", // green
                         },
                         {
                             name: "Health Alerts",
                             value: reportData.cancelledTrips,
-                            color: "#3B82F6", // red
+                            color: "#2c2cff", // red
                         }
                     ]} /></div>
 

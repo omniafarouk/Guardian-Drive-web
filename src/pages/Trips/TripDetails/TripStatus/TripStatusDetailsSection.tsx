@@ -1,6 +1,6 @@
 import React from 'react'
 import { tripStatus } from '../../../../types/enums';
-import OngoingTripDetails from './OnGoinGTripDetails';
+import OngoingTripDetails from './OngoingTripDetails';
 import type { Trip } from '../../../../types/trip';
 import CompletedTripDetails from './CompletedTripDetails';
 import CancelledTripDetails from './CancelledTripDetails';

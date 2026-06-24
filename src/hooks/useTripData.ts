@@ -14,6 +14,8 @@ export function useTripData(tripId?: string, isFleetManager?: boolean) {
     const [plateNo, setPlateNo] = useState("");
     const [addresses, setAddresses] = useState({ start: "", dest: "" });
     const [canEditTrip, setCanEditTrip] = useState(false);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(false);
     const updateStartAddress = async (lat: number, lng: number) => {
         try {
             const address = await getLocationName(lat, lng);
@@ -38,9 +40,15 @@ export function useTripData(tripId?: string, isFleetManager?: boolean) {
 
         async function loadTripDetails() {
             try {
+                setLoading(true);
+                setError(false);
                 const tripRes = await getTripById(Number(tripId));
                 const data = tripRes.trip;
-
+                if (!data) {
+                    setError(true);
+                    setLoading(false);
+                    return;
+                }
                 setTrip(data);
                 setFormTrip(data);
                 if (isFleetManager && data.fleetManagerId === Number(getId())) {
@@ -75,6 +83,9 @@ export function useTripData(tripId?: string, isFleetManager?: boolean) {
 
             } catch (err) {
                 console.error("Failed to compile trip dependency metrics:", err);
+                setError(true);
+            } finally {
+                setLoading(false);
             }
         }
 
@@ -83,6 +94,6 @@ export function useTripData(tripId?: string, isFleetManager?: boolean) {
 
     return {
         trip, setTrip, formTrip, setFormTrip, driverName, plateNo, addresses, updateStartAddress,
-        updateDestinationAddress, canEditTrip
+        updateDestinationAddress, canEditTrip, loading, error
     };
 }
