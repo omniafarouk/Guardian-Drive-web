@@ -35,7 +35,6 @@ function HealthEvents() {
 
 const response = await getHealthEventsByDriverId(id);
 
-// normalize all possible API shapes safely
 const eventsData =
   response?.data?.healthEvents ??
   response?.data ??
