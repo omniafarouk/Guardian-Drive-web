@@ -16,6 +16,7 @@ import type { DriverResponse } from "../../../types/user";
 import type { Car } from "../../../types/car";
 import type { FormTrip } from "../../../types/trip";
 import TripStatusDetailsSection from "./TripStatus/TripStatusDetailsSection";
+import NotFound404 from "../../Errors/NotFound404";
 
 export interface UpdateTripRequest {
   startLatitude?: number;
@@ -36,10 +37,11 @@ function TripDetails() {
   const [isEditing, setIsEditing] = useState(false);
   const isFleetManager = getRole() === Role.FLEET_MANAGER;
   const { tripId } = useParams();
+  //const [error, setError] = useState(false);
   const navigate = useNavigate();
 
   const {
-    trip, setTrip, formTrip, setFormTrip, driverName, plateNo, addresses, updateStartAddress, updateDestinationAddress, canEditTrip
+    trip, setTrip, formTrip, setFormTrip, driverName, plateNo, addresses, updateStartAddress, updateDestinationAddress, canEditTrip, loading, error
   } = useTripData(tripId, isFleetManager);
 
   useEffect(() => {
@@ -156,7 +158,15 @@ function TripDetails() {
     }
   }
 
+  // Handle the loader phase cleanly
+  if (loading) {
+    return <div className="text-center mt-5">Loading trip information...</div>;
+  }
 
+  // Handle the invalid parameter/bad word string input phase cleanly
+  if (error) {
+    return <NotFound404 />;
+  }
   return (
 
 

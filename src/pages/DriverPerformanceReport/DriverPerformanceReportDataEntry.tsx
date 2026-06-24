@@ -28,17 +28,18 @@ export default function DriverPerformanceReportDataEntry() {
 
         // 3. Construct query parameters dynamically if dates exist
         const params = new URLSearchParams();
-        if (fromDate) params.append("fromStartDate", String(fromDate));
-        if (toDate) params.append("toStartDate", String(toDate));
+        if (fromDate) params.append("fromStartDate", fromDate.toISOString());
+        if (toDate) params.append("toStartDate", toDate.toISOString());
 
         // 4. Navigate to the report page with the driver ID and query string
-        navigate(`/reports/${driverId}?${params.toString()}`);
+        navigate(`${driverId}?${params.toString()}`);
     }
 
     return (
         <>
             <FormLayout
-                title="Driver Performance & Activity Report"
+                // title="Driver Performance & Activity Report"
+                title="Select Report Parameters"
                 icon={<FaUserCircle size={35} color="#5884d2" />}
             >
 
@@ -89,6 +90,9 @@ export default function DriverPerformanceReportDataEntry() {
                                     showTimeSelect
                                     dateFormat="Pp"
                                     className="form-control"
+                                    isClearable
+                                    // placeholderText="Select start date"
+                                    required={false}
                                 />
                             </Form.Group>
                         </div>
@@ -104,6 +108,8 @@ export default function DriverPerformanceReportDataEntry() {
                                     showTimeSelect
                                     dateFormat="Pp"
                                     className="form-control"
+                                    isClearable
+                                    required={false}
                                 />
                             </Form.Group>
                         </div>
