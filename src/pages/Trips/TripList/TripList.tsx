@@ -143,5 +143,6 @@ async function updateTrips() {
         </Pagination>
       </div>
     </div>
+    
   )
 }
