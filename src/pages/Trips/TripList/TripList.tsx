@@ -4,6 +4,8 @@ import { Pagination, Table } from 'react-bootstrap'
 import { getTrips } from '../../../services/tripService';
 import { enrichTripsWithLocations } from '../../../utils/geocoding';
 import type { tripStatus } from '../../../types/enums';
+import { useSearchParams } from "react-router-dom";
+console.log("TripList rendered");
 
 export interface TripListResponse {
   page: number;
@@ -29,6 +31,10 @@ interface Trip {
   endPoint: string;
 }
 export default function TripList() {
+  const [searchParams] = useSearchParams();
+
+const driverId = searchParams.get("driverId");
+const fleetManagerId = searchParams.get("fleetManagerId");
   const columnNames = [
     { label: "Trip ID", key: "tripId" },
     { label: "Driver ID", key: "driverId" },
@@ -42,25 +48,43 @@ export default function TripList() {
   let [trips, setTrips] = useState<Trip[]>([])
   let [page, setPage] = useState<number>(1)
   let [totalPages, setTotalPages] = useState<number>(1)
-  useEffect(() => {
-    //api call
-    updateTrips()
-  }, [page])
+ useEffect(() => {
+  //api call
+  updateTrips();
+}, [page, driverId, fleetManagerId]);
 
-  async function updateTrips() {
+async function updateTrips() {
 
-    // let response = await getTrips()
+  // let response = await getTrips()
 
+  let response: TripListResponse;
 
-    const response: TripListResponse = await getTrips(page);
-    const enriched = await enrichTripsWithLocations(response.trips);
-    setPage(response.page);
-    setTrips(enriched);
-    // setTrips(response.trips);
-    // console.log(response);
-    // console.log(enriched);
-    setTotalPages(response.totalPages)
+  if (driverId) {
+    response = await getTrips({
+      driverId,
+      page,
+    });
   }
+  else if (fleetManagerId) {
+    response = await getTrips({
+      fleetManagerId,
+      page,
+    });
+  }
+  else {
+    response = await getTrips({ page });
+  }
+
+  const enriched = await enrichTripsWithLocations(response.trips);
+
+  setTrips(enriched);
+  setPage(response.page);
+  setTotalPages(response.totalPages);
+
+  // setTrips(response.trips);
+  // console.log(response);
+  // console.log(enriched);
+}
 
   function changePage(pageNumber: number) {
     setPage(pageNumber);
@@ -119,5 +143,6 @@ export default function TripList() {
         </Pagination>
       </div>
     </div>
+    
   )
 }
