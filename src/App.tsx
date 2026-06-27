@@ -13,8 +13,7 @@ import GuidanceList from './pages/guidanceList'
 import TripDetails from './pages/Trips/TripDetails/TripDetails'
 import { BandsList } from './pages/Bands/bandsList'
 import { BandDetails } from './pages/Bands/bandDetails'
-import TowingRequestList from './pages/TowingRequestList/TowingRequestList'
-import EmergencyRequestList from './pages/EmergencyRequestList/EmergencyRequestList'
+import EmergencyRequestList from './pages/EmergencyRequest/EmergencyRequestList'
 import CarList from './pages/cars/carsList'
 import CarDetails from './pages/cars/carDetails'
 import EditCar from './pages/cars/EditCar'
@@ -42,6 +41,9 @@ import ViewAvgHealthReadings from './pages/Avghealthreadings/ViewAvgHealthReadin
 import DriverOnboarding from './pages/users/driverOnBoarding'
 import NotFound404 from './pages/Errors/NotFound404'
 import Forbidden403 from './pages/Errors/Forbidden403'
+import EmergencyRequestDetails from './pages/EmergencyRequest/EmergencyRequestDetails'
+import TowingRequestList from './pages/TowingRequest/TowingRequestList'
+import TowingRequestDetails from './pages/TowingRequest/TowingRequestDetails'
 
 import EditUser from './pages/users/EditUser'
 import MedicalInfoList from './pages/medicalInfo/medicalInfoList'
@@ -70,18 +72,23 @@ let router = createBrowserRouter([
                     {
                         path: 'towing-requests',
                         children: [
-                            { index: true, element: <TowingRequestList /> },
-                            { path: ':id', element: <TowingRequestList /> }
-                        ], handle: { title: "Towing Requests List" }
+                            { index: true, element: <TowingRequestList />, handle: { title: "Towing Requests List" } },
+                            { path: ':id', element: <TowingRequestDetails />, handle: { title: "Towing Request Details" } }
+                        ]
                     },
 
                     {
                         path: 'emergency-service-requests',
                         children: [
-                            { index: true, element: <EmergencyRequestList /> },
-                            { path: ':id', element: <EmergencyRequestList /> }
-                        ],
-                        handle: { title: "Emergency Service Requests List" }
+                            {
+                                index: true, element: <EmergencyRequestList />,
+                                handle: { title: "Emergency Service Requests List" }
+                            },
+                            {
+                                path: ':id', element: <EmergencyRequestDetails />,
+                                handle: { title: "Emergency Service Request Details" }
+                            }
+                        ]
                     },
 
                     { path: "alert-list", element: <AlertList />, handle: { title: "Alerts" } },
