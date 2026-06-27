@@ -41,14 +41,11 @@ import ViewAvgHealthReadings from './pages/Avghealthreadings/ViewAvgHealthReadin
 import DriverOnboarding from './pages/users/driverOnBoarding'
 import NotFound404 from './pages/Errors/NotFound404'
 import Forbidden403 from './pages/Errors/Forbidden403'
-<<<<<<< HEAD
 import AlertInfo1 from './pages/Alerts/alertDetails'
-=======
 import EmergencyRequestDetails from './pages/EmergencyRequest/EmergencyRequestDetails'
 import TowingRequestList from './pages/TowingRequest/TowingRequestList'
 import TowingRequestDetails from './pages/TowingRequest/TowingRequestDetails'
 
->>>>>>> 7500ea8317eebd59cca4ba75217e15e987d6484a
 import EditUser from './pages/users/EditUser'
 import MedicalInfoList from './pages/medicalInfo/medicalInfoList'
 import HealthEventsList from './pages/HealthEvents/healthEventsList'
