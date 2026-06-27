@@ -14,7 +14,7 @@ export interface TripListResponse {
   totalPages: number;
   trips: Trip[];
 }
-interface Trip {
+export interface Trip {
   tripId: number;
   startLatitude: number;
   startLongitude: number;

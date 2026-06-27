@@ -7,8 +7,8 @@ import TripList from './pages/Trips/TripList/TripList'
 import FleetManagerDashboard from './pages/fleetManager/fleetManagerDashboard'
 import AdminDashboard from './pages/adminDashBoard/adminDashboard';
 import Layout from './pages/Layout/Layout'
-import AlertList from './pages/alertList';
-import AlertDetails from './pages/alertDetails'
+import AlertList from './pages/Alerts/alertList';
+import AlertDetails from './pages/Alerts/alertDetails'
 import GuidanceList from './pages/guidanceList'
 import TripDetails from './pages/Trips/TripDetails/TripDetails'
 import { BandsList } from './pages/Bands/bandsList'
@@ -42,7 +42,7 @@ import ViewAvgHealthReadings from './pages/Avghealthreadings/ViewAvgHealthReadin
 import DriverOnboarding from './pages/users/driverOnBoarding'
 import NotFound404 from './pages/Errors/NotFound404'
 import Forbidden403 from './pages/Errors/Forbidden403'
-
+import AlertInfo1 from './pages/Alerts/alertDetails'
 import EditUser from './pages/users/EditUser'
 import MedicalInfoList from './pages/medicalInfo/medicalInfoList'
 import HealthEventsList from './pages/HealthEvents/healthEventsList'
@@ -85,7 +85,7 @@ let router = createBrowserRouter([
                     },
 
                     { path: "alert-list", element: <AlertList />, handle: { title: "Alerts" } },
-                    { path: "alert-list/:id", element: <AlertDetails />, handle: { title: "Alert Details" } },
+                    { path: "alert-list/:id", element: <AlertInfo1 />, handle: { title: "Alert Details" } },
                     { path: "guidance-list", element: <GuidanceList />, handle: { title: "Guidance List" } },
 
                     { path: "cars-list", element: <CarList />, handle: { title: "Cars List" } },
