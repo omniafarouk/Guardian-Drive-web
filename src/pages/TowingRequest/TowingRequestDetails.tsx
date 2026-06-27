@@ -111,6 +111,8 @@ export default function TowingRequestDetails() {
             //setTripSuccess(true)
             alert("Towing Request info updated successfully")
             setIsEditing(false)
+            setTowingRequest(formTowingRequest)
+
             // console.log("Emergency req patched:", result);
         } catch (error: unknown) {
             console.log(error)

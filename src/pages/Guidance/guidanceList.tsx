@@ -1,8 +1,8 @@
 // AlertList.tsx
 import { useEffect, useState } from 'react'
-import ListTable from '../components/listTable'
-import type { ConditionType, Severity } from '../types/enums'
-import { getGuidances } from '../services/guidanceService'
+import ListTable from '../../components/listTable'
+import type { ConditionType, Severity } from '../../types/enums'
+import { getGuidances } from '../../services/guidanceService'
 import { NavLink } from 'react-router-dom'
 
 interface Guidance {
@@ -80,7 +80,7 @@ function GuidanceList() {
                         <td className="border-0 py-3">{guidance.condition}</td>
                         <td className="border-0 py-3">{guidance.description}</td>
                         <td className="border-0 rounded-end py-3">
-                            <NavLink to={`/guidance-list/${guidance.guidanceId}`} className="btn btn-sm">
+                            <NavLink to={`/first-aid-guidance/${guidance.guidanceId}`} className="btn btn-sm">
                                 <i className="bi bi-chevron-right"></i>
                             </NavLink>
                         </td>
