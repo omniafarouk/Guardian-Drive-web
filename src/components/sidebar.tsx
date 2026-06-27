@@ -163,9 +163,7 @@ export default function Sidebar() {
                         </div>
 
                     </div>
-
-                    {/* Medical Information */}
-                    <div className="accordion-item">
+                    {(role === Role.ADMIN) && <div className="accordion-item">
                         <h2 className="accordion-header">
                             <button
                                 className="accordion-button collapsed"
@@ -189,7 +187,8 @@ export default function Sidebar() {
                                 </NavLink>
                             </div>
                         </div>
-                    </div>
+                    </div>}
+
                     {/* Health Events */}
                     <div className="accordion-item">
                         <h2 className="accordion-header">
@@ -224,7 +223,7 @@ export default function Sidebar() {
                     </NavLink>
                 </li>
                 <li className="nav-item">
-                    <NavLink to="/guidance-list" className="nav-link text-black">
+                    <NavLink to="/first-aid-guidance" className="nav-link text-black">
                         First Aid Guidances
                     </NavLink>
                 </li>

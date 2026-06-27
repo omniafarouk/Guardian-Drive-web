@@ -17,7 +17,7 @@ function CustomNavbar({ title }: NavBarPops) {
                 <Navbar.Brand href="#" className="fw-bold" style={{ color: "#5884d2" }}>
                     {title}
                 </Navbar.Brand>
-                <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
+                {/* <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
                 <Navbar.Offcanvas
                     id={`offcanvasNavbar-expand-${expand}`}
                     aria-labelledby={`offcanvasNavbarLabel-expand-${expand}`}
@@ -43,7 +43,7 @@ function CustomNavbar({ title }: NavBarPops) {
                             <Button className='btn rounded-circle' style={{ background: "#BFD7FF", border: 'none' }}><i className='bi bi-search'></i></Button>
                         </Form>
                     </Offcanvas.Body>
-                </Navbar.Offcanvas>
+                </Navbar.Offcanvas> */}
             </Container>
         </Navbar>
     );

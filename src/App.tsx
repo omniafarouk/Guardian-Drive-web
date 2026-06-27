@@ -9,7 +9,7 @@ import AdminDashboard from './pages/adminDashBoard/adminDashboard';
 import Layout from './pages/Layout/Layout'
 import AlertList from './pages/alertList';
 import AlertDetails from './pages/alertDetails'
-import GuidanceList from './pages/guidanceList'
+import GuidanceList from './pages/Guidance/guidanceList'
 import TripDetails from './pages/Trips/TripDetails/TripDetails'
 import { BandsList } from './pages/Bands/bandsList'
 import { BandDetails } from './pages/Bands/bandDetails'
@@ -48,6 +48,8 @@ import TowingRequestDetails from './pages/TowingRequest/TowingRequestDetails'
 import EditUser from './pages/users/EditUser'
 import MedicalInfoList from './pages/medicalInfo/medicalInfoList'
 import HealthEventsList from './pages/HealthEvents/healthEventsList'
+import GuidanceDetails from './pages/Guidance/guidanceDetails'
+
 let router = createBrowserRouter([
     { path: '/', element: <Login /> },
     { path: '/forget-password', element: <ForgetPassword /> },
@@ -93,7 +95,8 @@ let router = createBrowserRouter([
 
                     { path: "alert-list", element: <AlertList />, handle: { title: "Alerts" } },
                     { path: "alert-list/:id", element: <AlertDetails />, handle: { title: "Alert Details" } },
-                    { path: "guidance-list", element: <GuidanceList />, handle: { title: "Guidance List" } },
+                    { path: "first-aid-guidance", element: <GuidanceList />, handle: { title: "Guidance List" } },
+                    { path: "first-aid-guidance/:id", element: <GuidanceDetails />, handle: { title: "Guidance Details" } },
 
                     { path: "cars-list", element: <CarList />, handle: { title: "Cars List" } },
                     { path: "carDetails/:engineId", element: <CarDetails />, handle: { title: "Car Details" } },
