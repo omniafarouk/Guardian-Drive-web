@@ -58,7 +58,7 @@ function EmergencyPerformanceStats() {
                         <span className="fw-bold">Emergency performance</span>
                         <span className="text-muted ms-4" style={{ fontSize: "15px" }}>Jan – Dec 2026</span>
                     </span>
-                    <NavLink to={`/reports/emergency-performance`} style={{ fontSize: "15px" }}>
+                    <NavLink to={`/admin/reports/emergency-performance`} style={{ fontSize: "15px" }}>
                         Full Report <i className="bi bi-chevron-right ms-1"></i>
                     </NavLink>
                 </div>

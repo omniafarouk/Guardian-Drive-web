@@ -58,3 +58,21 @@ export const getDriverReport = async (id: number) => {
         throw error;
     }
 };
+export const getAlertsPerConditionReport = async (params: {
+    from: string;
+    to: string;
+}) => {
+    try {
+        const url =
+            `${BASE_URL}/api/reports/alerts-per-condition?from=${encodeURIComponent(params.from)}&to=${encodeURIComponent(params.to)}`;
+
+        const response = await fetch(url, {
+            method: "GET",
+            headers: getHeaders(),
+        });
+        console.log(response);
+        return await handleResponse(response);
+    } catch (error) {
+        throw error;
+    }
+};

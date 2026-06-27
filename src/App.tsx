@@ -21,7 +21,7 @@ import EditCar from './pages/cars/EditCar'
 import AddCar from './pages/cars/addCar'
 import Reports from './pages/Reports/Reports'
 import DriverPerformanceReport from './pages/DriverPerformanceReport/DriverPerformanceReport'
-import EmergencyPerformanceReport from './pages/emergencyPerformanceReport'
+import EmergencyPerformanceReport from './pages/EmergencyPerfomanceReport/EmergencyPerformanceReport'
 import CreateTrip from './pages/Trips/CreateTrip/CreateTrip'
 import { UsersList } from './pages/users/ListofUsers'
 import { DriversList } from './pages/users/ListofDrivers'
@@ -46,6 +46,11 @@ import AlertInfo1 from './pages/Alerts/alertDetails'
 import EditUser from './pages/users/EditUser'
 import MedicalInfoList from './pages/medicalInfo/medicalInfoList'
 import HealthEventsList from './pages/HealthEvents/healthEventsList'
+import EmergencyPerformanceReportDataEntry from './pages/EmergencyPerfomanceReport/EmergencyPerformanceReportDataEntry'
+import YearlyAlertsReportDataEntry from './pages/YearlyAlertsReport/YearlyAlertsReportDataEntry'
+import YearlyAlertsReport from './pages/YearlyAlertsReport/YearlyAlertsReport'
+import AlertsPerConditionReport from './pages/AlertsPerConditionReport/AlertsPerConditionReport'
+import AlertsPerConditionReportDataEntry from './pages/AlertsPerConditionReport/AlertsPerConditionReportDataEntry';
 let router = createBrowserRouter([
     { path: '/', element: <Login /> },
     { path: '/forget-password', element: <ForgetPassword /> },
@@ -194,8 +199,27 @@ let router = createBrowserRouter([
                             },
                             {
                                 path: 'emergency-performance',
-                                element: <EmergencyPerformanceReport />,
-                                handle: { title: "Emergency Performance Report" }
+                                children:[
+                                    { index: true, element: <EmergencyPerformanceReportDataEntry />, handle: { title: "Emergency Performance Report" } },
+                                    { path: ':id', element: <EmergencyPerformanceReport />, handle: { title: "Emergency Performance Report" } }
+                                ]
+                                
+                            },
+                             {
+                                path: 'yearly-alerts',
+                                children:[
+                                    { index: true, element: <YearlyAlertsReportDataEntry />, handle: { title: "Yearly Alerts Report" } },
+                                    { path: ':id', element: <YearlyAlertsReport />, handle: { title: "Yearly Alerts Report" } }
+                                ]
+                                
+                            },
+                               {
+                                path: 'alerts-per-condition',
+                                children:[
+                                    { index: true, element: <AlertsPerConditionReportDataEntry />, handle: { title: "Alerts Per Condition Report" } },
+                                    { path: ':id', element: <AlertsPerConditionReport />, handle: { title: "Alerts Per Condition Report" } }
+                                ]
+                                
                             },
                         ]
                     },
