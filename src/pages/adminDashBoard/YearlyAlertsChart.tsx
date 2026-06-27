@@ -106,7 +106,7 @@ function YearlyAlertsChart() {
                             {stats.yearlyStatistics[0]?.year} – {stats.yearlyStatistics[stats.totalYears - 1]?.year}
                         </span>
                     </div>
-                    <NavLink to={"/reports/alerts-per-year"} style={{ fontSize: "16px" }}> Full Report <i className="bi bi-chevron-right ms-1"></i></NavLink>
+                    <NavLink to={"/admin/reports/yearly-alerts"} style={{ fontSize: "16px" }}> Full Report <i className="bi bi-chevron-right ms-1"></i></NavLink>
 
                 </div>
                 <Bar data={chartData} options={options} />

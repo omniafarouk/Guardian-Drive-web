@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 
 import { requestStatus } from '../../types/enums';
 import type { Trip } from '../Trips/TripList/TripList';
-import type { Alert } from '../alertList';
+import type { Alert } from '../Alerts/alertList';
 import { formatDateTime } from '../../utils/date';
 import { getTowingRequests } from '../../services/towingService';
 

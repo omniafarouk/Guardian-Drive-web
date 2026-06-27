@@ -7,8 +7,8 @@ import TripList from './pages/Trips/TripList/TripList'
 import FleetManagerDashboard from './pages/fleetManager/fleetManagerDashboard'
 import AdminDashboard from './pages/adminDashBoard/adminDashboard';
 import Layout from './pages/Layout/Layout'
-import AlertList from './pages/alertList';
-import AlertDetails from './pages/alertDetails'
+import AlertList from './pages/Alerts/alertList';
+//import AlertDetails from './pages/Alerts/alertDetails'
 import GuidanceList from './pages/Guidance/guidanceList'
 import TripDetails from './pages/Trips/TripDetails/TripDetails'
 import { BandsList } from './pages/Bands/bandsList'
@@ -20,7 +20,7 @@ import EditCar from './pages/cars/EditCar'
 import AddCar from './pages/cars/addCar'
 import Reports from './pages/Reports/Reports'
 import DriverPerformanceReport from './pages/DriverPerformanceReport/DriverPerformanceReport'
-import EmergencyPerformanceReport from './pages/emergencyPerformanceReport'
+import EmergencyPerformanceReport from './pages/EmergencyPerfomanceReport/EmergencyPerformanceReport'
 import CreateTrip from './pages/Trips/CreateTrip/CreateTrip'
 import { UsersList } from './pages/users/ListofUsers'
 import { DriversList } from './pages/users/ListofDrivers'
@@ -41,6 +41,7 @@ import ViewAvgHealthReadings from './pages/Avghealthreadings/ViewAvgHealthReadin
 import DriverOnboarding from './pages/users/driverOnBoarding'
 import NotFound404 from './pages/Errors/NotFound404'
 import Forbidden403 from './pages/Errors/Forbidden403'
+import AlertInfo1 from './pages/Alerts/alertDetails'
 import EmergencyRequestDetails from './pages/EmergencyRequest/EmergencyRequestDetails'
 import TowingRequestList from './pages/TowingRequest/TowingRequestList'
 import TowingRequestDetails from './pages/TowingRequest/TowingRequestDetails'
@@ -48,8 +49,13 @@ import TowingRequestDetails from './pages/TowingRequest/TowingRequestDetails'
 import EditUser from './pages/users/EditUser'
 import MedicalInfoList from './pages/medicalInfo/medicalInfoList'
 import HealthEventsList from './pages/HealthEvents/healthEventsList'
-import GuidanceDetails from './pages/Guidance/guidanceDetails'
+import GuidanceDetails from './pages/Guidance/GuidanceDetails'
 
+import EmergencyPerformanceReportDataEntry from './pages/EmergencyPerfomanceReport/EmergencyPerformanceReportDataEntry'
+import YearlyAlertsReportDataEntry from './pages/YearlyAlertsReport/YearlyAlertsReportDataEntry'
+import YearlyAlertsReport from './pages/YearlyAlertsReport/YearlyAlertsReport'
+import AlertsPerConditionReport from './pages/AlertsPerConditionReport/AlertsPerConditionReport'
+import AlertsPerConditionReportDataEntry from './pages/AlertsPerConditionReport/AlertsPerConditionReportDataEntry';
 let router = createBrowserRouter([
     { path: '/', element: <Login /> },
     { path: '/forget-password', element: <ForgetPassword /> },
@@ -94,9 +100,10 @@ let router = createBrowserRouter([
                     },
 
                     { path: "alert-list", element: <AlertList />, handle: { title: "Alerts" } },
-                    { path: "alert-list/:id", element: <AlertDetails />, handle: { title: "Alert Details" } },
+                    // { path: "alert-list/:id", element: <AlertDetails />, handle: { title: "Alert Details" } },
                     { path: "first-aid-guidance", element: <GuidanceList />, handle: { title: "Guidance List" } },
                     { path: "first-aid-guidance/:id", element: <GuidanceDetails />, handle: { title: "Guidance Details" } },
+                    { path: "alert-list/:id", element: <AlertInfo1 />, handle: { title: "Alert Details" } },
 
                     { path: "cars-list", element: <CarList />, handle: { title: "Cars List" } },
                     { path: "carDetails/:engineId", element: <CarDetails />, handle: { title: "Car Details" } },
@@ -204,8 +211,27 @@ let router = createBrowserRouter([
                             },
                             {
                                 path: 'emergency-performance',
-                                element: <EmergencyPerformanceReport />,
-                                handle: { title: "Emergency Performance Report" }
+                                children: [
+                                    { index: true, element: <EmergencyPerformanceReportDataEntry />, handle: { title: "Emergency Performance Report" } },
+                                    { path: ':id', element: <EmergencyPerformanceReport />, handle: { title: "Emergency Performance Report" } }
+                                ]
+
+                            },
+                            {
+                                path: 'yearly-alerts',
+                                children: [
+                                    { index: true, element: <YearlyAlertsReportDataEntry />, handle: { title: "Yearly Alerts Report" } },
+                                    { path: ':id', element: <YearlyAlertsReport />, handle: { title: "Yearly Alerts Report" } }
+                                ]
+
+                            },
+                            {
+                                path: 'alerts-per-condition',
+                                children: [
+                                    { index: true, element: <AlertsPerConditionReportDataEntry />, handle: { title: "Alerts Per Condition Report" } },
+                                    { path: ':id', element: <AlertsPerConditionReport />, handle: { title: "Alerts Per Condition Report" } }
+                                ]
+
                             },
                         ]
                     },
