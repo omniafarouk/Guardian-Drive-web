@@ -112,8 +112,8 @@ export default function Sidebar() {
 
                             </div>
                         </div>
-
                     </div>
+
                     {/* CARS */}
                     <div className="accordion-item">
                         <h2 className="accordion-header">
@@ -151,6 +151,57 @@ export default function Sidebar() {
 
                     </div>
 
+                    {/* Medical Information */}
+                    <div className="accordion-item">
+                        <h2 className="accordion-header">
+                            <button
+                                className="accordion-button collapsed"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#medicalinfoCollapse"
+                                aria-controls="medicalinfoCollapse"
+                            >
+                                Medical Information
+                            </button>
+                        </h2>
+
+                        <div
+                            id="medicalinfoCollapse"
+                            className="accordion-collapse collapse"
+                            data-bs-parent="#sidebarAccordion"
+                        >
+                            <div className="accordion-body">
+                                <NavLink to="/medical-info-list">
+                                    Medical Information List
+                                </NavLink>
+                            </div>
+                        </div>
+                    </div>
+                    {/* Health Events */}
+                    <div className="accordion-item">
+                        <h2 className="accordion-header">
+                            <button
+                                className="accordion-button collapsed"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#eventsCollapse"
+                                aria-controls="eventsCollapse"
+                            >
+                                Health Events                            </button>
+                        </h2>
+
+                        <div
+                            id="eventsCollapse"
+                            className="accordion-collapse collapse"
+                            data-bs-parent="#sidebarAccordion"
+                        >
+                            <div className="accordion-body">
+                                <NavLink to="/health-events-list">
+                                    Health Events List
+                                </NavLink>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 {/* NORMAL LINKS */}

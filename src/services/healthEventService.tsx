@@ -21,3 +21,13 @@ export const getHealthEventsByDriverId = async (driverId: string) => {
 
   return handleResponse(res);
 };
+export const getHealthEvents = async()=>{
+    const response = await fetch (
+        `${BASE_URL}/api/health-events`,
+        {
+            method: "GET",
+            headers: getHeaders(),
+        }
+    );
+    return handleResponse(response);
+};

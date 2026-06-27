@@ -44,6 +44,10 @@ import Forbidden403 from './pages/Errors/Forbidden403'
 import EmergencyRequestDetails from './pages/EmergencyRequest/EmergencyRequestDetails'
 import TowingRequestList from './pages/TowingRequest/TowingRequestList'
 import TowingRequestDetails from './pages/TowingRequest/TowingRequestDetails'
+
+import EditUser from './pages/users/EditUser'
+import MedicalInfoList from './pages/medicalInfo/medicalInfoList'
+import HealthEventsList from './pages/HealthEvents/healthEventsList'
 let router = createBrowserRouter([
     { path: '/', element: <Login /> },
     { path: '/forget-password', element: <ForgetPassword /> },
@@ -98,7 +102,12 @@ let router = createBrowserRouter([
                     { path: "medical-info/:id", element: <ViewMedicalInfo />, handle: { title: "Medical Information" } },
                     { path: "avg-health-readings/:id", element: <ViewAvgHealthReadings />, handle: { title: "Average Health Readings" } },
                     { path: "health-events/:id", element: <HealthEvents />, handle: { title: "Health Events" } },
+                    { path: "medical-info/:id", element: <ViewMedicalInfo />, handle: { title: "Medical Information" } },
+                    { path: "avg-health-readings/:id", element: <ViewAvgHealthReadings />, handle: { title: "Average Health Readings" } },
+                    { path: "health-events/:id", element: <HealthEvents />, handle: { title: "Health Events" } },
+                    { path: "medical-info-list", element: <MedicalInfoList />, handle: { title: "Medical Information" } },
 
+                    { path: "health-events-list", element: <HealthEventsList />, handle: { title: "Health Events " } },
 
 
 
@@ -168,6 +177,7 @@ let router = createBrowserRouter([
                     { path: 'bands-list', element: <BandsList />, handle: { title: "Bands List" } },
                     { path: 'add-band', element: <AddWearableBand />, handle: { title: "Add New Band" } },
 
+                    { path: 'edit-user/:id', element: <EditUser />, handle: { title: "Edit User" } },
 
                     { path: 'bands-list/:id', element: <BandDetails />, handle: { title: "Band Details" } },
 

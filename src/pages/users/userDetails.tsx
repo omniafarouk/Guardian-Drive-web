@@ -247,7 +247,9 @@ function UserDetails() {
           Remove
         </Button>
 
-        <Button style={{ backgroundColor: "#5884d2", border: "none" }}>
+        <Button style={{ backgroundColor: "#5884d2", border: "none" }}
+                    onClick={() => navigate(`/admin/edit-user/${user.id}`)}
+>
           Edit
         </Button>
       </div>

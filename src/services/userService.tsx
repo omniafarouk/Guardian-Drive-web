@@ -82,6 +82,18 @@ export const createUser = async (FormData: any) => {
 
 
         }
-    );
-    return handleResponse(response)
+
+  
+  );
+  return handleResponse(response)
+};
+export const updateUser =async(FormData:any,id:string)=>{
+  const response = await fetch (`${BASE_URL}/api/users/${id}`,
+    {
+      method:"PUT",
+      headers:getHeaders(),
+      body:JSON.stringify(FormData),
+    }
+  );
+  return  handleResponse(response);
 };
