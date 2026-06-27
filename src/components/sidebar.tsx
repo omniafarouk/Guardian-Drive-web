@@ -5,19 +5,32 @@ import logo from "../assets/logo.png";
 import "../styles/sidebar.css";
 import { Role } from "../types/enums";
 import { useNavigate } from "react-router-dom";
+import { logout } from '../services/AuthService';
+
 export default function Sidebar() {
     const navigate = useNavigate();
     const role = getRole();
-
+    const handleLogout = () => {
+        logout();
+        navigate("/");
+        alert("successfully logged out");
+    }
     return (
         <nav className="sidebar">
 
 
             {/* LOGO */}
             <div className="w-100 d-flex justify-content-center py-3">
-                <NavLink to="/">
+                {getRole() === Role.FLEET_MANAGER ?
+                    <NavLink to="/fleet-manager/dashboard">
+                        <img src={logo} alt="Logo" width={70} />
+                    </NavLink> :
+                    <NavLink to="/admin/dashboard">
+                        <img src={logo} alt="Logo" width={70} />
+                    </NavLink>}
+                {/* <NavLink to="/">
                     <img src={logo} alt="Logo" width={70} />
-                </NavLink>
+                </NavLink> */}
             </div>
 
             <ul className="nav flex-column w-100 px-3">
@@ -233,12 +246,19 @@ export default function Sidebar() {
                     </li>
                 )}
 
-                <li className="nav-item">
-                    <NavLink to="/" className="nav-link text-danger">
+                {/* <li className="nav-item">
+                    <NavLink to="/" className="nav-link text-danger" onClick={handleLogout()}>
                         Logout
                     </NavLink>
+                </li> */}
+                <li className="nav-item d-flex justify-content-center">
+                    <button
+                        className="nav-link text-danger border-0 bg-transparent"
+                        onClick={handleLogout}
+                    >
+                        Logout
+                    </button>
                 </li>
-
             </ul>
         </nav>
     );
