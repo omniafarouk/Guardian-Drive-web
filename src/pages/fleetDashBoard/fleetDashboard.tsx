@@ -137,13 +137,13 @@ setTowingResolved(resolvedTowing.data.length);
 console.log("emergency =", allEmergency);
 console.log("requested emergency =",requestedEmergency);
 
-setTotalEmergency(allEmergency?.requests?.length ?? 0);
+setTotalEmergency(allEmergency.emerencyServiceRequests.length);
 
-setEmergencyRequested(requestedEmergency?.requests?.length ?? 0);
+setEmergencyRequested(requestedEmergency.emerencyServiceRequests.length );
 
-setEmergencyInProgress(inProgressEmergency?.requests?.length ?? 0);
+setEmergencyInProgress(inProgressEmergency.emerencyServiceRequests.length);
 
-setEmergencyResolved(resolvedEmergency?.requests?.length ?? 0);
+setEmergencyResolved(resolvedEmergency.emerencyServiceRequests.length );
 
 setLoading(false);
 setLoading(false);
