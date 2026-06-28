@@ -90,38 +90,42 @@ export const deleteTrip = async (id: number) => {
     }
 };
 
-export const getTrips= async (filters?: {
-  driverId?: string;
-  fleetManagerId?: string;
-  page?: number;
+export const getTrips = async (filters?: {
+    driverId?: string;
+    fleetManagerId?: string;
+    status?: string;
+    page?: number;
 }) => {
-  const params = new URLSearchParams();
+    const params = new URLSearchParams();
 
-  if (filters?.driverId) {
-    params.append("driverId", filters.driverId);
-  }
-
-  if (filters?.fleetManagerId) {
-    params.append("fleetManagerId", filters.fleetManagerId);
-  }
-
-  if (filters?.page) {
-    params.append("page", filters.page.toString());
-  }
-
-  const response = await fetch(
-    `${BASE_URL}/api/trips?${params.toString()}`,
-    {
-      method: "GET",
-      headers: getHeaders(),
+    if (filters?.driverId) {
+        params.append("driverId", filters.driverId);
     }
-  );
 
-  if (!response.ok) {
-    const errorText = await response.text();
-    console.error("Error fetching trips:", errorText);
-    throw new Error(errorText);
-  }
+    if (filters?.fleetManagerId) {
+        params.append("fleetManagerId", filters.fleetManagerId);
+    }
 
-  return response.json();
+    if (filters?.page) {
+        params.append("page", filters.page.toString());
+    }
+    if (filters?.status) {
+        params.append("status", filters.status.toString());
+    }
+
+    const response = await fetch(
+        `${BASE_URL}/api/trips?${params.toString()}`,
+        {
+            method: "GET",
+            headers: getHeaders(),
+        }
+    );
+
+    if (!response.ok) {
+        const errorText = await response.text();
+        console.error("Error fetching trips:", errorText);
+        throw new Error(errorText);
+    }
+
+    return response.json();
 };

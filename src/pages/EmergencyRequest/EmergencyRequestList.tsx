@@ -2,11 +2,13 @@
 import { useNavigate } from 'react-router-dom';
 import ListTable from '../../components/listTable'
 import { useEffect, useState } from 'react';
-import { requestStatus } from '../../types/enums';
+import { requestStatus, Role } from '../../types/enums';
 import { formatDateTime } from '../../utils/date';
 import { getEmergencyServiceRequests } from '../../services/emergencyService';
 //import { getTowingRequests } from '../../services/towingService';
 import { Pagination } from 'react-bootstrap';
+import FiltersBar from '../../components/FiltersBar';
+import { getUsers } from '../../services/userService';
 
 export interface EmergencyRequestListResponse {
     page: number;
@@ -63,16 +65,69 @@ function EmergencyRequestList() {
     const [error, setError] = useState("")
     const [page, setPage] = useState<number>(1)
     const [totalPages, setTotalPages] = useState<number>(1)
+    const [filters, setFilters] = useState<any>({ driverId: '', status: '' });
+    const [drivers, setDrivers] = useState<any[]>([]);
+    const [fleetManagers, setFleetManagers] = useState<any[]>([]);
 
+    const filterElements = [{
+        label: "Status",
+        filterApiName: "status", // Changed = to :
+        options: Object.values(requestStatus).map((stat) => ({
+            apiId: stat,
+            name: stat
+        }))
+    },
+    {
+        label: "Fleet Manager",
+        filterApiName: "fleetManagerId", // Changed = to :
+        options: fleetManagers.map((fleetManager) => (
+            {
+                apiId: fleetManager.id,
+                name: `${fleetManager.fName} ${fleetManager.lName}`
+            }
+        ))
+    },
+    {
+        label: "Driver",
+        filterApiName: "driverId", // Changed = to :
+        options: drivers.map((driver) => (
+            {
+                apiId: driver.id,
+                name: `${driver.fName} ${driver.lName}`
+            }
+        ))
+    }
+    ]
     const navigate = useNavigate()
+    useEffect(() => {
+        async function loadLookupData() {
+            try {
+                const driversData = await getUsers({ role: Role.DRIVER });
+                setDrivers(driversData || []);
 
+                const managersData = await getUsers({ role: Role.FLEET_MANAGER });
+                setFleetManagers(managersData || []);
+
+
+            } catch (err) {
+                console.error("Error fetching lookups:", err);
+            }
+        }
+        loadLookupData();
+
+    }, []);
     useEffect(() => {   // called only once? 
 
         updateEmergencyRequests()
-    }, [page]);
+    }, [page, filters]);
     async function updateEmergencyRequests() {
         try {
-            const response = await getEmergencyServiceRequests()
+            const apiPayload = {
+                page,
+
+                ...filters // Automatically appends { status: '...', fleetManagerId: '...' }
+            };
+            const response = await getEmergencyServiceRequests(apiPayload)
             //console.log(response.emerencyServiceRequests)
             setPage(response.page);
             setTotalPages(response.totalPages);
@@ -88,6 +143,9 @@ function EmergencyRequestList() {
     }
     return (
         <div className='d-flex flex-column min-vh-100'>
+            <div className="d-flex justify-content-end mb-0 mt-3 gap-2">
+                <FiltersBar elements={filterElements} onSubmitFilters={setFilters} />
+            </div>
             <div className='flex-grow-1'>
                 {loading && <p>Loading...</p>}
                 {error && <p className="text-danger">{error}</p>}

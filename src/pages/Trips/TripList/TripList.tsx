@@ -3,8 +3,11 @@ import ListItem from '../../../components/ListItem'
 import { Pagination, Table } from 'react-bootstrap'
 import { getTrips } from '../../../services/tripService';
 import { enrichTripsWithLocations } from '../../../utils/geocoding';
-import type { tripStatus } from '../../../types/enums';
-import { useSearchParams } from "react-router-dom";
+import { Role, tripStatus } from '../../../types/enums';
+import { useNavigate } from "react-router-dom";
+import { getRole } from '../../../utils/storage';
+import FiltersBar from '../../../components/FiltersBar';
+import { getUsers } from '../../../services/userService';
 console.log("TripList rendered");
 
 export interface TripListResponse {
@@ -31,10 +34,14 @@ export interface Trip {
   endPoint: string;
 }
 export default function TripList() {
-  const [searchParams] = useSearchParams();
+  //const [searchParams] = useSearchParams();
+  const navigate = useNavigate()
+  const userRole = getRole()
+  // const driverId = searchParams.get("driverId");
+  //const fleetManagerId = searchParams.get("fleetManagerId");
+  const [drivers, setDrivers] = useState<any[]>([]);
+  const [fleetManagers, setFleetManagers] = useState<any[]>([]);
 
-const driverId = searchParams.get("driverId");
-const fleetManagerId = searchParams.get("fleetManagerId");
   const columnNames = [
     { label: "Trip ID", key: "tripId" },
     { label: "Driver ID", key: "driverId" },
@@ -44,53 +51,103 @@ const fleetManagerId = searchParams.get("fleetManagerId");
     { label: "End Time", key: "endTime" },
     { label: "Status", key: "status" }
   ]
-
+  //const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [filters, setFilters] = useState<any>({ driverId: '', status: '' });
+  const filterElements = [{
+    label: "Status",
+    filterApiName: "status", // Changed = to :
+    options: Object.values(tripStatus).map((stat) => ({
+      apiId: stat,
+      name: stat
+    }))
+  },
+  {
+    label: "Fleet Manager",
+    filterApiName: "fleetManagerId", // Changed = to :
+    options: fleetManagers.map((fleetManager) => (
+      {
+        apiId: fleetManager.id,
+        name: `${fleetManager.fName} ${fleetManager.lName}`
+      }
+    ))
+  },
+  {
+    label: "Driver",
+    filterApiName: "driverId", // Changed = to :
+    options: drivers.map((driver) => (
+      {
+        apiId: driver.id,
+        name: `${driver.fName} ${driver.lName}`
+      }
+    ))
+  }
+  ]
   let [trips, setTrips] = useState<Trip[]>([])
   let [page, setPage] = useState<number>(1)
   let [totalPages, setTotalPages] = useState<number>(1)
- useEffect(() => {
-  //api call
-  updateTrips();
-}, [page, driverId, fleetManagerId]);
+  useEffect(() => {
+    async function loadLookupData() {
+      try {
+        const driversData = await getUsers({ role: Role.DRIVER });
+        setDrivers(driversData || []);
 
-async function updateTrips() {
+        const managersData = await getUsers({ role: Role.FLEET_MANAGER });
+        setFleetManagers(managersData || []);
 
-  // let response = await getTrips()
 
-  let response: TripListResponse;
+      } catch (err) {
+        console.error("Error fetching lookups:", err);
+      }
+    }
+    loadLookupData();
 
-  if (driverId) {
-    response = await getTrips({
-      driverId,
+  }, []);
+  useEffect(() => {
+    //api call
+    updateTrips();
+  }, [page, filters]);
+
+  async function updateTrips() {
+    const apiPayload = {
       page,
-    });
-  }
-  else if (fleetManagerId) {
-    response = await getTrips({
-      fleetManagerId,
-      page,
-    });
-  }
-  else {
-    response = await getTrips({ page });
-  }
 
-  const enriched = await enrichTripsWithLocations(response.trips);
+      ...filters // Automatically appends { status: '...', fleetManagerId: '...' }
+    };
+    //console.log(apiPayload)
+    const response: TripListResponse = await getTrips(apiPayload);
+    const enriched = await enrichTripsWithLocations(response.trips);
 
-  setTrips(enriched);
-  setPage(response.page);
-  setTotalPages(response.totalPages);
+    setTrips(enriched);
+    setPage(response.page);
+    setTotalPages(response.totalPages);
 
-  // setTrips(response.trips);
-  // console.log(response);
-  // console.log(enriched);
-}
+  }
 
   function changePage(pageNumber: number) {
     setPage(pageNumber);
   }
   return (
     <div className='d-flex flex-column min-vh-100'>
+      <div className="d-flex justify-content-end mb-0 mt-3 gap-2">
+        <FiltersBar elements={filterElements} onSubmitFilters={setFilters} />
+        {(userRole === Role.FLEET_MANAGER) &&
+          <button
+            className="btn"
+            style={{
+              backgroundColor: "#78b6ea",
+              borderColor: "#4dabf7",
+              color: "white"
+            }}
+            onClick={() => navigate("/fleet-manager/trips/create")}
+          >
+            <i className="bi bi-plus-lg me-2"></i>
+            Add Trip
+          </button>
+        }
+
+      </div>
+
+
       <div className='flex-grow-1'>
         <Table className="align-middle" style={{ borderCollapse: "separate", borderSpacing: "2px 16px" }}>
           <thead>
@@ -143,6 +200,6 @@ async function updateTrips() {
         </Pagination>
       </div>
     </div>
-    
+
   )
 }

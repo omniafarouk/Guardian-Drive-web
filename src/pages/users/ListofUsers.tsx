@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import ListTable from "../../components/listTable";
 import { Badge, Spinner } from "react-bootstrap";
-import { getUserList} from "../../services/userService";
+import { getUserList } from "../../services/userService";
 
 import { useNavigate } from "react-router-dom";
 
@@ -57,20 +57,20 @@ export const UsersList = () => {
         </Spinner>
       )}
 
-    <div className="d-flex justify-content-end mb-3">
- <button
-  className="btn"
-  style={{
-    backgroundColor: "#78b6ea",
-    borderColor: "#4dabf7",
-    color: "white"
-  }}
-  onClick={() => navigate("/admin/add-user")}
-  >
-    <i className="bi bi-plus-lg me-2"></i>
-    Add New User
-  </button>
-</div>
+      <div className="d-flex justify-content-end mb-0 mt-3">
+        <button
+          className="btn"
+          style={{
+            backgroundColor: "#78b6ea",
+            borderColor: "#4dabf7",
+            color: "white"
+          }}
+          onClick={() => navigate("/admin/add-user")}
+        >
+          <i className="bi bi-plus-lg me-2"></i>
+          Add New User
+        </button>
+      </div>
       <ListTable<User>
         columnNames={columnNames}
         data={userList}
@@ -100,8 +100,8 @@ export const UsersList = () => {
                   user.role === "ADMIN"
                     ? "dark"
                     : user.role === "FLEET_MANAGER"
-                    ? "secondary"
-                    : "info"
+                      ? "secondary"
+                      : "info"
                 }
               >
                 {user.role}
