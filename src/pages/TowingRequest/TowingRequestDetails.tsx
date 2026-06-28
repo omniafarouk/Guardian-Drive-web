@@ -52,6 +52,7 @@ export default function TowingRequestDetails() {
                 }
 
             } catch (error) {
+                // console.error("CRITICAL API FAILURE IN DETAILS COMPONENT:", error);
                 setError(true)
             } finally {
                 setLoading(false);

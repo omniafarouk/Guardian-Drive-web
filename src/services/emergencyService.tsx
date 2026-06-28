@@ -8,10 +8,31 @@ const handleResponse = async (response: Response) => {
     return response.json();
 };
 
-export const getEmergencyServiceRequests = async (page: number = 1) => {
+export const getEmergencyServiceRequests = async (filters?: {
+    driverId?: string;
+    fleetManagerId?: string;
+    status?: string;
+    page?: number;
+}) => {
     try {
+        const params = new URLSearchParams();
+
+        if (filters?.driverId) {
+            params.append("driverId", filters.driverId);
+        }
+
+        if (filters?.fleetManagerId) {
+            params.append("fleetManagerId", filters.fleetManagerId);
+        }
+
+        if (filters?.page) {
+            params.append("page", filters.page.toString());
+        }
+        if (filters?.status) {
+            params.append("status", filters.status.toString());
+        }
         const response = await fetch(
-            `${BASE_URL}/api/emergency-service-request?page=${1}`,
+            `${BASE_URL}/api/emergency-service-request?${params.toString()}`,
             {
                 method: "GET",
                 headers: getHeaders(),
