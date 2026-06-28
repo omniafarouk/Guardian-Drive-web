@@ -7,8 +7,8 @@ import TripList from './pages/Trips/TripList/TripList'
 import AdminDashboard from './pages/adminDashBoard/adminDashboard';
 import Layout from './pages/Layout/Layout'
 import AlertList from './pages/Alerts/alertList';
-import AlertDetails from './pages/Alerts/alertDetails'
-import GuidanceList from './pages/guidanceList'
+//import AlertDetails from './pages/Alerts/alertDetails'
+import GuidanceList from './pages/Guidance/guidanceList'
 import TripDetails from './pages/Trips/TripDetails/TripDetails'
 import { BandsList } from './pages/Bands/bandsList'
 import { BandDetails } from './pages/Bands/bandDetails'
@@ -48,6 +48,8 @@ import TowingRequestDetails from './pages/TowingRequest/TowingRequestDetails'
 import EditUser from './pages/users/EditUser'
 import MedicalInfoList from './pages/medicalInfo/medicalInfoList'
 import HealthEventsList from './pages/HealthEvents/healthEventsList'
+import GuidanceDetails from './pages/Guidance/GuidanceDetails'
+
 import EmergencyPerformanceReportDataEntry from './pages/EmergencyPerfomanceReport/EmergencyPerformanceReportDataEntry'
 import YearlyAlertsReportDataEntry from './pages/YearlyAlertsReport/YearlyAlertsReportDataEntry'
 import YearlyAlertsReport from './pages/YearlyAlertsReport/YearlyAlertsReport'
@@ -99,8 +101,10 @@ let router = createBrowserRouter([
                     },
 
                     { path: "alert-list", element: <AlertList />, handle: { title: "Alerts" } },
+                    // { path: "alert-list/:id", element: <AlertDetails />, handle: { title: "Alert Details" } },
+                    { path: "first-aid-guidance", element: <GuidanceList />, handle: { title: "Guidance List" } },
+                    { path: "first-aid-guidance/:id", element: <GuidanceDetails />, handle: { title: "Guidance Details" } },
                     { path: "alert-list/:id", element: <AlertInfo1 />, handle: { title: "Alert Details" } },
-                    { path: "guidance-list", element: <GuidanceList />, handle: { title: "Guidance List" } },
 
                     { path: "cars-list", element: <CarList />, handle: { title: "Cars List" } },
                     { path: "carDetails/:engineId", element: <CarDetails />, handle: { title: "Car Details" } },
@@ -208,27 +212,27 @@ let router = createBrowserRouter([
                             },
                             {
                                 path: 'emergency-performance',
-                                children:[
+                                children: [
                                     { index: true, element: <EmergencyPerformanceReportDataEntry />, handle: { title: "Emergency Performance Report" } },
                                     { path: ':id', element: <EmergencyPerformanceReport />, handle: { title: "Emergency Performance Report" } }
                                 ]
-                                
+
                             },
-                             {
+                            {
                                 path: 'yearly-alerts',
-                                children:[
+                                children: [
                                     { index: true, element: <YearlyAlertsReportDataEntry />, handle: { title: "Yearly Alerts Report" } },
                                     { path: ':id', element: <YearlyAlertsReport />, handle: { title: "Yearly Alerts Report" } }
                                 ]
-                                
+
                             },
-                               {
+                            {
                                 path: 'alerts-per-condition',
-                                children:[
+                                children: [
                                     { index: true, element: <AlertsPerConditionReportDataEntry />, handle: { title: "Alerts Per Condition Report" } },
                                     { path: ':id', element: <AlertsPerConditionReport />, handle: { title: "Alerts Per Condition Report" } }
                                 ]
-                                
+
                             },
                         ]
                     },

@@ -77,7 +77,7 @@ export const getTowingRequestById = async (id: string) => {
 export const patchTowingRequest = async (id: string, data: any) => {
     try {
         const response = await fetch(
-            `${BASE_URL}/api/towing-requests/${id}`,
+            `${BASE_URL} / api / towing - requests / ${id}`,
             {
                 method: "PATCH",
                 headers: getHeaders(),
@@ -93,7 +93,7 @@ export const patchTowingRequest = async (id: string, data: any) => {
 export const deleteTowingRequest = async (id: string) => {
     try {
         const response = await fetch(
-            `${BASE_URL}/api/towing-requests/${id}`,
+            `${BASE_URL} / api / towing - requests / ${id}`,
             {
                 method: "DELETE",
                 headers: getHeaders(),

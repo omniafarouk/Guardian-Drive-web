@@ -8,22 +8,37 @@ const handleResponse = async (response: Response) => {
     return response.json()
 }
 
-export const getAlerts = async (filters?: { tripId?: string; status?: string }) => {
+export const getAlerts = async (filters?: {
+    driverId?: string;
+    fleetManagerId?: string;
+    status?: string;
+    page?: number;
+}) => {
     try {
-        let url = `${BASE_URL}/api/alerts`
-        if (filters) {
-            const params = new URLSearchParams(filters as any);
+        const params = new URLSearchParams();
 
-            url += `?${params.toString()}`;
+        if (filters?.driverId) {
+            params.append("driverId", filters.driverId);
         }
-        const response = await fetch(`${url}`, {
-            method: "GET",
-            headers: getHeaders()
-        }).then(
-            handleResponse
-        ).catch((e) => { throw e })
 
-        return response
+        if (filters?.fleetManagerId) {
+            params.append("fleetManagerId", filters.fleetManagerId);
+        }
+
+        if (filters?.page) {
+            params.append("page", filters.page.toString());
+        }
+        if (filters?.status) {
+            params.append("status", filters.status.toString());
+        }
+        const response = await fetch(
+            `${BASE_URL}/api/alerts?${params.toString()}`,
+            {
+                method: "GET",
+                headers: getHeaders(),
+            }
+        );
+        return await handleResponse(response);
 
     } catch (error: any) {
         throw Error(error);

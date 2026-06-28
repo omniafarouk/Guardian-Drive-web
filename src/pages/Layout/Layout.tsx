@@ -2,9 +2,10 @@ import { Outlet, useMatches, useNavigate } from "react-router-dom";
 import CustomNavbar from "../../components/navbar";
 import Sidebar from "../../components/sidebar";
 import { useAlertSocket } from "../../hooks/useAlertSocket";
-import { getId } from "../../utils/storage";
+import { getId, getRole } from "../../utils/storage";
 import { toast, ToastContainer } from "react-toastify"; // Example toast library
 import alertSound from "../../assets/sounds/emergency-alert.mp3"
+import { Role } from "../../types/enums";
 export default function Layout() {
     const matches = useMatches();
     const navigate = useNavigate();
@@ -12,42 +13,45 @@ export default function Layout() {
         ([...matches]
             .reverse()
             .find((m) => (m.handle as any)?.title)?.handle as any)?.title || "";
-    const currentFleetManagerId = getId();
+    const userId = getId();
+    const isFleetManager = getRole() === Role.FLEET_MANAGER
+    if (isFleetManager) {
+        useAlertSocket({
+            fleetManagerId: Number(userId),
+            onAlertReceived: (newAlertData) => {
+                // 1. Extract the vital information from our backend payload
+                console.log("alert recieved from layout ")
+                const alertId = newAlertData.alertId;
+                const tripId = newAlertData.tripId
+                console.log(newAlertData)
+                const alertType = newAlertData.type
+                const alertMap: Record<string, string> = {
+                    SOS: `EMERGENCY SOS: Driver activated SOS on trip ${tripId}! Click to manage.`,
+                    HEALTH_ABNORMAL: `HEALTH CRITICAL: Abnormal vitals detected for Driver on trip ${tripId}! Click to manage.`
+                };
+                // 2. Play an audible alert sound to grab attention
+                new Audio(alertSound).play().catch(e => console.log("Audio play blocked", e));
 
-    useAlertSocket({
-        fleetManagerId: Number(currentFleetManagerId),
-        onAlertReceived: (newAlertData) => {
-            // 1. Extract the vital information from our backend payload
-            console.log("alert recieved from layout ")
-            const alertId = newAlertData.alertId;
-            const tripId = newAlertData.tripId
-            console.log(newAlertData)
-            const alertType = newAlertData.type
-            const alertMap: Record<string, string> = {
-                SOS: `EMERGENCY SOS: Driver activated SOS on trip ${tripId}! Click to manage.`,
-                HEALTH_ABNORMAL: `HEALTH CRITICAL: Abnormal vitals detected for Driver on trip ${tripId}! Click to manage.`
-            };
-            // 2. Play an audible alert sound to grab attention
-            new Audio(alertSound).play().catch(e => console.log("Audio play blocked", e));
+                // 3. Trigger a persistent, clickable global notification UI
+                toast.error(alertMap[alertType] || `CRITICAL ALERT: A ${alertType} has been generated! Click to manage.`,
 
-            // 3. Trigger a persistent, clickable global notification UI
-            toast.error(alertMap[alertType] || `CRITICAL ALERT: A ${alertType} has been generated! Click to manage.`,
+                    {
+                        position: "top-center",
+                        autoClose: false, // Don't hide automatically; force them to see it
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: false,
+                        closeButton: false,
+                        theme: "colored",
+                        // 4. If they click the notification box, instantly route them to the processing workspace!
+                        onClick: () => {
+                            navigate(`/fleet-manager/alerts/${alertId}/handle-alert`);
+                        }
+                    });
+            }
+        });
+    }
 
-                {
-                    position: "top-center",
-                    autoClose: false, // Don't hide automatically; force them to see it
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: false,
-                    closeButton: false,
-                    theme: "colored",
-                    // 4. If they click the notification box, instantly route them to the processing workspace!
-                    onClick: () => {
-                        navigate(`/fleet-manager/alerts/${alertId}/handle-alert`);
-                    }
-                });
-        }
-    });
     // const func = () => {
     //     new Audio(alertSound).play().catch(e => console.log("Audio play blocked", e));
 

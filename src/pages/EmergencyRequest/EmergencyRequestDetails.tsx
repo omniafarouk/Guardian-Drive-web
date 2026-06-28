@@ -115,6 +115,8 @@ export default function EmergencyRequestDetails() {
             //setTripSuccess(true)
             alert("Emergency Request info updated successfully")
             setIsEditing(false)
+            setEmergencyRequest(formEmergencyRequest)
+
             console.log("Emergency req patched:", result);
         } catch (error: unknown) {
             console.log(error)
@@ -290,6 +292,7 @@ export default function EmergencyRequestDetails() {
                     {/* The global Cancel/Back button that is always visible */}
 
                     <Button
+                        type="button"
                         variant="secondary"
                         onClick={() => {
                             if (isEditing) {
