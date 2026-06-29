@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import ListTable from "../../components/listTable";
 import { Badge, Spinner } from "react-bootstrap";
-import { getUserList} from "../../services/userService";
+import { getUserList } from "../../services/userService";
 
 import { useNavigate } from "react-router-dom";
 
@@ -27,39 +27,47 @@ interface User {
 }
 
 export const AdminsList = () => {
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
   const [userList, setUserList] = useState<User[]>([]);
   const navigate = useNavigate();
-
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | undefined>(undefined);
   useEffect(() => {
-  fetchAdmins();
-}, []);
+    fetchAdmins();
+  }, []);
 
-function fetchAdmins() {
-  getUserList({ role: "ADMIN" })
-    .then((res) => {
-      setUserList(res);
-    })
-    .catch((err) => {
-      console.error(err);
-    })
-    .finally(() => {
-      setLoading(false);
-    });
-}
+  function fetchAdmins() {
+    setIsLoading(true);
+    setError(undefined);
+    getUserList({ role: "ADMIN" })
+      .then((res) => {
+        setUserList(res);
+      })
+      .catch((err) => {
+        console.error(err);
+        setError(err.response?.data?.message || "Failed to load admins")
+
+      })
+      .finally(() => {
+        //setLoading(false);
+        setIsLoading(false)
+      });
+  }
 
 
 
   return (
     <>
-      {loading && (
+      {/* {loading && (
         <Spinner animation="border" role="status">
           <span className="visually-hidden">Loading...</span>
         </Spinner>
-      )}
-  
+      )} */}
+
 
       <ListTable<User>
+        loading={isLoading}
+        error={error}
         columnNames={columnNames}
         data={userList}
         renderRow={(user: User) => (
@@ -86,7 +94,7 @@ function fetchAdmins() {
               <Badge
                 bg={
                   "dark"
-                  
+
                 }
               >
                 {user.role}

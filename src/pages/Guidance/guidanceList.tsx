@@ -34,12 +34,16 @@ const columns = [
 ]
 function GuidanceList() {
     const [guidances, setGuidances] = useState<GuidanceSeverityGroup[]>([])
-    const [loading, setLoading] = useState(true)
-    const [error, setError] = useState("")
+    // const [loading, setLoading] = useState(true)
+    // const [error, setError] = useState("")
     const [dataRows, setDataRows] = useState<Guidance[]>([])
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [error, setError] = useState<string | undefined>(undefined);
 
     useEffect(() => {   // called only once? 
         const fetchGuidances = async () => {
+            setIsLoading(true);
+            setError(undefined);
             try {
                 const response = await getGuidances()
                 console.log(response.data)
@@ -47,7 +51,8 @@ function GuidanceList() {
             } catch (err: any) {
                 setError(err.response?.data?.message || "Failed to load guidances")
             } finally {
-                setLoading(false)
+                // setLoading(false)
+                setIsLoading(false)
             }
         }
         fetchGuidances()
@@ -68,9 +73,11 @@ function GuidanceList() {
 
     return (
         <>
-            {loading && <p>Loading...</p>}
-            {error && <p className="text-danger">{error}</p>}
+            {/* {loading && <p>Loading...</p>}
+            {error && <p className="text-danger">{error}</p>} */}
             <ListTable
+                loading={isLoading}
+                error={error}
                 columnNames={columns}
                 data={dataRows}
                 renderRow={(guidance: Guidance) => (

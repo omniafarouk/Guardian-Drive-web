@@ -27,15 +27,18 @@ interface User {
 }
 
 export const UsersList = () => {
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
   const [userList, setUserList] = useState<User[]>([]);
   const navigate = useNavigate();
-
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | undefined>(undefined);
   useEffect(() => {
     fetchUserList();
   }, []);
 
   function fetchUserList() {
+    setIsLoading(true);
+    setError(undefined);
     getUserList()
       .then((res) => {
         console.log(res);
@@ -43,19 +46,21 @@ export const UsersList = () => {
       })
       .catch((err) => {
         console.error(err);
+        setError(err.response?.data?.message || "Failed to load users")
       })
       .finally(() => {
-        setLoading(false);
+        // setLoading(false);
+        setIsLoading(false)
       });
   }
 
   return (
     <>
-      {loading && (
+      {/* {loading && (
         <Spinner animation="border" role="status">
           <span className="visually-hidden">Loading...</span>
         </Spinner>
-      )}
+      )} */}
 
       <div className="d-flex justify-content-end mb-0 mt-3">
         <button
@@ -72,6 +77,8 @@ export const UsersList = () => {
         </button>
       </div>
       <ListTable<User>
+        loading={isLoading}
+        error={error}
         columnNames={columnNames}
         data={userList}
         renderRow={(user: User) => (

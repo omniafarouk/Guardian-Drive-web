@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import type { Trip } from '../../../../types/trip'
-import { Row, Col, Form } from "react-bootstrap";
+import { Row, Col, Form, Card } from "react-bootstrap";
 import DatePicker from 'react-datepicker';
 import { getAvgReadingPerTrip } from '../../../../services/avgReadingsService';
-import { SiO2 } from "react-icons/si";
+import { FaHeartbeat, FaTemperatureHigh } from "react-icons/fa";
+import { MdAir } from "react-icons/md";
+
 
 export default function CompletedTripDetails({ trip }: { trip: Trip }) {
-    const [avgReading, setAvgReading] = useState()
+    const [avgReading, setAvgReading] = useState<any>()
     useEffect(() => {
         if (trip?.tripId) {
             loadAvgReadings();
@@ -15,8 +17,6 @@ export default function CompletedTripDetails({ trip }: { trip: Trip }) {
     async function loadAvgReadings() {
         if (trip) {
             const response = await getAvgReadingPerTrip(String(trip.tripId));
-
-            // 🚀 Log this! This will show your exact backend { message, data } object!
             console.log("REAL DATA ARRIVED FROM API:", response);
 
             setAvgReading(response.data);
@@ -75,8 +75,48 @@ export default function CompletedTripDetails({ trip }: { trip: Trip }) {
                     ℹ️ No health readings were recorded during this trip window.
                 </div>
             ) : <Row>
-                <col></col>
-            </Row>}
+                <Col className="col-lg-4">
+                    <Card className="h-100 flex-row align-items-center justify-content-evenly">
+                        <FaHeartbeat color='#dbe9ff' size={70} className='mx-4' />
+                        <Card.Body>
+
+                            <Card.Text className='text-muted text-uppercase fw-bold h6'>Heart Rate</Card.Text>
+                            <Card.Text className='text-uppercase fw-bold h3'>
+                                {avgReading?.avgHeartRate ?? '--'} <span className="fs-6 text-muted fw-normal">BPM</span>
+
+                            </Card.Text>
+                        </Card.Body>
+                    </Card>
+                </Col>
+
+                <Col className="col-lg-4">
+                    <Card className="h-100 flex-row align-items-center justify-content-evenly">
+                        <MdAir color='#dbe9ff' size={70} className='mx-4' />
+                        <Card.Body>
+                            <Card.Text className='text-muted text-uppercase fw-bold h6'>SPO2</Card.Text>
+                            <Card.Text className='text-uppercase fw-bold h3'>
+                                {avgReading?.avgSpo2 ?? '--'} <span className="fs-6 text-muted fw-normal">%</span>
+
+                            </Card.Text>
+                        </Card.Body>
+                    </Card>
+
+                </Col>
+                <Col className="col-lg-4">
+                    <Card className="h-100 flex-row align-items-center justify-content-evenly">
+                        <FaTemperatureHigh color='#dbe9ff' size={70} className='mx-4' />
+                        <Card.Body>
+                            <Card.Text className='text-muted text-uppercase fw-bold h6'>Temp</Card.Text>
+                            <Card.Text className='text-uppercase fw-bold h3'>
+                                {avgReading?.avgTemp ?? '--'} <span className="fs-6 text-muted fw-normal">°C</span>
+
+                            </Card.Text>
+                        </Card.Body>
+                    </Card>
+
+                </Col>
+            </Row>
+            }
         </>
     )
 }

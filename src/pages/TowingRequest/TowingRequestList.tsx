@@ -58,13 +58,14 @@ const columns = [
 
 function TowingRequestList() {
     const [towingRequests, setTowingRequests] = useState<TowingRequest[]>([])
-    const [loading, setLoading] = useState(true)
-    const [error, setError] = useState("")
+    // const [loading, setLoading] = useState(true)
+    // const [error, setError] = useState("")
     const navigate = useNavigate()
     const [filters, setFilters] = useState<any>({ driverId: '', status: '' });
     const [cars, setCars] = useState<any[]>([]);
     const [fleetManagers, setFleetManagers] = useState<any[]>([]);
-
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [error, setError] = useState<string | undefined>(undefined);
     const filterElements = [{
         label: "Status",
         filterApiName: "status", // Changed = to :
@@ -113,6 +114,8 @@ function TowingRequestList() {
     }, []);
     useEffect(() => {   // called only once? 
         const fetchTowingRequests = async () => {
+            setIsLoading(true);
+            setError(undefined);
             try {
                 const apiPayload = {
                     //   page,
@@ -125,7 +128,8 @@ function TowingRequestList() {
             } catch (err: any) {
                 setError(err.response?.data?.message || "Failed to load towing requests")
             } finally {
-                setLoading(false)
+                //setLoading(false)
+                setIsLoading(false)
             }
         }
         fetchTowingRequests()
@@ -137,10 +141,12 @@ function TowingRequestList() {
             <div className="d-flex justify-content-end mb-0 mt-3 gap-2">
                 <FiltersBar elements={filterElements} onSubmitFilters={setFilters} />
             </div>
-            {loading && <p>Loading...</p>}
-            {error && <p className="text-danger">{error}</p>}
+            {/* {loading && <p>Loading...</p>}
+            {error && <p className="text-danger">{error}</p>} */}
             <div className='flex-grow-1'>
                 <ListTable<TowingRequest>
+                    loading={isLoading}
+                    error={error}
                     columnNames={columns}
                     data={towingRequests}
                     renderRow={(towingRequest: TowingRequest) => (
