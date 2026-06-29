@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import ListTable from "../../components/listTable";
 import { Badge, Spinner } from "react-bootstrap";
-import { getUserList} from "../../services/userService";
+import { getUserList } from "../../services/userService";
 
 import { useNavigate } from "react-router-dom";
 
@@ -27,41 +27,49 @@ interface User {
 }
 
 export const DriversList = () => {
-  const [loading, setLoading] = useState(true);
+  //const [loading, setLoading] = useState(true);
   const [userList, setUserList] = useState<User[]>([]);
   const navigate = useNavigate();
-
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | undefined>(undefined);
   useEffect(() => {
-  fetchDrivers();
-}, []);
+    fetchDrivers();
+  }, []);
 
-function fetchDrivers() {
-  getUserList({ role: "DRIVER" })
-    .then((res) => {
-      setUserList(res);
-    })
-    .catch((err) => {
-      console.error(err);
-    })
-    .finally(() => {
-      setLoading(false);
-    });
-}
+  function fetchDrivers() {
+    setIsLoading(true);
+    setError(undefined);
+    getUserList({ role: "DRIVER" })
+      .then((res) => {
+        setUserList(res);
+      })
+      .catch((err) => {
+        console.error(err);
+        setError(err.response?.data?.message || "Failed to load drivers")
+
+      })
+      .finally(() => {
+        //setLoading(false);
+        setIsLoading(false)
+      });
+  }
 
 
 
   return (
     <>
-      {loading && (
+      {/* {loading && (
         <Spinner animation="border" role="status">
           <span className="visually-hidden">Loading...</span>
         </Spinner>
-      )}
-            <div className="d-flex justify-content-end mb-3">
+      )} */}
+      <div className="d-flex justify-content-end mb-3">
 
 
-  </div>
+      </div>
       <ListTable<User>
+        loading={isLoading}
+        error={error}
         columnNames={columnNames}
         data={userList}
         renderRow={(user: User) => (
@@ -88,7 +96,7 @@ function fetchDrivers() {
               <Badge
                 bg={
                   "info"
-                  
+
                 }
               >
                 {user.role}

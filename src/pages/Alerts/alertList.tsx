@@ -66,14 +66,15 @@ const columns = [
 
 function AlertList() {
   const [alerts, setAlerts] = useState<Alert[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  // const [loading, setLoading] = useState(true);
+  // const [error, setError] = useState("");
   const [page, setPage] = useState<number>(1)
   const [totalPages, setTotalPages] = useState<number>(1)
   const [filters, setFilters] = useState<any>({ driverId: '', status: '' });
   const [drivers, setDrivers] = useState<any[]>([]);
   const [fleetManagers, setFleetManagers] = useState<any[]>([]);
-
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | undefined>(undefined);
   const filterElements = [{
     label: "Status",
     filterApiName: "status", // Changed = to :
@@ -121,6 +122,8 @@ function AlertList() {
 
   }, []);
   useEffect(() => {
+    setIsLoading(true);
+    setError(undefined);
     const fetchAlerts = async () => {
       try {
         const apiPayload = {
@@ -143,7 +146,8 @@ function AlertList() {
         console.error(err);
         setError("Failed to load alerts");
       } finally {
-        setLoading(false);
+        // setLoading(false);
+        setIsLoading(false)
       }
     };
 
@@ -159,11 +163,13 @@ function AlertList() {
           <FiltersBar elements={filterElements} onSubmitFilters={setFilters} />
         </div>
         <div className='flex-grow-1'>
-          {loading && <p>Loading...</p>}
+          {/* {loading && <p>Loading...</p>}
 
-          {error && <p className="text-danger">{error}</p>}
+          {error && <p className="text-danger">{error}</p>} */}
 
           <ListTable<Alert>
+            loading={isLoading}
+            error={error}
             columnNames={columns}
             data={Array.isArray(alerts) ? alerts : []}
             renderRow={(alert: Alert) => (

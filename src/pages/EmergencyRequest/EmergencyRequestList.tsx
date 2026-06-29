@@ -61,14 +61,15 @@ const columns = [
 
 function EmergencyRequestList() {
     const [emergencyRequests, setEmergencyRequests] = useState<EmerencyServiceRequest[]>([])
-    const [loading, setLoading] = useState(true)
-    const [error, setError] = useState("")
+    // const [loading, setLoading] = useState(true)
+    // const [error, setError] = useState("")
     const [page, setPage] = useState<number>(1)
     const [totalPages, setTotalPages] = useState<number>(1)
     const [filters, setFilters] = useState<any>({ driverId: '', status: '' });
     const [drivers, setDrivers] = useState<any[]>([]);
     const [fleetManagers, setFleetManagers] = useState<any[]>([]);
-
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [error, setError] = useState<string | undefined>(undefined);
     const filterElements = [{
         label: "Status",
         filterApiName: "status", // Changed = to :
@@ -121,6 +122,8 @@ function EmergencyRequestList() {
         updateEmergencyRequests()
     }, [page, filters]);
     async function updateEmergencyRequests() {
+        setIsLoading(true);
+        setError(undefined);
         try {
             const apiPayload = {
                 page,
@@ -135,7 +138,8 @@ function EmergencyRequestList() {
         } catch (err: any) {
             setError(err.response?.message || "Failed to load emergency requests")
         } finally {
-            setLoading(false)
+            //  setLoading(false)
+            setIsLoading(false)
         }
     }
     function changePage(pageNumber: number) {
@@ -147,9 +151,11 @@ function EmergencyRequestList() {
                 <FiltersBar elements={filterElements} onSubmitFilters={setFilters} />
             </div>
             <div className='flex-grow-1'>
-                {loading && <p>Loading...</p>}
-                {error && <p className="text-danger">{error}</p>}
+                {/* {loading && <p>Loading...</p>}
+                {error && <p className="text-danger">{error}</p>} */}
                 <ListTable<EmerencyServiceRequest>
+                    loading={isLoading}
+                    error={error}
                     columnNames={columns}
                     data={emergencyRequests}
                     renderRow={(emergencyServiceRequest: EmerencyServiceRequest) => (

@@ -25,8 +25,8 @@ function ShowCarStatus({ status }: { status: string }) {
   return (
     <span
       className={`border rounded-pill px-2 py-1 ${isActive
-          ? "text-success border-success"
-          : "text-secondary border-secondary"
+        ? "text-success border-success"
+        : "text-secondary border-secondary"
         }`}
       style={{ fontSize: "12px" }}
     >
@@ -80,48 +80,58 @@ function CarList() {
   const navigate = useNavigate()
 
   const [cars, setCars] = useState<Car[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
-  const[statusFilter,setStatusFilter]=useState("");
-  const[colorFilter,setColorFilter]=useState("");
+  // const [loading, setLoading] = useState(true);
+  // const [error, setError] = useState("");
+  const [statusFilter, setStatusFilter] = useState("");
+  const [colorFilter, setColorFilter] = useState("");
   const handleFilters = (filters: Record<string, string>) => {
-  setStatusFilter(filters.status || "");
-  setColorFilter(filters.color || "");
-};
+    setStatusFilter(filters.status || "");
+    setColorFilter(filters.color || "");
+  };
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | undefined>(undefined);
 
 
-  
-    const fetchCars = async () => {
-      try {
-        const response = await getCars({
-          status: statusFilter || undefined,
-          color: colorFilter || undefined
-        });
-        setCars(response.cars || []);
-      } catch (err: any) {
-        setError(err.response?.data?.message || "Failed to load cars");
-      } finally {
-        setLoading(false);
-      }
-    };
-useEffect(()=>{
-  fetchCars();
-},[statusFilter,colorFilter]);
-    
- 
+
+  const fetchCars = async () => {
+    setIsLoading(true);
+    setError(undefined);
+    try {
+      const response = await getCars({
+        status: statusFilter || undefined,
+        color: colorFilter || undefined
+      });
+      setCars(response.cars || []);
+    } catch (err: any) {
+      // setError(err.response?.data?.message || "Failed to load cars");
+      setError(err.response?.data?.message || "Failed to load cars")
+
+    } finally {
+      // setLoading(false);
+      setIsLoading(false)
+
+    }
+  };
+  useEffect(() => {
+    fetchCars();
+  }, [statusFilter, colorFilter]);
+
+
 
   return (
     <>
-      {loading && <p>Loading...</p>}
-      {error && <p className="text-danger">{error}</p>}
-<div className="d-flex justify-content-end mb-3">
-  <FiltersBar
-    elements={filterElements}
-    onSubmitFilters={handleFilters}
-  />
-</div>
+      {/* {loading && <p>Loading...</p>}
+      {error && <p className="text-danger">{error}</p>} */}
+      <div className="d-flex justify-content-end mb-3">
+        <FiltersBar
+          elements={filterElements}
+          onSubmitFilters={handleFilters}
+        />
+      </div>
 
       <ListTable<Car>
+        loading={isLoading}
+        error={error}
         columnNames={columns}
         data={cars}
         renderRow={(car: Car) => (

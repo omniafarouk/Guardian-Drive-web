@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import ListItem from '../../../components/ListItem'
-import { Pagination, Table } from 'react-bootstrap'
+import { Alert, Pagination, Spinner, Table } from 'react-bootstrap'
 import { getTrips } from '../../../services/tripService';
 import { enrichTripsWithLocations } from '../../../utils/geocoding';
 import { Role, tripStatus } from '../../../types/enums';
@@ -85,6 +85,8 @@ export default function TripList() {
   let [trips, setTrips] = useState<Trip[]>([])
   let [page, setPage] = useState<number>(1)
   let [totalPages, setTotalPages] = useState<number>(1)
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
   useEffect(() => {
     async function loadLookupData() {
       try {
@@ -108,18 +110,27 @@ export default function TripList() {
   }, [page, filters]);
 
   async function updateTrips() {
-    const apiPayload = {
-      page,
+    setIsLoading(true);
+    setError(null);
+    try {
+      const apiPayload = {
+        page,
 
-      ...filters // Automatically appends { status: '...', fleetManagerId: '...' }
-    };
-    //console.log(apiPayload)
-    const response: TripListResponse = await getTrips(apiPayload);
-    const enriched = await enrichTripsWithLocations(response.trips);
+        ...filters // Automatically appends { status: '...', fleetManagerId: '...' }
+      };
+      //console.log(apiPayload)
+      const response: TripListResponse = await getTrips(apiPayload);
+      const enriched = await enrichTripsWithLocations(response.trips);
 
-    setTrips(enriched);
-    setPage(response.page);
-    setTotalPages(response.totalPages);
+      setTrips(enriched);
+      setPage(response.page);
+      setTotalPages(response.totalPages);
+    } catch (error) {
+      setError("Failed to load trips. Please try again.");
+    } finally {
+      setIsLoading(false)
+    }
+
 
   }
 
@@ -161,7 +172,28 @@ export default function TripList() {
             </tr>
           </thead>
           <tbody>
-            {trips.map((trip) => (<ListItem key={trip.tripId} trip={trip} />))}
+            {error && (
+              <tr>
+                <td colSpan={columnNames.length + 1} className="text-center border-0 py-4">
+                  <Alert variant="danger" className="d-inline-block mx-auto mb-0">
+                    {error}
+                  </Alert>
+                </td>
+              </tr>
+            )}
+
+            {/* 2. Show loading spinner right below header while fetching */}
+            {isLoading && !error && (
+              <tr>
+                <td colSpan={columnNames.length + 1} className="text-center border-0 py-5">
+                  <Spinner animation="border" variant="primary" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                  </Spinner>
+                </td>
+              </tr>
+            )}
+            {!isLoading && !error && trips.map((trip) => (<ListItem key={trip.tripId} trip={trip} />))}
+            {/* {} */}
           </tbody>
         </Table>
       </div>

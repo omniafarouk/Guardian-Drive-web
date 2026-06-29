@@ -37,40 +37,49 @@ const columnNames = [
 ];
 
 export default function MedicalInfoList() {
-  const [loading, setLoading] = useState(true);
+  //const [loading, setLoading] = useState(true);
   const [medicalList, setMedicalList] = useState<MedicalInfo[]>([]);
-
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | undefined>(undefined);
   useEffect(() => {
     fetchMedicalInfo();
   }, []);
 
   function fetchMedicalInfo() {
+    setIsLoading(true);
+    setError(undefined);
     getMedicalInfoList()
       .then((res) => {
-  console.log(res);
-    setMedicalList(Array.isArray(res.data) ? res.data : []);
+        console.log(res);
+        setMedicalList(Array.isArray(res.data) ? res.data : []);
 
-})
+      })
       .catch((err) => {
         console.error(err);
+        setError(err.response?.data?.message || "Failed to load medical information")
+
       })
       .finally(() => {
-        setLoading(false);
+        // setLoading(false);
+        setIsLoading(false)
+
       });
   }
 
   return (
     <>
-      {loading && (
+      {/* {loading && (
         <Spinner animation="border" role="status">
           <span className="visually-hidden">Loading...</span>
         </Spinner>
-      )}
+      )} */}
 
       <ListTable<MedicalInfo>
+        loading={isLoading}
+        error={error}
         columnNames={columnNames}
         data={medicalList}
-          showActions={false}
+        showActions={false}
 
         renderRow={(medical) => (
           <>
