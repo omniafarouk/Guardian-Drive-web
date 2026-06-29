@@ -5,6 +5,7 @@ import FormLayout from "../../components/FormLayout";
 import { FaUserCircle } from "react-icons/fa";
 import { getUserById } from "../../services/userService";
 import { getMedicalInfoByDriverId } from "../../services/medicalInfoService";
+import { deleteUser } from "../../services/userService";
 
 function UserDetails() {
   const { id } = useParams();
@@ -47,7 +48,26 @@ function UserDetails() {
   }, [id]);
 
 
+const handleDelete = async () => {
+  if (!id) return;
 
+  const confirmed = window.confirm(
+    "Are you sure you want to remove this user?"
+  );
+
+  if (!confirmed) return;
+
+  try {
+    await deleteUser(id);
+
+    alert("User removed successfully.");
+
+    navigate("/admin/users-list"); 
+  } catch (error) {
+    console.error(error);
+    alert("Failed to remove user.");
+  }
+};
   const fieldMap: Record<string, keyof typeof formData> = {
     "First Name": "fName",
     "Last Name": "lName",
@@ -243,9 +263,12 @@ function UserDetails() {
       )}
 
       <div className="d-flex justify-content-end gap-2 mt-4">
-        <Button style={{ backgroundColor: "#6c757d", border: "none" }}>
-          Remove
-        </Button>
+       <Button
+  style={{ backgroundColor: "#dc3545", border: "none" }}
+  onClick={handleDelete}
+>
+  Remove
+</Button>
 
         <Button style={{ backgroundColor: "#5884d2", border: "none" }}
                     onClick={() => navigate(`/admin/edit-user/${user.id}`)}

@@ -4,7 +4,6 @@ import ForgetPassword from './pages/forgetPassword'
 import ProtectedRoute from './utils/protectedRoute'
 import { Role } from './types/enums'
 import TripList from './pages/Trips/TripList/TripList'
-import FleetManagerDashboard from './pages/fleetManager/fleetManagerDashboard'
 import AdminDashboard from './pages/adminDashBoard/adminDashboard';
 import Layout from './pages/Layout/Layout'
 import AlertList from './pages/Alerts/alertList';
@@ -56,6 +55,8 @@ import YearlyAlertsReportDataEntry from './pages/YearlyAlertsReport/YearlyAlerts
 import YearlyAlertsReport from './pages/YearlyAlertsReport/YearlyAlertsReport'
 import AlertsPerConditionReport from './pages/AlertsPerConditionReport/AlertsPerConditionReport'
 import AlertsPerConditionReportDataEntry from './pages/AlertsPerConditionReport/AlertsPerConditionReportDataEntry';
+import FleetDashboard from './pages/fleetDashBoard/fleetDashboard';
+
 let router = createBrowserRouter([
     { path: '/', element: <Login /> },
     { path: '/forget-password', element: <ForgetPassword /> },
@@ -135,7 +136,7 @@ let router = createBrowserRouter([
             {
                 element: <Layout />, children: [
 
-                    { path: 'dashboard', element: <FleetManagerDashboard />, handle: { title: "Dashboard" } },
+                    { path: 'dashboard', element: <FleetDashboard />, handle: { title: "Dashboard" } },
 
                     {
                         path: 'trips',
