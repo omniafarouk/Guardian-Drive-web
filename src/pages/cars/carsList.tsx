@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import ListTable from "../../components/listTable";
 import { getCars } from "../../services/carService";
 import { useNavigate } from "react-router-dom";
+import FiltersBar from "../../components/FiltersBar";
 
 export interface Car {
   engineId: string;
@@ -20,6 +21,7 @@ const columns = [
 function ShowCarStatus({ status }: { status: string }) {
   const isActive = status.toLowerCase() === "active";
 
+
   return (
     <span
       className={`border rounded-pill px-2 py-1 ${isActive
@@ -32,6 +34,28 @@ function ShowCarStatus({ status }: { status: string }) {
     </span>
   );
 }
+const filterElements = [
+  {
+    label: "Status",
+    filterApiName: "status",
+    options: [
+      { name: "Active", apiId: "ACTIVE" },
+      { name: "In Trip", apiId: "IN_TRIP" },
+      { name: "Disabled", apiId: "DISABLED" },
+    ],
+  },
+  {
+    label: "Color",
+    filterApiName: "color",
+    options: [
+      { name: "Black", apiId: "Black" },
+      { name: "White", apiId: "White" },
+      { name: "Red", apiId: "Red" },
+      { name: "Blue", apiId: "Blue" },
+      { name: "Silver", apiId: "Silver" },
+    ],
+  },
+];
 
 function ColorIndicator({ color }: { color: string }) {
   return (
@@ -60,6 +84,10 @@ function CarList() {
   const [error, setError] = useState("");
   const[statusFilter,setStatusFilter]=useState("");
   const[colorFilter,setColorFilter]=useState("");
+  const handleFilters = (filters: Record<string, string>) => {
+  setStatusFilter(filters.status || "");
+  setColorFilter(filters.color || "");
+};
 
 
   
@@ -86,34 +114,12 @@ useEffect(()=>{
     <>
       {loading && <p>Loading...</p>}
       {error && <p className="text-danger">{error}</p>}
-
-    <div className="row mb-3">
-
-      
-
-      <div className="col-md-4">
-        <input
-          className="form-control"
-          placeholder="Color"
-          value={colorFilter}
-          onChange={(e) => setColorFilter(e.target.value)}
-        />
-      </div>
-
-      <div className="col-md-4">
-        <select
-          className="form-select"
-          value={statusFilter}
-          onChange={(e) => setStatusFilter(e.target.value)}
-        >
-          <option value="">All Cars</option>
-          <option value="ACTIVE">ACTIVE</option>
-          <option value="IN_TRIP">IN_TRIP</option>
-          <option value="DISABLED">DISABLED</option>
-        </select>
-      </div>
-
-    </div>
+<div className="d-flex justify-content-end mb-3">
+  <FiltersBar
+    elements={filterElements}
+    onSubmitFilters={handleFilters}
+  />
+</div>
 
       <ListTable<Car>
         columnNames={columns}

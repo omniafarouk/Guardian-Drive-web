@@ -73,6 +73,15 @@ export const getUserById = async (id: string) => {
     return handleResponse(response);
 
 };
+export const deleteUser = async (id: string) => {
+    const response = await fetch(`${BASE_URL}/api/users/${id}`, {
+        method: "DELETE",
+        headers: getHeaders(),
+    });
+
+    return handleResponse(response);
+
+};
 export const createUser = async (FormData: any) => {
     const response = await fetch(`${BASE_URL}/api/users`,
         {

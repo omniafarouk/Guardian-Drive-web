@@ -7,7 +7,7 @@ import { getCarByEngineId, deleteCar } from "../../services/carService";
 import FormLayout from "../../components/FormLayout";
 
 interface Trip {
-  driverId: number;
+  tripId: number;
 }
 
 interface Car {
@@ -118,14 +118,14 @@ const handleDelete = async () => {
           <input className="form-control" value={car.status} readOnly />
         </div>
 
-        <div className="col-md-6 mb-3">
-          <label className="form-label">Assigned Driver</label>
-          <input
-            className="form-control"
-            value={car.trips?.[0]?.driverId || "Not Assigned"}
-            readOnly
-          />
-        </div>
+       <div className="col-md-6 mb-3">
+  <label className="form-label">Assigned Trip</label>
+  <input
+    className="form-control"
+    value={car.trips?.[0]?.tripId ?? "Not Assigned"}
+    readOnly
+  />
+</div>
       </div>
 
       <div className="d-flex justify-content-end gap-2 mt-4">
