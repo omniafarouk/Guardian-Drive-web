@@ -31,7 +31,7 @@ export interface Trip {
   engineId?: string;
   fleetManagerId: number;
   startPoint: string;
-  endPoint: string;
+  destPoint: string;
 }
 export default function TripList() {
   //const [searchParams] = useSearchParams();

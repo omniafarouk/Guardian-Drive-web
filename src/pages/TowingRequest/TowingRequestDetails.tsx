@@ -277,7 +277,7 @@ export default function TowingRequestDetails() {
 
                             } else {
                                 // Optional: Navigate back to the trips overview list
-                                navigate("/towing-service-requests");
+                                navigate("/towing-requests");
                             }
                         }}
                     >
