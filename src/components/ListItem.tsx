@@ -17,7 +17,7 @@ interface TripProps {
     engineId?: string;
     fleetManagerId: number;
     startPoint: string;
-    endPoint: string;
+    destPoint: string;
 }
 
 interface ListItemProps {
@@ -70,7 +70,7 @@ export default function ListItem({ trip }: ListItemProps) {
             <td className="border-0 rounded-start py-3">{trip.tripId}</td>
             <td className="border-0 py-3">{trip.driverId}</td>
             <td className="border-0 py-3">{trip.startPoint}</td>
-            <td className="border-0 py-3">{trip.endPoint}</td>
+            <td className="border-0 py-3">{trip.destPoint}</td>
             <td className="border-0 py-3"> {formatDateTime(trip.plannedStartTime)}</td>
             <td className="border-0 py-3"> {formatDateTime(trip.endTime)}</td>
             <td className="border-0 py-3">

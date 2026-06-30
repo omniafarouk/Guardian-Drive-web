@@ -73,9 +73,9 @@ let router = createBrowserRouter([
                     {
                         path: "trips",
                         children: [
-                            { index: true, element: <TripList /> },
-                            { path: ":tripId", element: <TripDetails /> }
-                        ], handle: { title: "Trips List" }
+                            { index: true, element: <TripList />, handle: { title: "Trips List" } },
+                            { path: ":tripId", element: <TripDetails />, handle: { title: "Trips Details" } }
+                        ]
                     },
 
                     {
