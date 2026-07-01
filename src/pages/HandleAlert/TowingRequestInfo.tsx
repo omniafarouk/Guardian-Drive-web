@@ -50,6 +50,7 @@ export default function TowingRequestInfo() {
                                 </Form.Label>
 
                                 <Form.Control
+                                    required
                                     disabled={apiSuccessState.towingDone}
                                     type="text"
                                     // 3. Bind value directly to our context state structure

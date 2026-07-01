@@ -11,7 +11,8 @@ import { getCars } from "../../../services/carService";
 import { getDrivers } from "../../../services/driverService";
 import { postTrip } from "../../../services/tripService";
 import { getLocationName } from "../../../services/locationService";
-
+import { useNavigate } from "react-router-dom";
+import "./CreateTrip.css"
 // startpoint endpoind long+lat  location picker
 //start time date picker
 //car dropdown
@@ -68,6 +69,7 @@ function CreateTrip() {
     const [validated, setValidated] = useState(false);
     const [backendError, setBackendError] = useState<string>("");
     const [tripSuccess, setTripSuccess] = useState(false)
+    const navigate = useNavigate()
     useEffect(() => {
 
         updateDrivers();
@@ -138,14 +140,18 @@ function CreateTrip() {
             //   console.log("Sending trip:", payload);
 
             const result = await postTrip(payload);
-            setTripSuccess(true)
+            alert("Trip Created Successfully")
+            navigate(`/trips/${result.trip.tripId}`)
+            //setTripSuccess(true)
             //  console.log("Trip created:", result);
         } catch (error: unknown) {
             console.log(error)
             if (error instanceof Error) {
-                setBackendError(error.message);
+                alert(error.message)
+                // setBackendError(error.message);
             } else {
-                setBackendError("Something went wrong");
+                //setBackendError("Something went wrong");
+                alert("Something went wrong. Please try again.")
             }
         }
     };
@@ -169,12 +175,13 @@ function CreateTrip() {
                             </Form.Label>
 
                             <Form.Select
+                                required
                                 value={driverId}
                                 onChange={(e) =>
                                     setDriverId(e.target.value)
                                 }
                             >
-                                <option value="">
+                                <option value="" disabled>
                                     Select Driver
                                 </option>
 
@@ -197,12 +204,13 @@ function CreateTrip() {
                             </Form.Label>
 
                             <Form.Select
+                                required
                                 value={engineId}
                                 onChange={(e) =>
                                     setEngineId(e.target.value)
                                 }
                             >
-                                <option value="">
+                                <option value="" disabled>
                                     Select Car
                                 </option>
 
@@ -225,6 +233,7 @@ function CreateTrip() {
                         <Form.Label>Planned Start Time</Form.Label>
 
                         <DatePicker
+                            required
                             selected={plannedStartTime}
                             onChange={(date: SetStateAction<Date | null>) =>
                                 setPlannedStartTime(date)

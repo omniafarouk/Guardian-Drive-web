@@ -50,6 +50,7 @@ export default function EmergencyRequestInfo() {
                                     </Form.Label>
 
                                     <Form.Control
+                                        required
                                         disabled={apiSuccessState.emergencyDone}
                                         type={label === "Hospital Name" ? "text" : "text"} // Using text for phone avoids standard number input quirks
                                         value={inputValue}
