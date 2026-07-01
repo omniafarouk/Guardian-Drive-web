@@ -123,7 +123,7 @@ export default function HandleAlertLayout() {
                 }
             }
             if (emergencySucceeded && towingSucceeded) {
-                alert("Both deployments saved successfully!");
+                alert("Both requests saved successfully!");
                 navigate('/fleet-manager/dashboard');
                 setIsSubmitting(false);
                 return;

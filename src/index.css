@@ -117,3 +117,7 @@ code {
   padding: 4px 8px;
   background: var(--code-bg);
 }
+
+.react-datepicker-popper {
+  z-index: 9999 !important;
+}
