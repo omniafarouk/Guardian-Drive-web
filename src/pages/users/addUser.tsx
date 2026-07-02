@@ -165,6 +165,7 @@ const handleSave = async () => {
             <div className="d-flex justify-content-end gap-2 mt-4">
                 <Button
                     style={{ backgroundColor: "#6c757d", border: "none" }}
+                    onClick={() => navigate("/admin/users-list")}
                 >
                     Cancel
                 </Button>

@@ -7,6 +7,7 @@ import FormLayout from "../../components/FormLayout";
 import { FaCar } from "react-icons/fa";
 
 interface trip{
+  tripId: any;
   driverId:number;
 }
 interface Car {
@@ -158,20 +159,28 @@ return (
         />
       </div>
 
-      <div className="col-md-6 mb-3">
-        <label className="form-label">Assigned Driver</label>
-        <input
-          className="form-control"
-          value={form.trips[0]?.driverId?.toString() || ""}
-          onChange={(e) =>
-            setForm(prev =>
-              prev
-                ? { ...prev, trips: [{ ...(prev.trips[0] ?? { driverId: 0 }), driverId: Number(e.target.value) }] }
-                : prev
-            )
-          }
-        />
-      </div>
+    <div className="col-md-6 mb-3">
+  <label className="form-label">Assigned Trip</label>
+  <input
+    className="form-control"
+    value={form.trips?.[0]?.tripId?.toString() || ""}
+    onChange={(e) =>
+      setForm((prev) =>
+        prev
+          ? {
+              ...prev,
+              trips: [
+                {
+                  tripId: Number(e.target.value),
+                  driverId: prev.trips?.[0]?.driverId ?? 0,
+                },
+              ],
+            }
+          : prev
+      )
+    }
+  />
+</div>
     </div>
 
     <div className="d-flex justify-content-end gap-2 mt-4">

@@ -194,7 +194,7 @@ export const BandDetails = () => {
                         <Form.Label>Assigned To Driver</Form.Label>
                         <Form.Select
                             disabled={readOnly}
-                            value={formData.driverId ?? 0}
+                            value={formData.driverId ?? 36}
                             onChange={(e) =>
                                 setFormData({
                                     ...formData,
@@ -202,8 +202,7 @@ export const BandDetails = () => {
                                 })
                             }
                         >
-                            <option value={0}>Not Assigned</option>
-                            <option value={1}>Driver 1</option>
+                            <option value={1}>Driver 36</option>
                             <option value={2}>Driver 2</option>
                         </Form.Select>
                     </Form.Group>

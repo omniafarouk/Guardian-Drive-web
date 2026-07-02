@@ -11,7 +11,7 @@ const handleResponse = async (response: Response) => {
 };
 export const getAvgHealthReadingsByDriverId=async (driverId:string)=>{
     const response = await fetch(
-        `${BASE_URL}/api/avg-readings/${driverId}`,
+        `${BASE_URL}/api/users/${driverId}/avg-health-readings`,
         {
             method: "GET",
             headers: getHeaders(),

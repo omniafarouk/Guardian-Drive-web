@@ -20,7 +20,7 @@ function ListTable<T>({
   columnNames,
   data,
   renderRow,
-  showActions = true,
+  showActions = false,
 }: ListProps<T>) {
   const totalColumns = columnNames.length + (showActions ? 1 : 0);
   return (
